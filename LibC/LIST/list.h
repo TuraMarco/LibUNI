@@ -20,8 +20,8 @@ list tail(list); //restituisce una lista privata del primo elemento
 //==========================================================================
 
 //==================== DEFINIZIONE FUNZIONI LIST ===========================
-void showList(list l);
-void freeList(list l);
+void showList(list l); //stampa la lista
+void freeList(list l); //dealloca la lista
 BOOL member(element e, list l); //vede se e' presente in l
 int length(list l); //lunghezza lista
 list concat(list l1, list l2); //attacca l2 in coda a l1
