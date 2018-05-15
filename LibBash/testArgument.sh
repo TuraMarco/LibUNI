@@ -67,21 +67,17 @@ fi
 if [ $FILE1 -nt $FILE2 ]
 then
         echo "Avviso: $FILE1 è più nuovo di $FILE2."
-fi
-
-if [ $FILE1 -ot $FILE2 ]
+elif [ $FILE1 -ot $FILE2 ]
 then
         echo "Avviso: $FILE1 è più vecchio di $FILE2."
-fi
-
-if [ $STRING1 = $STRING2 ]
+elif [ $STRING1 = $STRING2 ]
 then
         echo "Avviso: STRING1 è uguale a STRING2."
-fi
-
-if [ $STRING1 != $STRING2 ]
+elif [ $STRING1 != $STRING2 ]
 then
         echo "Avviso: STRING1 è diversa a STRING2."
+else
+		echo "Questo è l'else."
 fi
 
 if [ $# -ne 1 ]
