@@ -4,13 +4,6 @@
 #                       #
 #########################
 
-# Controllare il numero di argomenti-------------------------------------------------------------------------------------------------------
-if [ $# -ne 1 ]
-then
-        echo ARGUMENT ERROR
-        exit
-fi
-
 # Installare un nuovo job schedulato in cron-----------------------------------------------------------------------------------------------
 (crontab -l 2>/dev/null; echo "* * * * * /path/job argN") | crontab -
 
