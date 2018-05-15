@@ -15,41 +15,49 @@ ${1:?"Errore: L'argomento passato è NULL."}
 if [ ! -d $1 ]
 then
 	echo "Errore: L'argomento passato non è una directory esistente."
+	exit
 fi
 
 if [ ! -e $1 ]
 then
         echo "Errore: L'argomento passato non è un file esistente."
+	exit
 fi
 
 if [ ! -f $1 ]
 then
         echo "Errore: L'argomento passato non è un file esistente o regolare."
+		exit
 fi
 
 if [ ! -r $1 ]
 then
         echo "Errore: L'argomento passato non è un file esistente o leggibile."
+	exit
 fi
 
 if [ ! -s $1 ]
 then
         echo "Errore: L'argomento passato non è un file esistente o di dimensione maggiore di 0."
+	exit
 fi
 
 if [ ! -w $1 ]
 then
         echo "Errore: L'argomento passato non è un file esistente o scrivibile."
+	exit
 fi
 
 if [ ! -x $1 ]
 then
         echo "Errore: L'argomento passato non è un file esistente o eseguibile."
+	exit
 fi
 
 if [ -z $1 ]
 then
         echo "Errore: La stringa passata è vuota."
+	exit
 fi
 
 ###############
@@ -76,11 +84,12 @@ then
         echo "Avviso: STRING1 è diversa a STRING2."
 fi
 
-if [ $1 -eq $2 ]
+if [ $# -ne 1 ]
 then
-        echo "Avviso: L'argomento 1 è uguale all'argomento 2."
-	# Al posto di -eq (uguaglianza) si può usare
-	#	-ne ---> disuguaglianza
+        echo "Errore: Sono stati passati un numero di argomenti diverso da 1."
+	exit
+	# Al posto di -ne (disuguaglianza) si può usare
+	#	-eq ---> uguaglianza
         #	-lt ---> strettamente minore
         #	-le ---> minore o uguale
         #	-gt ---> strettamente maggiore
