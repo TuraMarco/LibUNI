@@ -1,0 +1,3269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0100)http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Net-SNMP</title>
+
+    
+    <meta http-equiv="Content-Language" content="en-us">
+
+    
+    <meta name="description" content="Net-SNMP">
+
+    <meta name="author" content="Alex Burger">
+
+    <meta name="Rating" content="General">
+
+    <meta name="Keywords" content="net-snmp,ucd-snmp,netsnmp,ucdsnmp,snmp,snmp trap,trap,trap receiver,alert,network alert,network trouble,network downtime,snmp.conf,snmpd.conf,snmptrapd.conf,agentx.conf">
+    <link rel="StyleSheet" type="text/css" href="./Net-SNMP_files/layout1.css">
+    <link rel="StyleSheet" media="print,projection" type="text/css" href="./Net-SNMP_files/print1.css">
+  </head>
+  <body background="./Net-SNMP_files/net-snmp-bg2.jpg">
+   
+    <div id="Header">
+      <!-- slogan -->
+      <div class="HeaderSmall" align="right"><br><br><i>Current release: 5.7.2</i></div>
+    </div>
+
+    <div id="HeaderMap">
+      <map name="logo" id="logo">
+        <area alt="Logo" shape="rect" coords="0,0,2000,40" href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/logo.html" title="Click here for details about the original Net-SNMP / UCD-SNMP logo">
+      </map>
+      <img align="left" vspace="0" hspace="0" width="100%" height="40" border="0" src="./Net-SNMP_files/blank3.gif" alt="Logo" usemap="#logo"> <br>
+    </div>
+
+    <div id="Header2">
+      <map name="homepage" id="homepage">
+        <area alt="Home page" shape="rect" coords="0,0,130,30" href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/index.html">
+      </map>
+      <img align="left" vspace="0" hspace="0" width="130" height="30" border="0" src="./Net-SNMP_files/logo1_65_tr_small.gif" alt="Net-SNMP" usemap="#homepage"> <br>
+    </div>
+
+    
+    <div id="LeftSide">
+      <div id="skip"><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#Content">skip to page content</a><br><br></div>
+      <div id="Menu">
+
+        <!-- <a href="/" >Home</a><br /> -->
+
+        <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/index.html">About</a><br>
+        
+
+        <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/download.html" title="Download Net-SNMP binaries and source code">Download</a><br>
+
+        <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/wiki/index.php/Tutorials">Tutorials</a><br>
+        
+
+        <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/readmefiles.html">Documentation</a><br>
+        
+        <div id="MenuSub">
+          <table>
+            <tbody><tr><td>&nbsp;·</td><td><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/readmefiles.html" title="README files included with the package">README files</a></td></tr>
+            <tr><td>&nbsp;·</td><td><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/FAQ.html" title="Frequently Asked Questions">FAQ</a></td></tr>
+            <tr><td>&nbsp;·</td><td><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/INSTALL.html" title="Intall instructions for *nix systems">INSTALL</a></td></tr>
+            <tr><td>&nbsp;·</td><td><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/man/index.html" title="Man pages for utilities, daemons, api etc">Man pages</a></td></tr>
+            <tr><td>&nbsp;·</td><td><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/index.html" title="The MIB files distributed with Net-SNMP">MIBS</a></td></tr>
+            <tr><td>&nbsp;·</td><td><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/dev/agent/index.html" title="API documentation">API</a></td></tr>
+          </tbody></table>
+        </div>
+        
+
+        <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/wiki.1" title="Net-SNMP Wiki">Wiki</a><br>
+
+        <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/support/contacts.html">Support</a><br>
+        
+
+        <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/dev/projects.html">Development</a><br>
+        
+
+        <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/related.html" title="Links to Net-SNMP related information and software">Related Info/SW</a><br>
+
+        <br>
+      </div>
+      <br>
+
+      <div id="ListSearch">
+          <form method="post" action="http://sourceforge.net/search/">
+          <span class="small">Archive Search:</span>
+       
+          <select name="forum_id">
+            <option value="4959">Users</option>
+            <option value="7152">Coders</option>
+            <option value="12455">Announce</option>
+            <option value="7153">Bugs</option>
+            <option value="7151">Patches</option>
+            <option value="33108">SVN (named "CVS")</option>
+          </select>
+       
+          <input type="hidden" name="type_of_search" value="mlists">
+          <input type="hidden" name="group_id" value="12694">
+          <input type="text" name="words" size="15" id="Words" value=""><br>
+          <input type="submit" name="Search" value="Search"><br>
+          <input type="checkbox" name="exact" value="1" checked="">
+          <span id="Label">Require all words?</span>   
+        </form>
+      </div>
+      <br>
+
+      <div id="SiteSearch">
+          <form method="GET" action="http://www.google.com/search">
+          <span class="small">Site Search:</span>
+          
+          <input type="hidden" name="ie" value="UTF-8">
+          <input type="hidden" name="oe" value="UTF-8">
+          <input type="text" name="q" size="15" maxlength="255" value=""><br>
+          <input type="hidden" name="sitesearch" value="www.net-snmp.org">
+          <input type="submit" name="btnG" value="Google Search">
+          <a href="http://www.google.com/">
+            <img src="./Net-SNMP_files/Logo_25wht.gif" border="0" alt="Google" align="absmiddle"></a>
+
+        </form>
+      </div>
+
+
+      
+      <div id="MenuSFLogo">
+        <a href="http://www.sourceforge.net/projects/net-snmp" target="sourceforge" title="Net-SNMP SourceForge project page"> <img src="./Net-SNMP_files/sflogo.php" width="125" height="37" border="0" alt="SourceForge.net Net-SNMP Project"></a>
+        
+      </div>
+  </div>
+    
+  <div id="Content">
+
+
+<!-- CONTENT START -->
+<h2>INTRODUCTION</h2>
+<ul>
+<p>
+This is a summary of information regarding objects below the <b>ucdavis</b>
+MIB object, which is defined within the <b>UCD-SNMP-MIB</b> MIB
+document as <b>.1.3.6.1.4.1.2021</b>.
+</p>
+</ul>
+<h2>TABLE OF CONTENTS</h2>
+<ul>
+<h3><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#objects_Current">Current Objects</a></h3>
+<ul>
+<li><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#scalar_current">Scalars</a></li>
+  <li><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#prTable">prTable</a></li>
+  <li><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#extTable">extTable</a></li>
+  <li><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskTable">dskTable</a></li>
+  <li><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#laTable">laTable</a></li>
+  <li><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#fileTable">fileTable</a></li>
+  <li><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchTable">logMatchTable</a></li>
+  <li><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#mrTable">mrTable</a></li>
+</ul>
+<h3><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#objects_Deprecated">Deprecated Objects</a></h3>
+<ul>
+<li><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#scalar_notcurrent">Deprecated Scalars</a></li>
+</ul>
+<h3><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#notifications">Notifications</a></h3>
+<h3><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#textconventions">Textual Conventions</a></h3>
+<h3><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#treeview">Tree-based view</a></h3>
+</ul>
+<a name="objects_Current">
+</a><a name="scalar_current">
+<h2>SCALAR OBJECTS</h2>
+<ul>
+<table>
+<tbody><tr><th>Name</th><th>Type</th><th>Access</th><th>OID</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="memIndex">
+1
+<br><b>memIndex</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.1</td>
+<td>
+<pre>Bogus Index.  This should always return the integer 0.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memErrorName">
+2
+<br><b>memErrorName</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.2</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Bogus Name. This should always return the string 'swap'.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memTotalSwap">
+3
+<br><b>memTotalSwap</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.3</td>
+<td>
+<pre>The total amount of swap space configured for this host.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memAvailSwap">
+4
+<br><b>memAvailSwap</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.4</td>
+<td>
+<pre>The amount of swap space currently unused or available.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memTotalReal">
+5
+<br><b>memTotalReal</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.5</td>
+<td>
+<pre>The total amount of real/physical memory installed
+on this host.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memAvailReal">
+6
+<br><b>memAvailReal</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.6</td>
+<td>
+<pre>The amount of real/physical memory currently unused
+or available.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memTotalSwapTXT">
+7
+<br><b>memTotalSwapTXT</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.7</td>
+<td>
+<pre>The total amount of swap space or virtual memory allocated
+for text pages on this host.
+
+This object will not be implemented on hosts where the
+underlying operating system does not distinguish text
+pages from other uses of swap space or virtual memory.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memTotalRealTXT">
+9
+<br><b>memTotalRealTXT</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.9</td>
+<td>
+<pre>The total amount of real/physical memory allocated
+for text pages on this host.
+
+This object will not be implemented on hosts where the
+underlying operating system does not distinguish text
+pages from other uses of physical memory.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memTotalFree">
+11
+<br><b>memTotalFree</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.11</td>
+<td>
+<pre>The total amount of memory free or available for use on
+this host.  This value typically covers both real memory
+and swap space or virtual memory.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memMinimumSwap">
+12
+<br><b>memMinimumSwap</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.12</td>
+<td>
+<pre>The minimum amount of swap space expected to be kept
+free or available during normal operation of this host.
+
+If this value (as reported by 'memAvailSwap(4)') falls
+below the specified level, then 'memSwapError(100)' will
+be set to 1 and an error message made available via
+'memSwapErrorMsg(101)'.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memShared">
+13
+<br><b>memShared</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.13</td>
+<td>
+<pre>The total amount of real or virtual memory currently
+allocated for use as shared memory.
+
+This object will not be implemented on hosts where the
+underlying operating system does not explicitly identify
+memory as specifically reserved for this purpose.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memBuffer">
+14
+<br><b>memBuffer</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.14</td>
+<td>
+<pre>The total amount of real or virtual memory currently
+allocated for use as memory buffers.
+
+This object will not be implemented on hosts where the
+underlying operating system does not explicitly identify
+memory as specifically reserved for this purpose.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memCached">
+15
+<br><b>memCached</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.15</td>
+<td>
+<pre>The total amount of real or virtual memory currently
+allocated for use as cached memory.
+
+This object will not be implemented on hosts where the
+underlying operating system does not explicitly identify
+memory as specifically reserved for this purpose.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memUsedSwapTXT">
+16
+<br><b>memUsedSwapTXT</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.16</td>
+<td>
+<pre>The amount of swap space or virtual memory currently
+being used by text pages on this host.
+
+This object will not be implemented on hosts where the
+underlying operating system does not distinguish text
+pages from other uses of swap space or virtual memory.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memUsedRealTXT">
+17
+<br><b>memUsedRealTXT</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.17</td>
+<td>
+<pre>The amount of real/physical memory currently being
+used by text pages on this host.
+
+This object will not be implemented on hosts where the
+underlying operating system does not distinguish text
+pages from other uses of physical memory.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memSwapError">
+100
+<br><b>memSwapError</b>
+
+</a></td><td>
+  INTEGER
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+     <br>(ENUM list below)
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.100</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag"> UCDErrorFlag TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Indicates whether the amount of available swap space
+(as reported by 'memAvailSwap(4)'), is less than the
+desired minimum (specified by 'memMinimumSwap(12)').
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="memSwapErrorMsg">
+101
+<br><b>memSwapErrorMsg</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.4.101</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Describes whether the amount of available swap space
+(as reported by 'memAvailSwap(4)'), is less than the
+desired minimum (specified by 'memMinimumSwap(12)').
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssIndex">
+1
+<br><b>ssIndex</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.1</td>
+<td>
+<pre>Bogus Index.  This should always return the integer 1.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssErrorName">
+2
+<br><b>ssErrorName</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.2</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Bogus Name. This should always return the string 'systemStats'.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssSwapIn">
+3
+<br><b>ssSwapIn</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.3</td>
+<td>
+<pre>The average amount of memory swapped in from disk,
+calculated over the last minute.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssSwapOut">
+4
+<br><b>ssSwapOut</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.4</td>
+<td>
+<pre>The average amount of memory swapped out to disk,
+calculated over the last minute.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssCpuRawUser">
+50
+<br><b>ssCpuRawUser</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.50</td>
+<td>
+<pre>The number of 'ticks' (typically 1/100s) spent
+processing user-level code.
+
+On a multi-processor system, the 'ssCpuRaw*'
+counters are cumulative over all CPUs, so their
+sum will typically be N*100 (for N processors).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssCpuRawNice">
+51
+<br><b>ssCpuRawNice</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.51</td>
+<td>
+<pre>The number of 'ticks' (typically 1/100s) spent
+processing reduced-priority code.
+
+This object will not be implemented on hosts where
+the underlying operating system does not measure
+this particular CPU metric.
+
+On a multi-processor system, the 'ssCpuRaw*'
+counters are cumulative over all CPUs, so their
+sum will typically be N*100 (for N processors).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssCpuRawSystem">
+52
+<br><b>ssCpuRawSystem</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.52</td>
+<td>
+<pre>The number of 'ticks' (typically 1/100s) spent
+processing system-level code.
+
+On a multi-processor system, the 'ssCpuRaw*'
+counters are cumulative over all CPUs, so their
+sum will typically be N*100 (for N processors).
+
+This object may sometimes be implemented as the
+combination of the 'ssCpuRawWait(54)' and
+'ssCpuRawKernel(55)' counters, so care must be
+taken when summing the overall raw counters.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssCpuRawIdle">
+53
+<br><b>ssCpuRawIdle</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.53</td>
+<td>
+<pre>The number of 'ticks' (typically 1/100s) spent
+idle.
+
+On a multi-processor system, the 'ssCpuRaw*'
+counters are cumulative over all CPUs, so their
+sum will typically be N*100 (for N processors).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssCpuRawWait">
+54
+<br><b>ssCpuRawWait</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.54</td>
+<td>
+<pre>The number of 'ticks' (typically 1/100s) spent
+waiting for IO.
+
+This object will not be implemented on hosts where
+the underlying operating system does not measure
+this particular CPU metric.  This time may also be
+included within the 'ssCpuRawSystem(52)' counter.
+
+On a multi-processor system, the 'ssCpuRaw*'
+counters are cumulative over all CPUs, so their
+sum will typically be N*100 (for N processors).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssCpuRawKernel">
+55
+<br><b>ssCpuRawKernel</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.55</td>
+<td>
+<pre>The number of 'ticks' (typically 1/100s) spent
+processing kernel-level code.
+
+This object will not be implemented on hosts where
+the underlying operating system does not measure
+this particular CPU metric.  This time may also be
+included within the 'ssCpuRawSystem(52)' counter.
+
+On a multi-processor system, the 'ssCpuRaw*'
+counters are cumulative over all CPUs, so their
+sum will typically be N*100 (for N processors).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssCpuRawInterrupt">
+56
+<br><b>ssCpuRawInterrupt</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.56</td>
+<td>
+<pre>The number of 'ticks' (typically 1/100s) spent
+processing hardware interrupts.
+
+This object will not be implemented on hosts where
+the underlying operating system does not measure
+this particular CPU metric.
+
+On a multi-processor system, the 'ssCpuRaw*'
+counters are cumulative over all CPUs, so their
+sum will typically be N*100 (for N processors).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssIORawSent">
+57
+<br><b>ssIORawSent</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.57</td>
+<td>
+<pre>Number of blocks sent to a block device
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssIORawReceived">
+58
+<br><b>ssIORawReceived</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.58</td>
+<td>
+<pre>Number of blocks received from a block device
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssRawInterrupts">
+59
+<br><b>ssRawInterrupts</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.59</td>
+<td>
+<pre>Number of interrupts processed
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssRawContexts">
+60
+<br><b>ssRawContexts</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.60</td>
+<td>
+<pre>Number of context switches
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssCpuRawSoftIRQ">
+61
+<br><b>ssCpuRawSoftIRQ</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.61</td>
+<td>
+<pre>The number of 'ticks' (typically 1/100s) spent
+processing software interrupts.
+
+This object will not be implemented on hosts where
+the underlying operating system does not measure
+this particular CPU metric.
+
+On a multi-processor system, the 'ssCpuRaw*'
+counters are cumulative over all CPUs, so their
+sum will typically be N*100 (for N processors).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssRawSwapIn">
+62
+<br><b>ssRawSwapIn</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.62</td>
+<td>
+<pre>Number of blocks swapped in
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="ssRawSwapOut">
+63
+<br><b>ssRawSwapOut</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.11.63</td>
+<td>
+<pre>Number of blocks swapped out
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="logMatchMaxEntries">
+1
+<br><b>logMatchMaxEntries</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.16.1</td>
+<td>
+<pre>The maximum number of logmatch entries
+this snmpd daemon can support.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="versionIndex">
+1
+<br><b>versionIndex</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.100.1</td>
+<td>
+<pre>Index to mib (always 0)
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="versionTag">
+2
+<br><b>versionTag</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.100.2</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>CVS tag keyword
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="versionDate">
+3
+<br><b>versionDate</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.100.3</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Date string from RCS keyword
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="versionCDate">
+4
+<br><b>versionCDate</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.100.4</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Date string from ctime() 
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="versionIdent">
+5
+<br><b>versionIdent</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.100.5</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Id string from RCS keyword
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="versionConfigureOptions">
+6
+<br><b>versionConfigureOptions</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.100.6</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Options passed to the configure script when this agent was built.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="versionClearCache">
+10
+<br><b>versionClearCache</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadWrite</td>
+    <td>.1.3.6.1.4.1.2021.100.10</td>
+<td>
+<pre>Set to 1 to clear the exec cache, if enabled
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="versionUpdateConfig">
+11
+<br><b>versionUpdateConfig</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadWrite</td>
+    <td>.1.3.6.1.4.1.2021.100.11</td>
+<td>
+<pre>Set to 1 to read-read the config file(s).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="versionRestartAgent">
+12
+<br><b>versionRestartAgent</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadWrite</td>
+    <td>.1.3.6.1.4.1.2021.100.12</td>
+<td>
+<pre>Set to 1 to restart the agent.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="versionSavePersistentData">
+13
+<br><b>versionSavePersistentData</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadWrite</td>
+    <td>.1.3.6.1.4.1.2021.100.13</td>
+<td>
+<pre>Set to 1 to force the agent to save it's persistent data immediately.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="versionDoDebugging">
+20
+<br><b>versionDoDebugging</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadWrite</td>
+    <td>.1.3.6.1.4.1.2021.100.20</td>
+<td>
+<pre>Set to 1 to turn debugging statements on in the agent or 0
+to turn it off.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="snmperrIndex">
+1
+<br><b>snmperrIndex</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.101.1</td>
+<td>
+<pre>Bogus Index for snmperrs (always 0).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="snmperrNames">
+2
+<br><b>snmperrNames</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.101.2</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>snmp
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="snmperrErrorFlag">
+100
+<br><b>snmperrErrorFlag</b>
+
+</a></td><td>
+  INTEGER
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+     <br>(ENUM list below)
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.101.100</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag"> UCDErrorFlag TEXTUAL-CONVENTION</a>.
+</p>
+<pre>A Error flag to indicate trouble with the agent.  It
+goes to 1 if there is an error, 0 if no error.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="snmperrErrMessage">
+101
+<br><b>snmperrErrMessage</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+    <td>.1.3.6.1.4.1.2021.101.101</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>An error message describing the problem (if one exists).
+</pre>
+</td>
+  </tr>
+</tbody></table>
+</ul>
+
+<h2>TABLE OBJECTS</h2>
+</a><a name="prTable"><h3>Table prTable</h3>
+<ul>
+  <table>
+  <tbody><tr><td class="label">Table Name</td><td>prTable</td></tr>
+  <tr><td class="label">In MIB</td><td>UCD-SNMP-MIB</td></tr>
+  <tr><td class="label">Registered at OID</td><td>.1.3.6.1.4.1.2021.2</td></tr>
+  <tr><td class="label">Table Description</td>
+<td>
+<pre>A table containing information on running
+programs/daemons configured for monitoring in the
+snmpd.conf file of the agent.  Processes violating the
+number of running processes required by the agent's
+configuration file are flagged with numerical and
+textual errors.
+</pre>
+</td>
+</tr>
+<tr><td class="label"><a name="prEntry">Row Description</a></td>
+<td>
+<pre>An entry containing a process and its statistics.
+</pre>
+</td>
+</tr>
+  </tbody></table>
+
+  <h4>prTable Indexes:</h4>
+
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="prIndex">
+1
+<br><b>prIndex</b>
+
+</a></td><td>
+  INTEGER32
+      <br>Legal values:
+        0 .. 65535
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Reference Index for each observed process.
+</pre>
+</td>
+  </tr>
+</tbody></table>
+
+  <h4>Other prTable Columns:</h4>
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="prNames">
+2
+<br><b>prNames</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>The process name we're counting/checking on.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="prMin">
+3
+<br><b>prMin</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The minimum number of processes that should be
+running.  An error flag is generated if the number of
+running processes is &lt; the minimum.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="prMax">
+4
+<br><b>prMax</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The maximum number of processes that should be
+running.  An error flag is generated if the number of
+running processes is &gt; the maximum.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="prCount">
+5
+<br><b>prCount</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The number of current processes running with the name
+in question.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="prErrorFlag">
+100
+<br><b>prErrorFlag</b>
+
+</a></td><td>
+  INTEGER
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+     <br>(ENUM list below)
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag"> UCDErrorFlag TEXTUAL-CONVENTION</a>.
+</p>
+<pre>A Error flag to indicate trouble with a process.  It
+goes to 1 if there is an error, 0 if no error.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="prErrMessage">
+101
+<br><b>prErrMessage</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>An error message describing the problem (if one exists).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="prErrFix">
+102
+<br><b>prErrFix</b>
+
+</a></td><td>
+  INTEGER
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFix">UCDErrorFix</a>
+     <br>(ENUM list below)
+
+  </td><td>ReadWrite</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFix"> UCDErrorFix TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Setting this to one will try to fix the problem if
+the agent has been configured with a script to call
+to attempt to fix problems automatically using remote
+snmp operations.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="prErrFixCmd">
+103
+<br><b>prErrFixCmd</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>The command that gets run when the prErrFix column is 
+set to 1.
+</pre>
+</td>
+  </tr>
+</tbody></table>
+</ul>
+</a><a name="extTable"><h3>Table extTable</h3>
+<ul>
+  <table>
+  <tbody><tr><td class="label">Table Name</td><td>extTable</td></tr>
+  <tr><td class="label">In MIB</td><td>UCD-SNMP-MIB</td></tr>
+  <tr><td class="label">Registered at OID</td><td>.1.3.6.1.4.1.2021.8</td></tr>
+  <tr><td class="label">Table Description</td>
+<td>
+<pre>A table of extensible commands returning output and
+result codes.  These commands are configured via the
+agent's snmpd.conf file.
+</pre>
+</td>
+</tr>
+<tr><td class="label"><a name="extEntry">Row Description</a></td>
+<td>
+<pre>An entry containing an extensible script/program and its output.
+</pre>
+</td>
+</tr>
+  </tbody></table>
+
+  <h4>extTable Indexes:</h4>
+
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="extIndex">
+1
+<br><b>extIndex</b>
+
+</a></td><td>
+  INTEGER32
+      <br>Legal values:
+        0 .. 65535
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Reference Index for extensible scripts.  Simply an
+integer row number.
+</pre>
+</td>
+  </tr>
+</tbody></table>
+
+  <h4>Other extTable Columns:</h4>
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="extNames">
+2
+<br><b>extNames</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>A Short, one name description of the extensible command.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="extCommand">
+3
+<br><b>extCommand</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>The command line to be executed.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="extResult">
+100
+<br><b>extResult</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The result code (exit status) from the executed command.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="extOutput">
+101
+<br><b>extOutput</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>The first line of output of the executed command.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="extErrFix">
+102
+<br><b>extErrFix</b>
+
+</a></td><td>
+  INTEGER
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFix">UCDErrorFix</a>
+     <br>(ENUM list below)
+
+  </td><td>ReadWrite</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFix"> UCDErrorFix TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Setting this to one will try to fix the problem if
+the agent has been configured with a script to call
+to attempt to fix problems automatically using remote
+snmp operations.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="extErrFixCmd">
+103
+<br><b>extErrFixCmd</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>The command that gets run when the extErrFix column is 
+set to 1.
+</pre>
+</td>
+  </tr>
+</tbody></table>
+</ul>
+</a><a name="dskTable"><h3>Table dskTable</h3>
+<ul>
+  <table>
+  <tbody><tr><td class="label">Table Name</td><td>dskTable</td></tr>
+  <tr><td class="label">In MIB</td><td>UCD-SNMP-MIB</td></tr>
+  <tr><td class="label">Registered at OID</td><td>.1.3.6.1.4.1.2021.9</td></tr>
+  <tr><td class="label">Table Description</td>
+<td>
+<pre>Disk watching information.  Partions to be watched
+are configured by the snmpd.conf file of the agent.
+</pre>
+</td>
+</tr>
+<tr><td class="label"><a name="dskEntry">Row Description</a></td>
+<td>
+<pre>An entry containing a disk and its statistics.
+</pre>
+</td>
+</tr>
+  </tbody></table>
+
+  <h4>dskTable Indexes:</h4>
+
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="dskIndex">
+1
+<br><b>dskIndex</b>
+
+</a></td><td>
+  INTEGER32
+      <br>Legal values:
+        0 .. 65535
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Integer reference number (row number) for the disk mib.
+</pre>
+</td>
+  </tr>
+</tbody></table>
+
+  <h4>Other dskTable Columns:</h4>
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="dskPath">
+2
+<br><b>dskPath</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Path where the disk is mounted.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskDevice">
+3
+<br><b>dskDevice</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Path of the device for the partition
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskMinimum">
+4
+<br><b>dskMinimum</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Minimum space required on the disk (in kBytes) before the
+errors are triggered.  Either this or dskMinPercent is
+configured via the agent's snmpd.conf file.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskMinPercent">
+5
+<br><b>dskMinPercent</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Percentage of minimum space required on the disk before the
+errors are triggered.  Either this or dskMinimum is
+configured via the agent's snmpd.conf file.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskTotal">
+6
+<br><b>dskTotal</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Total size of the disk/partion (kBytes)
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskAvail">
+7
+<br><b>dskAvail</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Available space on the disk
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskUsed">
+8
+<br><b>dskUsed</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Used space on the disk
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskPercent">
+9
+<br><b>dskPercent</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Percentage of space used on disk
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskPercentNode">
+10
+<br><b>dskPercentNode</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Percentage of inodes used on disk
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskTotalLow">
+11
+<br><b>dskTotalLow</b>
+
+</a></td><td>
+  UNSIGNED32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Total size of the disk/partion (kBytes).
+Together with dskTotalHigh composes 64-bit number.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskTotalHigh">
+12
+<br><b>dskTotalHigh</b>
+
+</a></td><td>
+  UNSIGNED32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Total size of the disk/partion (kBytes).
+Together with dskTotalLow composes 64-bit number.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskAvailLow">
+13
+<br><b>dskAvailLow</b>
+
+</a></td><td>
+  UNSIGNED32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Available space on the disk (kBytes).
+Together with dskAvailHigh composes 64-bit number.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskAvailHigh">
+14
+<br><b>dskAvailHigh</b>
+
+</a></td><td>
+  UNSIGNED32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Available space on the disk (kBytes).
+Together with dskAvailLow composes 64-bit number.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskUsedLow">
+15
+<br><b>dskUsedLow</b>
+
+</a></td><td>
+  UNSIGNED32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Used space on the disk (kBytes).
+Together with dskUsedHigh composes 64-bit number.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskUsedHigh">
+16
+<br><b>dskUsedHigh</b>
+
+</a></td><td>
+  UNSIGNED32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Used space on the disk (kBytes).
+Together with dskUsedLow composes 64-bit number.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskErrorFlag">
+100
+<br><b>dskErrorFlag</b>
+
+</a></td><td>
+  INTEGER
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+     <br>(ENUM list below)
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag"> UCDErrorFlag TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Error flag signaling that the disk or partition is under
+the minimum required space configured for it.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="dskErrorMsg">
+101
+<br><b>dskErrorMsg</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>A text description providing a warning and the space left
+on the disk.
+</pre>
+</td>
+  </tr>
+</tbody></table>
+</ul>
+</a><a name="laTable"><h3>Table laTable</h3>
+<ul>
+  <table>
+  <tbody><tr><td class="label">Table Name</td><td>laTable</td></tr>
+  <tr><td class="label">In MIB</td><td>UCD-SNMP-MIB</td></tr>
+  <tr><td class="label">Registered at OID</td><td>.1.3.6.1.4.1.2021.10</td></tr>
+  <tr><td class="label">Table Description</td>
+<td>
+<pre>Load average information.
+</pre>
+</td>
+</tr>
+<tr><td class="label"><a name="laEntry">Row Description</a></td>
+<td>
+<pre>An entry containing a load average and its values.
+</pre>
+</td>
+</tr>
+  </tbody></table>
+
+  <h4>laTable Indexes:</h4>
+
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="laIndex">
+1
+<br><b>laIndex</b>
+
+</a></td><td>
+  INTEGER32
+      <br>Legal values:
+        0 .. 3
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>reference index/row number for each observed loadave.
+</pre>
+</td>
+  </tr>
+</tbody></table>
+
+  <h4>Other laTable Columns:</h4>
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="laNames">
+2
+<br><b>laNames</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>The list of loadave names we're watching.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="laLoad">
+3
+<br><b>laLoad</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>The 1,5 and 15 minute load averages (one per row).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="laConfig">
+4
+<br><b>laConfig</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>The watch point for load-averages to signal an
+error.  If the load averages rises above this value,
+the laErrorFlag below is set.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="laLoadInt">
+5
+<br><b>laLoadInt</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The 1,5 and 15 minute load averages as an integer.
+This is computed by taking the floating point
+loadaverage value and multiplying by 100, then
+converting the value to an integer.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="laLoadFloat">
+6
+<br><b>laLoadFloat</b>
+
+</a></td><td>
+  OPAQUE
+      <br>Legal values:
+        7
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#Float">Float</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#Float"> Float TEXTUAL-CONVENTION</a>.
+</p>
+<pre>The 1,5 and 15 minute load averages as an opaquely
+wrapped floating point number.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="laErrorFlag">
+100
+<br><b>laErrorFlag</b>
+
+</a></td><td>
+  INTEGER
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+     <br>(ENUM list below)
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag"> UCDErrorFlag TEXTUAL-CONVENTION</a>.
+</p>
+<pre>A Error flag to indicate the load-average has crossed
+its threshold value defined in the snmpd.conf file.
+It is set to 1 if the threshold is crossed, 0 otherwise.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="laErrMessage">
+101
+<br><b>laErrMessage</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>An error message describing the load-average and its
+surpased watch-point value.
+</pre>
+</td>
+  </tr>
+</tbody></table>
+</ul>
+</a><a name="fileTable"><h3>Table fileTable</h3>
+<ul>
+  <table>
+  <tbody><tr><td class="label">Table Name</td><td>fileTable</td></tr>
+  <tr><td class="label">In MIB</td><td>UCD-SNMP-MIB</td></tr>
+  <tr><td class="label">Registered at OID</td><td>.1.3.6.1.4.1.2021.15</td></tr>
+  <tr><td class="label">Table Description</td>
+<td>
+<pre>Table of monitored files.
+</pre>
+</td>
+</tr>
+<tr><td class="label"><a name="fileEntry">Row Description</a></td>
+<td>
+<pre>Entry of file
+</pre>
+</td>
+</tr>
+  </tbody></table>
+
+  <h4>fileTable Indexes:</h4>
+
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="fileIndex">
+1
+<br><b>fileIndex</b>
+
+</a></td><td>
+  INTEGER32
+      <br>Legal values:
+        0 .. 2147483647
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Index of file
+</pre>
+</td>
+  </tr>
+</tbody></table>
+
+  <h4>Other fileTable Columns:</h4>
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="fileName">
+2
+<br><b>fileName</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Filename
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="fileSize">
+3
+<br><b>fileSize</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Size of file (kB)
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="fileMax">
+4
+<br><b>fileMax</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Limit of filesize (kB)
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="fileErrorFlag">
+100
+<br><b>fileErrorFlag</b>
+
+</a></td><td>
+  INTEGER
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+     <br>(ENUM list below)
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag"> UCDErrorFlag TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Limit exceeded flag
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="fileErrorMsg">
+101
+<br><b>fileErrorMsg</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>Filesize error message
+</pre>
+</td>
+  </tr>
+</tbody></table>
+</ul>
+</a><a name="logMatchTable"><h3>Table logMatchTable</h3>
+<ul>
+  <table>
+  <tbody><tr><td class="label">Table Name</td><td>logMatchTable</td></tr>
+  <tr><td class="label">In MIB</td><td>UCD-SNMP-MIB</td></tr>
+  <tr><td class="label">Registered at OID</td><td>.1.3.6.1.4.1.2021.16.2</td></tr>
+  <tr><td class="label">Table Description</td>
+<td>
+<pre>Table of monitored files.
+</pre>
+</td>
+</tr>
+<tr><td class="label"><a name="logMatchEntry">Row Description</a></td>
+<td>
+<pre>Entry of file
+</pre>
+</td>
+</tr>
+  </tbody></table>
+
+  <h4>logMatchTable Indexes:</h4>
+
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="logMatchIndex">
+1
+<br><b>logMatchIndex</b>
+
+</a></td><td>
+  INTEGER32
+      <br>Legal values:
+        1 .. 2147483647
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Index of logmatch
+</pre>
+</td>
+  </tr>
+</tbody></table>
+
+  <h4>Other logMatchTable Columns:</h4>
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="logMatchName">
+2
+<br><b>logMatchName</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>logmatch instance name
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="logMatchFilename">
+3
+<br><b>logMatchFilename</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>filename to be logmatched
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="logMatchRegEx">
+4
+<br><b>logMatchRegEx</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>regular expression
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="logMatchGlobalCounter">
+5
+<br><b>logMatchGlobalCounter</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>global count of matches
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="logMatchGlobalCount">
+6
+<br><b>logMatchGlobalCount</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Description.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="logMatchCurrentCounter">
+7
+<br><b>logMatchCurrentCounter</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Regex match counter. This counter will
+be reset with each logfile rotation.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="logMatchCurrentCount">
+8
+<br><b>logMatchCurrentCount</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Description.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="logMatchCounter">
+9
+<br><b>logMatchCounter</b>
+
+</a></td><td>
+  COUNTER
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Regex match counter. This counter will
+be reset with each read
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="logMatchCount">
+10
+<br><b>logMatchCount</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>Description.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="logMatchCycle">
+11
+<br><b>logMatchCycle</b>
+
+</a></td><td>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>time between updates (if not queried) in seconds
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="logMatchErrorFlag">
+100
+<br><b>logMatchErrorFlag</b>
+
+</a></td><td>
+  INTEGER
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+     <br>(ENUM list below)
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag"> UCDErrorFlag TEXTUAL-CONVENTION</a>.
+</p>
+<pre>errorflag: is this line configured correctly?
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td>
+<a name="logMatchRegExCompilation">
+101
+<br><b>logMatchRegExCompilation</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>message of regex precompilation
+</pre>
+</td>
+  </tr>
+</tbody></table>
+</ul>
+</a><a name="mrTable"><h3>Table mrTable</h3>
+<ul>
+  <table>
+  <tbody><tr><td class="label">Table Name</td><td>mrTable</td></tr>
+  <tr><td class="label">In MIB</td><td>UCD-SNMP-MIB</td></tr>
+  <tr><td class="label">Registered at OID</td><td>.1.3.6.1.4.1.2021.102</td></tr>
+  <tr><td class="label">Table Description</td>
+<td>
+<pre>A table displaying all the oid's registered by mib modules in
+the agent.  Since the agent is modular in nature, this lists
+each module's OID it is responsible for and the name of the module
+</pre>
+</td>
+</tr>
+<tr><td class="label"><a name="mrEntry">Row Description</a></td>
+<td>
+<pre>An entry containing a registered mib oid.
+</pre>
+</td>
+</tr>
+  </tbody></table>
+
+  <h4>mrTable Indexes:</h4>
+
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="mrIndex">
+1
+<br><b>mrIndex</b>
+
+</a></td><td>
+  OBJECTID
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The registry slot of a mibmodule.
+</pre>
+</td>
+  </tr>
+</tbody></table>
+
+  <h4>Other mrTable Columns:</h4>
+<table>
+<tbody><tr class="label"><th>Name</th><th>Type</th><th>Access</th><th>Description</th></tr>
+  <tr>
+  <td>
+<a name="mrModuleName">
+2
+<br><b>mrModuleName</b>
+
+</a></td><td>
+  OCTETSTR
+      <br>Legal Lengths:
+        0 .. 255
+ <br>
+ <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+
+  </td><td>ReadOnly</td>
+<td>
+<p>
+Note: this object is based on the <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString"> DisplayString TEXTUAL-CONVENTION</a>.
+</p>
+<pre>The module name that registered this OID.
+</pre>
+</td>
+  </tr>
+</tbody></table>
+</ul>
+</a><a name="objects_Deprecated">
+  <hr>
+  <h1><font color="red">DEPRECATED OR OBSOLETE OR HISTORIC OBJECTS</font></h1>
+  <br>
+  <table class="deprecated"><tbody><tr><td>
+<a name="scalar_notcurrent">
+<h2>SCALAR OBJECTS</h2>
+<ul>
+<table>
+<tbody><tr><th>Name</th><th>Type</th><th>Access</th><th>OID</th><th>Description</th></tr>
+  <tr>
+  <td class="deprecated">
+<a name="memAvailSwapTXT">
+8
+<br><b>memAvailSwapTXT</b>
+
+</a></td><td>
+<font color="red">DEPRECATED</font><br>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The amount of swap space or virtual memory currently
+being used by text pages on this host.
+
+This object will not be implemented on hosts where the
+underlying operating system does not distinguish text
+pages from other uses of swap space or virtual memory.
+
+Note that (despite the name), this value reports the
+amount used, rather than the amount free or available
+for use.  For clarity, this object is being deprecated
+in favour of 'memUsedSwapTXT(16).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td class="deprecated">
+<a name="memAvailRealTXT">
+10
+<br><b>memAvailRealTXT</b>
+
+</a></td><td>
+<font color="red">DEPRECATED</font><br>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The amount of real/physical memory currently being
+used by text pages on this host.
+
+This object will not be implemented on hosts where the
+underlying operating system does not distinguish text
+pages from other uses of physical memory.
+
+Note that (despite the name), this value reports the
+amount used, rather than the amount free or available
+for use.  For clarity, this object is being deprecated
+in favour of 'memUsedRealTXT(17).
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td class="deprecated">
+<a name="ssIOSent">
+5
+<br><b>ssIOSent</b>
+
+</a></td><td>
+<font color="red">DEPRECATED</font><br>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The average amount of data written to disk or other
+block device, calculated over the last minute.
+       
+	 This object has been deprecated in favour of
+'ssIORawSent(57)', which can be used to calculate
+the same metric, but over any desired time period.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td class="deprecated">
+<a name="ssIOReceive">
+6
+<br><b>ssIOReceive</b>
+
+</a></td><td>
+<font color="red">DEPRECATED</font><br>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The average amount of data read from disk or other
+block device, calculated over the last minute.
+       
+	 This object has been deprecated in favour of
+'ssIORawReceived(58)', which can be used to calculate
+the same metric, but over any desired time period.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td class="deprecated">
+<a name="ssSysInterrupts">
+7
+<br><b>ssSysInterrupts</b>
+
+</a></td><td>
+<font color="red">DEPRECATED</font><br>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The average rate of interrupts processed (including
+the clock) calculated over the last minute.
+       
+	 This object has been deprecated in favour of
+'ssRawInterrupts(59)', which can be used to calculate
+the same metric, but over any desired time period.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td class="deprecated">
+<a name="ssSysContext">
+8
+<br><b>ssSysContext</b>
+
+</a></td><td>
+<font color="red">DEPRECATED</font><br>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The average rate of context switches,
+calculated over the last minute.
+       
+	 This object has been deprecated in favour of
+'ssRawContext(60)', which can be used to calculate
+the same metric, but over any desired time period.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td class="deprecated">
+<a name="ssCpuUser">
+9
+<br><b>ssCpuUser</b>
+
+</a></td><td>
+<font color="red">DEPRECATED</font><br>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The percentage of CPU time spent processing
+user-level code, calculated over the last minute.
+       
+	 This object has been deprecated in favour of
+'ssCpuRawUser(50)', which can be used to calculate
+the same metric, but over any desired time period.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td class="deprecated">
+<a name="ssCpuSystem">
+10
+<br><b>ssCpuSystem</b>
+
+</a></td><td>
+<font color="red">DEPRECATED</font><br>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The percentage of CPU time spent processing
+system-level code, calculated over the last minute.
+       
+	 This object has been deprecated in favour of
+'ssCpuRawSystem(52)', which can be used to calculate
+the same metric, but over any desired time period.
+</pre>
+</td>
+  </tr>
+  <tr>
+  <td class="deprecated">
+<a name="ssCpuIdle">
+11
+<br><b>ssCpuIdle</b>
+
+</a></td><td>
+<font color="red">DEPRECATED</font><br>
+  INTEGER32
+
+  </td><td>ReadOnly</td>
+<td>
+<pre>The percentage of processor time spent idle,
+calculated over the last minute.
+       
+	 This object has been deprecated in favour of
+'ssCpuRawIdle(53)', which can be used to calculate
+the same metric, but over any desired time period.
+</pre>
+</td>
+  </tr>
+</tbody></table>
+</ul>
+
+<h2>TABLE OBJECTS</h2>
+
+<br>
+  </a></td></tr></tbody></table>
+<hr>
+</a><a name="notifications">
+<h2>NOTIFICATIONS</h2>
+</a><ul><a name="notifications">
+</a><p><a name="notifications">
+</a><a name="ucdStart"></a></p><h3><a name="ucdStart">Notification: ucdStart</a></h3><a name="ucdStart">
+
+  <table>
+  <tbody><tr><td class="label">Notification Name</td><td>ucdStart</td></tr>
+  <tr><td class="label">In MIB</td><td>UCD-SNMP-MIB</td></tr>
+  <tr><td class="label">Registered at OID</td><td>.1.3.6.1.4.1.2021.251.1</td></tr>
+  <tr><td class="label">Notification Description</td>
+<td>
+<pre>This trap could in principle be sent when the agent start
+</pre>
+</td>
+  </tr>
+  <tr> <td class="label">Mandatory<br>Objects</td><td>
+  <table>
+  </table></td></tr>
+  </tbody></table>
+</a><a name="ucdShutdown"><h3>Notification: ucdShutdown</h3>
+
+  <table>
+  <tbody><tr><td class="label">Notification Name</td><td>ucdShutdown</td></tr>
+  <tr><td class="label">In MIB</td><td>UCD-SNMP-MIB</td></tr>
+  <tr><td class="label">Registered at OID</td><td>.1.3.6.1.4.1.2021.251.2</td></tr>
+  <tr><td class="label">Notification Description</td>
+<td>
+<pre>This trap is sent when the agent terminates
+</pre>
+</td>
+  </tr>
+  <tr> <td class="label">Mandatory<br>Objects</td><td>
+  <table>
+  </table></td></tr>
+  </tbody></table>
+</a></ul><a name="ucdShutdown">
+
+
+<br>
+<hr>
+</a><a name="textconventions">
+<h2>TEXTUAL CONVENTIONS</h2>
+<ul>
+<p>
+These TEXTUAL-CONVENTIONS are used in other parts of the document
+above.  They are SNMP's way of defining a datatype that is used
+repeatedly by other MIB objects.  Any implementation implementing
+objects that use one of these definitions must follow its DESCRIPTION
+clause as well as the DESCRIPTION clause of the object itself.
+</p>
+<table><tbody><tr class="label"><th>Name</th><th>Type</th><th>Description</th></tr>
+<tr><td><a name="Float">Float</a></td><td>OPAQUE</td><td><pre>A single precision floating-point number.  The semantics
+and encoding are identical for type 'single' defined in
+IEEE Standard for Binary Floating-Point,
+ANSI/IEEE Std 754-1985.
+The value is restricted to the BER serialization of
+the following ASN.1 type:
+    FLOATTYPE ::= [120] IMPLICIT FloatType
+(note: the value 120 is the sum of '30'h and '48'h)
+The BER serialization of the length for values of
+this type must use the definite length, short
+encoding form.
+
+For example, the BER serialization of value 123
+of type FLOATTYPE is '9f780442f60000'h.  (The tag
+is '9f78'h; the length is '04'h; and the value is
+'42f60000'h.) The BER serialization of value
+'9f780442f60000'h of data type Opaque is
+'44079f780442f60000'h. (The tag is '44'h; the length
+is '07'h; and the value is '9f780442f60000'h.</pre></td></tr>
+<tr><td><a name="DisplayString">DisplayString</a></td><td>OCTETSTR</td><td><pre>Represents textual information taken from the NVT ASCII
+character set, as defined in pages 4, 10-11 of RFC 854.
+To summarize RFC 854, the NVT ASCII repertoire specifies:
+  - the use of character codes 0-127 (decimal)
+  - the graphics characters (32-126) are interpreted as
+                US ASCII
+  - NUL, LF, CR, BEL, BS, HT, VT and FF have the special
+                meanings specified in RFC 854
+  - the other 25 codes have no standard interpretation
+  - the sequence 'CR LF' means newline
+  - the sequence 'CR NUL' means carriage-return
+  - an 'LF' not preceded by a 'CR' means moving to the
+                same column on the next line.
+  - the sequence 'CR x' for any x other than LF or NUL is
+                illegal.  (Note that this also means that a string may
+                end with either 'CR LF' or 'CR NUL', but not with CR.)
+Any object defined using this syntax may not exceed 255
+            characters in length.</pre></td></tr>
+<tr><td><a name="UCDErrorFlag">UCDErrorFlag</a></td><td>INTEGER<table class="enums"><tbody><tr><th>Value</th><th>Label/Meaning</th></tr><tr><td>0</td><td>noError</td></tr><tr><td>1</td><td>error</td></tr></tbody></table></td><td><pre>Represents a possible error condition</pre></td></tr>
+<tr><td><a name="UCDErrorFix">UCDErrorFix</a></td><td>INTEGER<table class="enums"><tbody><tr><th>Value</th><th>Label/Meaning</th></tr><tr><td>0</td><td>noError</td></tr><tr><td>1</td><td>runFix</td></tr></tbody></table></td><td><pre>Represents a 'push-button' object, to invoke a suitable
+configured action.  Will always return 0 when read.</pre></td></tr>
+</tbody></table></ul>
+
+</a><a name="treeview">
+<h2>TREE VIEW</h2>
+<p>Tree view generated by running: <b>snmptranslate -Tp UCD-SNMP-MIB::ucdavis</b></p>
+</a><pre><a name="treeview">+--</a><a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ucdavis">ucdavis</a>(2021)
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#prTable">prTable</a>(2)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#prEntry">prEntry</a>(1)
+   |     |  Index: prIndex
+   |     |
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#prIndex">prIndex</a>(1)
+   |     |        Range: 0..65535
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#prNames">prNames</a>(2)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |     |        Size: 0..255
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#prMin">prMin</a>(3)
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#prMax">prMax</a>(4)
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#prCount">prCount</a>(5)
+   |     +-- -R-- EnumVal   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#prErrorFlag">prErrorFlag</a>(100)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+   |     |        Values: noError(0), error(1)
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#prErrMessage">prErrMessage</a>(101)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |     |        Size: 0..255
+   |     +-- -RW- EnumVal   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#prErrFix">prErrFix</a>(102)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFix">UCDErrorFix</a>
+   |     |        Values: noError(0), runFix(1)
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#prErrFixCmd">prErrFixCmd</a>(103)
+   |              Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |              Size: 0..255
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memory">memory</a>(4)
+   |  |
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memIndex">memIndex</a>(1)
+   |  +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memErrorName">memErrorName</a>(2)
+   |  |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |  |        Size: 0..255
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memTotalSwap">memTotalSwap</a>(3)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memAvailSwap">memAvailSwap</a>(4)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memTotalReal">memTotalReal</a>(5)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memAvailReal">memAvailReal</a>(6)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memTotalSwapTXT">memTotalSwapTXT</a>(7)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memAvailSwapTXT">memAvailSwapTXT</a>(8)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memTotalRealTXT">memTotalRealTXT</a>(9)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memAvailRealTXT">memAvailRealTXT</a>(10)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memTotalFree">memTotalFree</a>(11)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memMinimumSwap">memMinimumSwap</a>(12)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memShared">memShared</a>(13)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memBuffer">memBuffer</a>(14)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memCached">memCached</a>(15)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memUsedSwapTXT">memUsedSwapTXT</a>(16)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memUsedRealTXT">memUsedRealTXT</a>(17)
+   |  +-- -R-- EnumVal   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memSwapError">memSwapError</a>(100)
+   |  |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+   |  |        Values: noError(0), error(1)
+   |  +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#memSwapErrorMsg">memSwapErrorMsg</a>(101)
+   |           Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |           Size: 0..255
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#extTable">extTable</a>(8)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#extEntry">extEntry</a>(1)
+   |     |  Index: extIndex
+   |     |
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#extIndex">extIndex</a>(1)
+   |     |        Range: 0..65535
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#extNames">extNames</a>(2)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |     |        Size: 0..255
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#extCommand">extCommand</a>(3)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |     |        Size: 0..255
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#extResult">extResult</a>(100)
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#extOutput">extOutput</a>(101)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |     |        Size: 0..255
+   |     +-- -RW- EnumVal   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#extErrFix">extErrFix</a>(102)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFix">UCDErrorFix</a>
+   |     |        Values: noError(0), runFix(1)
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#extErrFixCmd">extErrFixCmd</a>(103)
+   |              Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |              Size: 0..255
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskTable">dskTable</a>(9)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskEntry">dskEntry</a>(1)
+   |     |  Index: dskIndex
+   |     |
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskIndex">dskIndex</a>(1)
+   |     |        Range: 0..65535
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskPath">dskPath</a>(2)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |     |        Size: 0..255
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskDevice">dskDevice</a>(3)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |     |        Size: 0..255
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskMinimum">dskMinimum</a>(4)
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskMinPercent">dskMinPercent</a>(5)
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskTotal">dskTotal</a>(6)
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskAvail">dskAvail</a>(7)
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskUsed">dskUsed</a>(8)
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskPercent">dskPercent</a>(9)
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskPercentNode">dskPercentNode</a>(10)
+   |     +-- -R-- Unsigned  <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskTotalLow">dskTotalLow</a>(11)
+   |     +-- -R-- Unsigned  <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskTotalHigh">dskTotalHigh</a>(12)
+   |     +-- -R-- Unsigned  <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskAvailLow">dskAvailLow</a>(13)
+   |     +-- -R-- Unsigned  <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskAvailHigh">dskAvailHigh</a>(14)
+   |     +-- -R-- Unsigned  <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskUsedLow">dskUsedLow</a>(15)
+   |     +-- -R-- Unsigned  <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskUsedHigh">dskUsedHigh</a>(16)
+   |     +-- -R-- EnumVal   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskErrorFlag">dskErrorFlag</a>(100)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+   |     |        Values: noError(0), error(1)
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#dskErrorMsg">dskErrorMsg</a>(101)
+   |              Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |              Size: 0..255
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#laTable">laTable</a>(10)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#laEntry">laEntry</a>(1)
+   |     |  Index: laIndex
+   |     |
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#laIndex">laIndex</a>(1)
+   |     |        Range: 0..3
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#laNames">laNames</a>(2)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |     |        Size: 0..255
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#laLoad">laLoad</a>(3)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |     |        Size: 0..255
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#laConfig">laConfig</a>(4)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |     |        Size: 0..255
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#laLoadInt">laLoadInt</a>(5)
+   |     +-- -R-- Opaque    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#laLoadFloat">laLoadFloat</a>(6)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#Float">Float</a>
+   |     |        Size: 7
+   |     +-- -R-- EnumVal   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#laErrorFlag">laErrorFlag</a>(100)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+   |     |        Values: noError(0), error(1)
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#laErrMessage">laErrMessage</a>(101)
+   |              Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |              Size: 0..255
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#systemStats">systemStats</a>(11)
+   |  |
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssIndex">ssIndex</a>(1)
+   |  +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssErrorName">ssErrorName</a>(2)
+   |  |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |  |        Size: 0..255
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssSwapIn">ssSwapIn</a>(3)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssSwapOut">ssSwapOut</a>(4)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssIOSent">ssIOSent</a>(5)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssIOReceive">ssIOReceive</a>(6)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssSysInterrupts">ssSysInterrupts</a>(7)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssSysContext">ssSysContext</a>(8)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssCpuUser">ssCpuUser</a>(9)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssCpuSystem">ssCpuSystem</a>(10)
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssCpuIdle">ssCpuIdle</a>(11)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssCpuRawUser">ssCpuRawUser</a>(50)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssCpuRawNice">ssCpuRawNice</a>(51)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssCpuRawSystem">ssCpuRawSystem</a>(52)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssCpuRawIdle">ssCpuRawIdle</a>(53)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssCpuRawWait">ssCpuRawWait</a>(54)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssCpuRawKernel">ssCpuRawKernel</a>(55)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssCpuRawInterrupt">ssCpuRawInterrupt</a>(56)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssIORawSent">ssIORawSent</a>(57)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssIORawReceived">ssIORawReceived</a>(58)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssRawInterrupts">ssRawInterrupts</a>(59)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssRawContexts">ssRawContexts</a>(60)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssCpuRawSoftIRQ">ssCpuRawSoftIRQ</a>(61)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssRawSwapIn">ssRawSwapIn</a>(62)
+   |  +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ssRawSwapOut">ssRawSwapOut</a>(63)
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ucdInternal">ucdInternal</a>(12)
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ucdExperimental">ucdExperimental</a>(13)
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#fileTable">fileTable</a>(15)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#fileEntry">fileEntry</a>(1)
+   |     |  Index: fileIndex
+   |     |
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#fileIndex">fileIndex</a>(1)
+   |     |        Range: 0..2147483647
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#fileName">fileName</a>(2)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |     |        Size: 0..255
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#fileSize">fileSize</a>(3)
+   |     +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#fileMax">fileMax</a>(4)
+   |     +-- -R-- EnumVal   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#fileErrorFlag">fileErrorFlag</a>(100)
+   |     |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+   |     |        Values: noError(0), error(1)
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#fileErrorMsg">fileErrorMsg</a>(101)
+   |              Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |              Size: 0..255
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatch">logMatch</a>(16)
+   |  |
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchMaxEntries">logMatchMaxEntries</a>(1)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchTable">logMatchTable</a>(2)
+   |     |
+   |     +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchEntry">logMatchEntry</a>(1)
+   |        |  Index: logMatchIndex
+   |        |
+   |        +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchIndex">logMatchIndex</a>(1)
+   |        |        Range: 1..2147483647
+   |        +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchName">logMatchName</a>(2)
+   |        |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |        |        Size: 0..255
+   |        +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchFilename">logMatchFilename</a>(3)
+   |        |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |        |        Size: 0..255
+   |        +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchRegEx">logMatchRegEx</a>(4)
+   |        |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |        |        Size: 0..255
+   |        +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchGlobalCounter">logMatchGlobalCounter</a>(5)
+   |        +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchGlobalCount">logMatchGlobalCount</a>(6)
+   |        +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchCurrentCounter">logMatchCurrentCounter</a>(7)
+   |        +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchCurrentCount">logMatchCurrentCount</a>(8)
+   |        +-- -R-- Counter   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchCounter">logMatchCounter</a>(9)
+   |        +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchCount">logMatchCount</a>(10)
+   |        +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchCycle">logMatchCycle</a>(11)
+   |        +-- -R-- EnumVal   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchErrorFlag">logMatchErrorFlag</a>(100)
+   |        |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+   |        |        Values: noError(0), error(1)
+   |        +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#logMatchRegExCompilation">logMatchRegExCompilation</a>(101)
+   |                 Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |                 Size: 0..255
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#version">version</a>(100)
+   |  |
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#versionIndex">versionIndex</a>(1)
+   |  +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#versionTag">versionTag</a>(2)
+   |  |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |  |        Size: 0..255
+   |  +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#versionDate">versionDate</a>(3)
+   |  |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |  |        Size: 0..255
+   |  +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#versionCDate">versionCDate</a>(4)
+   |  |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |  |        Size: 0..255
+   |  +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#versionIdent">versionIdent</a>(5)
+   |  |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |  |        Size: 0..255
+   |  +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#versionConfigureOptions">versionConfigureOptions</a>(6)
+   |  |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |  |        Size: 0..255
+   |  +-- -RW- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#versionClearCache">versionClearCache</a>(10)
+   |  +-- -RW- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#versionUpdateConfig">versionUpdateConfig</a>(11)
+   |  +-- -RW- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#versionRestartAgent">versionRestartAgent</a>(12)
+   |  +-- -RW- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#versionSavePersistentData">versionSavePersistentData</a>(13)
+   |  +-- -RW- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#versionDoDebugging">versionDoDebugging</a>(20)
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#snmperrs">snmperrs</a>(101)
+   |  |
+   |  +-- -R-- Integer32 <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#snmperrIndex">snmperrIndex</a>(1)
+   |  +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#snmperrNames">snmperrNames</a>(2)
+   |  |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |  |        Size: 0..255
+   |  +-- -R-- EnumVal   <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#snmperrErrorFlag">snmperrErrorFlag</a>(100)
+   |  |        Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#UCDErrorFlag">UCDErrorFlag</a>
+   |  |        Values: noError(0), error(1)
+   |  +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#snmperrErrMessage">snmperrErrMessage</a>(101)
+   |           Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |           Size: 0..255
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#mrTable">mrTable</a>(102)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#mrEntry">mrEntry</a>(1)
+   |     |  Index: mrIndex
+   |     |
+   |     +-- -R-- ObjID     <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#mrIndex">mrIndex</a>(1)
+   |     +-- -R-- String    <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#mrModuleName">mrModuleName</a>(2)
+   |              Textual Convention: <a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#DisplayString">DisplayString</a>
+   |              Size: 0..255
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ucdSnmpAgent">ucdSnmpAgent</a>(250)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#hpux9">hpux9</a>(1)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#sunos4">sunos4</a>(2)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#solaris">solaris</a>(3)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#osf">osf</a>(4)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ultrix">ultrix</a>(5)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#hpux10">hpux10</a>(6)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#netbsd1">netbsd1</a>(7)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#freebsd">freebsd</a>(8)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#irix">irix</a>(9)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#linux">linux</a>(10)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#bsdi">bsdi</a>(11)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#openbsd">openbsd</a>(12)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#win32">win32</a>(13)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#hpux11">hpux11</a>(14)
+   |  |
+   |  +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#unknown">unknown</a>(255)
+   |
+   +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ucdTraps">ucdTraps</a>(251)
+      |
+      +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ucdStart">ucdStart</a>(1)
+      +--<a href="http://lia.disi.unibo.it/Courses/AmmSistemi1617/snmp/net-snmp.sourceforge.net/docs/mibs/ucdavis.html#ucdShutdown">ucdShutdown</a>(2)
+</pre>
+<!-- CONTENT END -->
+<br>
+<div id="w3Valid" class="w3Valid">
+<p>
+<!-- 
+<a href="http://validator.w3.org/check/referer">
+  <img src="/images/valid-xhtml10.png" style="border:0"
+  alt="Valid XHTML 1.0!" height="31" width="88"/></a>
+-->
+<a href="http://jigsaw.w3.org/css-validator/validator?uri=http://www.net-snmp.org/layout1.css">
+  <img style="border:0;width:88px;height:31px" src="./Net-SNMP_files/vcss.png" alt="Valid CSS!">
+ </a>
+</p>
+</div> <!-- w3Valid /div -->
+</div> <!-- CONTENT END /div -->
+
+<div id="ModificationDate" class="ModificationDate">
+  <hr>
+
+<!-- MODIFICATION DATE START -->
+
+<p>Last modified: Thursday, 26-May-2011 23:21:32 UTC<br>
+For questions regarding web content and site functionality, please write to the <a href="mailto:net-snmp-users@lists.sourceforge.net">net-snmp-users mail list</a>.</p>
+
+<!-- MODIFICATION DATE END -->
+
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript" id="add_privacy_banner" src="./Net-SNMP_files/add_privacy_banner.js.download"></script><div style="font-family: arial; font-size: 12px; padding: 2px; width: 100%; z-index: 100; background: rgb(68, 68, 68); color: rgb(255, 255, 255);"><a href="http://www.cs.unibo.it/projects/privacy/nocookie/privacy.pdf" style="color: white" target="_blank">Privacy Policy</a></div></body></html>
