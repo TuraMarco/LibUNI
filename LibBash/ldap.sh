@@ -17,6 +17,9 @@ o: university               # attributo di tipo o:
 #   RDN (Relative Distinguished Name) che è un attributo della entry schielto arbitrariamente.
 # Posso concatenare 2 attributi con l'operatore '+' al fine di garantire l'univocità del RDN
     cn=Marco+sn=Tura,ou=....,dc=....
+# In ogni entry DEVE comparire una classe STRUCTURAL e POSSONO comparire classi AUXILIARY cosi posso risolvere
+#   le ereditarietà multiple
+#
 # Per estendere il funzionamento di LDAP si usa uno schema che può contenere:
 #   |- attributeType ---> Definisce i tipi di dato e le regole di comparazione.
 #   \_ objectClass ---> Vincola i tipi di attributi nella entry.
@@ -32,6 +35,27 @@ o: university               # attributo di tipo o:
 #       \_ SUP --------------------> il tipo eredita tutte le proprietà del superiore, ne può ridefinire, e nelle ricerche
 #                                       per un tipo superiore vengono restituiti anche tutti i valori dei tipi basati su di
 #                                       esso
+
+    olcAttributeTypes: ( 1000.1.1.1 NAME ( 'fn' 'filename' )    # OID e nomi del nuovo attributo
+        DESC 'nome del file'                                    # Descrizione nuovo attributo
+        EQUALITY caseExactMatch                                 # Criterio di eguaglianza ("case sensitive, space insensitive" in questo caso)                          
+        SUBSTR caseExactSubstringsMatch                         # Criterio di sottostringa ("case sensitive, space insensitive" in questo caso)
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )                  # Sintassi che deve rispettare ("directoryString" in questo caso)
+
+# Un objectClass è un elenco di attributi opzionali (MAY) ed obbligatori (MUST) all'interno di una entry,
+#   possono essere di 3 tipi differenti:
+#       |- ABSTRACT -----> Servono per creare una tassonomia, non possono essere usate per originare entry (simili alle classi astratte java).
+#       |- STRUCTURAL ---> Servono per descrivere categorie di oggetti concreti (simili alle classi concrete in java).
+#       \_ AUXILIARY ----> Servono per aggiungere attributi arricchendo di contenuto informativo una entry (simili alle interfacce in java). 
+#   le classi possono essere estese gerarchicamente con SUP, in questo caso la classe inferiore eredita tutti gli attributi MUST e MAY della superiore,
+#       e può aggiungerne di nuovi.
+
+    olcObjectClasses: ( 1000.2.1.1 NAME 'dir'   # OID e Nome della classe
+        DESC 'una directory'                    # Descrizione della classe
+        MUST fn                                 # Attributo obbligatorio
+        MAY fs                                  # Attributo facoltativo
+        AUXILIARY)                              # Tipologia della classe
+
 #
 #       ##############################
 #       #   Commonly Used Syntaxes   #
