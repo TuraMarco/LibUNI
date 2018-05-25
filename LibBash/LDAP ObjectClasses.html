@@ -1,0 +1,1605 @@
+
+<!-- saved from url=(0047)https://oav.net/mirrors/LDAP-ObjectClasses.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>LDAP ObjectClasses</title>
+
+<style type="text/css">
+<!--
+th {  background-color: #666666; font-weight: bold; color: #FFFFFF; font-size: 10px}
+body {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9px}
+tr {  font-size: 10px}
+.core {  background-color: #FFFFF0}
+.cosine {  background-color: #F0FFFF}
+.inetOrgPerson {  background-color: #FFF0FF}
+td {  text-align: left; vertical-align: top}
+-->
+</style>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<h1>Common LDAP schemas</h1>
+These schemas are descrided here, as given with the <a href="http://www.openldap.org/">OpenLDAP</a> 
+distribution. This page is a try to give a more usable vision of all attributes 
+and classes available to LDAP developers. 
+<h2>Legend</h2>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tbody><tr class="core"> 
+    <td>Text with yellow background</td>
+    <td>
+      <p>Taken from <tt>core.schema</tt> schema, RFC 2256</p>
+      </td>
+  </tr>
+  <tr class="cosine"> 
+    <td>Text with blue background</td>
+    <td>Taken from <tt>cosine.schema</tt> schema, RFC 1274</td>
+  </tr>
+  <tr class="inetOrgPerson"> 
+    <td>Text with green background</td>
+    <td>Taken from <tt>inetOrgPerson.schema</tt> schema, RFC 2798</td>
+  </tr>
+  <tr>
+    <td><i>Italic text</i></td>
+    <td>Addition/Modification from the RFC definition</td>
+  </tr>
+  <tr>
+    <td> <s>Strikethrough text</s></td>
+    <td>Suppressed from the RFC definition</td>
+  </tr>
+</tbody></table>
+<h2>Type</h2>
+<p>TBD</p>
+<h2>Attributes</h2>
+<table border="1" cellspacing="0" cellpadding="2">
+  <tbody><tr> 
+    <th>Attribute</th>
+    <th>Sup/Type</th>
+    <th>Description</th>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atObjectClass"></a>objectClass</td>
+    <td>objectIdentifier</td>
+    <td>The values of the objectClass attribute describe the kind of objectwhich 
+      an entry represents. The objectClass attribute is present in every entry, 
+      with at least two values. One of the values is either "top" or 
+      "alias".</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atAliasedObjectName"></a>aliasedObjectName</td>
+    <td>distinguishedName</td>
+    <td>The aliasedObjectName attribute is used by the directory service if the 
+      entry containing this attribute is an alias.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atKnowledgeInformation"></a>knowledgeInformation</td>
+    <td>caseIgnore</td>
+    <td>This attribute is no longer used.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atCn"></a>cn, commonName</td>
+    <td>name</td>
+    <td>This is the X.500 commonName attribute, which contains a name of an object. 
+      If the object corresponds to a person, it is typically the person's full 
+      name.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atSn"></a>sn, surname</td>
+    <td>name</td>
+    <td>This is the X.500 surname attribute, which contains the family name of 
+      a person.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atSerialNumber"></a>serialNumber</td>
+    <td>caseIgnore</td>
+    <td>This attribute contains the serial number of a device.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atC"></a>c, countryName</td>
+    <td>name</td>
+    <td>This attribute contains a two-letter ISO 3166 country code.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atL"></a>l, localityName<br>
+    </td>
+    <td>name</td>
+    <td>This attribute contains the name of a locality, such as a city, county 
+      or other geographic region.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atSt"></a>st, stateOrProvinceName</td>
+    <td>name</td>
+    <td>This attribute contains the full name of a state or province.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atStreet"></a>street, streetAddress</td>
+    <td>caseIgnore</td>
+    <td>This attribute contains the physical address of the object to which the 
+      entry corresponds, such as an address for package delivery.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atO"></a>o, organizationName</td>
+    <td>name</td>
+    <td>This attribute contains the name of an organization.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atOu"></a>ou, organizationalUnitName</td>
+    <td>name</td>
+    <td>This attribute contains the name of an organizational unit.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atTitle"></a>title<br>
+    </td>
+    <td>name</td>
+    <td>This attribute contains the title, such as "Vice President", 
+      of a person in their organizational context. The "personalTitle" 
+      attribute would be used for a person's title independent of their job function.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atDescription"></a>description</td>
+    <td>caseIgnore</td>
+    <td>This attribute contains a human-readable description of the object.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atSearchGuide"></a>searchGuide</td>
+    <td>?</td>
+    <td>This attribute is for use by X.500 clients in constructing search filters. 
+      It is obsoleted by enhancedSearchGuide.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atBusinessCategory"></a>businessCategory</td>
+    <td>caseIgnore</td>
+    <td>This attribute describes the kind of business performed by an organization.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atPostalAddress"></a>postalAddress</td>
+    <td>caseIgnoreList</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atPostalCode"></a>postalCode</td>
+    <td>caseIgnore</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atPostOfficeBox"></a>postOfficeBox</td>
+    <td>caseIgnore</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atPhysicalDeliveryOfficeName"></a>physicalDeliveryOfficeName</td>
+    <td>caseIgnore</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atTelephoneNumber"></a>telephoneNumber</td>
+    <td>telephoneNumber</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atTelexNumber"></a>telexNumber</td>
+    <td>?</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atTeletexTerminalIdentifier"></a>teletexTerminalIdentifier</td>
+    <td>?</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atFacsimileTelephoneNumber"></a>facsimileTelephoneNumber</td>
+    <td>?</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atX121Address"></a>x121Address</td>
+    <td>numericString</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atInternationaliSDNNumber"></a>internationaliSDNNumber</td>
+    <td>numericString</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atRegisteredAddress"></a>registeredAddress</td>
+    <td>postalAddress</td>
+    <td>This attribute holds a postal address suitable for reception of telegrams 
+      or expedited documents, where it is necessary to have the recipient accept 
+      delivery.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atDestinationIndicator"></a>destinationIndicator</td>
+    <td>caseIgnore</td>
+    <td>This attribute is used for the telegram service.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atPreferredDeliveryMethod"></a>preferredDeliveryMethod</td>
+    <td>?</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atPresentationAddress"></a>presentationAddress</td>
+    <td>presentationAddress</td>
+    <td>This attribute contains an OSI presentation address.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atSupportedApplicationContext"></a>supportedApplicationContext</td>
+    <td>objectIdentifier</td>
+    <td>This attribute contains the identifiers of OSI application contexts.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atMember"></a>member</td>
+    <td>distinguishedName</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atOwner"></a>owner</td>
+    <td>distinguishedName</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atRoleOccupant"></a>roleOccupant</td>
+    <td>distinguishedName</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atSeeAlso"></a>seeAlso</td>
+    <td>distinguishedName</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atUserPassword"></a>userPassword</td>
+    <td>octetString</td>
+    <td>Passwords are stored using an Octet String syntax and are not encrypted. 
+      Transfer of cleartext passwords are strongly discouraged where the underlying 
+      transport service cannot guarantee confidentiality and may result in disclosure 
+      of the password to unauthorized parties.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atUserCertificate"></a>userCertificate</td>
+    <td>?</td>
+    <td>This attribute is to be stored and requested in the binary form, as 'userCertificate;binary'.<br>
+    </td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atCACertificate"></a>cACertificate</td>
+    <td>?</td>
+    <td>This attribute is to be stored and requested in the binary form, as 'cACertificate;binary'.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atAuthorityRevocationList"></a>authorityRevocationList</td>
+    <td>?</td>
+    <td>This attribute is to be stored and requested in the binary form, as 'authorityRevocationList;binary'.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atCertificateRevocationList"></a>certificateRevocationList</td>
+    <td>?</td>
+    <td>This attribute is to be stored and requested in the binary form, as 'certificateRevocationList;binary'.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atCrossCertificatePair"></a>crossCertificatePair</td>
+    <td>?</td>
+    <td>This attribute is to be stored and requested in the binary form, as 'crossCertificatePair;binary'.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atName"></a>name</td>
+    <td>caseIgnoreMatch</td>
+    <td>The name attribute type is the attribute supertype from which string attribute 
+      types typically used for naming may be formed. It is unlikely that values 
+      of this type itself will occur in an entry. LDAP server implementations 
+      which do not support attribute subtyping need not recognize this attribute 
+      in requests. Client implementations MUST NOT assume that LDAP servers are 
+      capable of performing attribute subtyping.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atGivenName"></a>givenName</td>
+    <td>name</td>
+    <td>The givenName attribute is used to hold the part of a person's name which 
+      is not their surname nor middle name.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atInitials"></a>initials</td>
+    <td>name</td>
+    <td>The initials attribute contains the initials of some or all of an individuals 
+      names, but not the surname(s).</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atGenerationQualifier"></a>generationQualifier</td>
+    <td>name</td>
+    <td>The generationQualifier attribute contains the part of the name which 
+      typically is the suffix, as in "IIIrd".</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atX500UniqueIdentifier"></a>x500UniqueIdentifier</td>
+    <td>bitString</td>
+    <td>The x500UniqueIdentifier attribute is used to distinguish between objects 
+      when a distinguished name has been reused. This is a different attribute 
+      type from both the "uid" and "uniqueIdentifier" types.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atDnQualifier"></a>dnQualifier</td>
+    <td>caseIgnore</td>
+    <td>The dnQualifier attribute type specifies disambiguating information to 
+      add to the relative distinguished name of an entry. It is intended for use 
+      when merging data from multiple sources in order to prevent conflicts between 
+      entries which would otherwise have the same name. It is recommended that 
+      the value of the dnQualifier attribute be the same for all entries from 
+      a particular source.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atEnhancedSearchGuide"></a>enhancedSearchGuide</td>
+    <td>?</td>
+    <td>This attribute is for use by X.500 clients in constructing search filters.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atProtocolInformation"></a>protocolInformation</td>
+    <td>protocolInformation</td>
+    <td>This attribute is used in conjunction with the presentationAddress attribute, 
+      to provide additional information to the OSI network service.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atDistinguishedName"></a>distinguishedName</td>
+    <td>distinguishedName</td>
+    <td>This attribute type is not used as the name of the object itself, but 
+      it is instead a base type from which attributes with DN syntax inherit. 
+      <p> It is unlikely that values of this type itself will occur in an entry. 
+        LDAP server implementations which do not support attribute subtyping need 
+        not recognize this attribute in requests. Client implementations MUST 
+        NOT assume that LDAP servers are capable ofperforming attribute subtyping.</p>
+    </td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atUniqueMember"></a>uniqueMember</td>
+    <td>uniqueMember</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atHouseIdentifier"></a>houseIdentifier</td>
+    <td>caseIgnore</td>
+    <td>This attribute is used to identify a building within a location.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atSupportedAlgorithms"></a>supportedAlgorithms</td>
+    <td>?</td>
+    <td>This attribute is to be stored and requested in the binary form, as 'supportedAlgorithms;binary'.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atDeltaRevocationList"></a>deltaRevocationList</td>
+    <td>?</td>
+    <td>This attribute is to be stored and requested in the binary form, as 'deltaRevocationList;binary'.</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atDmdName"></a>dmdName</td>
+    <td>?</td>
+    <td>The value of this attribute specifies a directory management domain (DMD), 
+        the administrative authority which operates the directory server.</td>
+  </tr>
+  <tr class="core"> 
+    <td><i><a name="atDc"></a>dc</i>, domainComponent</td>
+    <td>caseIgnoreIA5String</td>
+    <td>The Domain Component attribute type specifies a DNS/NRS domain. For example, 
+      "uk" or "ac". RFC 1274 + RFC 2247</td>
+  </tr>
+  <tr class="core"> 
+    <td><i><a name="atMail"></a>mail</i>, rfc822Mailbox</td>
+    <td>caseIgnoreIA5String</td>
+    <td>The RFC822 Mailbox attribute type specifies an electronic mailbox attribute 
+      following the syntax specified in RFC 822. Note that this attribute should 
+      not be used for greybook or other non-Internet order mailboxes. RFC 1274</td>
+  </tr>
+  <tr class="core"> 
+    <td><i><a name="atUid"></a>uid</i>, userid</td>
+    <td>caseIgnoreString</td>
+    <td>The Userid attribute type specifies a computer system login name. RFC 
+      1274</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="atLabeledURI"></a>labeledURI</td>
+    <td>caseExactIA5</td>
+    <td>RFC2079: Uniform Resource Identifier with optional label</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atTextEncodedORAddress"></a>textEncodedORAddress</td>
+    <td>caseIgnoreString</td>
+    <td>The Text Encoded O/R Address attribute type specifies a text encoding 
+      of an X.400 O/R address, as specified in RFC 987. The use of this attribute 
+      is deprecated as the attribute is intended for interim use only. This attribute 
+      will be the first candidate for the attribute expiry mechanisms!<br>
+    </td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atInfo"></a>info</td>
+    <td>caseIgnoreString</td>
+    <td>The Information attribute type specifies any general information pertinent 
+      to an object. It is recommended that specific usage of this attribute type 
+      is avoided, and that specific requirements are met by other (possibly additional) 
+      attribute types.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atFavouriteDrink"></a>favouriteDrink</td>
+    <td>caseIgnoreString</td>
+    <td>The Favourite Drink attribute type specifies the favourite drink of an 
+      object (or person).</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atRoomNumber"></a>roomNumber</td>
+    <td>caseIgnoreString</td>
+    <td>The Room Number attribute type specifies the room number of an object. 
+      Note that the commonName attribute should be used for naming room objects.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atPhoto"></a>photo</td>
+    <td>g3-facsimile</td>
+    <td>
+      <p>The Photo attribute type specifies a "photograph" for an object. 
+        This should be encoded in G3 fax as explained in recommendation T.4, with 
+        an ASN.1 wrapper to make it compatible with an X.400 BodyPart as defined 
+        in X.420.</p>
+      </td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atUserClass"></a>userClass</td>
+    <td>caseIgnoreString</td>
+    <td>The User Class attribute type specifies a category of computer user. The 
+      semantics placed on this attribute are for local interpretation. Examples 
+      of current usage od this attribute in academia are undergraduate student, 
+      researcher, lecturer, etc. Note that the organizationalStatus attribute 
+      may now often be preferred as it makes no distinction between computer users 
+      and others.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atHost"></a>host</td>
+    <td>caseIgnoreString</td>
+    <td>The Host attribute type specifies a host computer.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atManager"></a>manager</td>
+    <td>distinguishedName</td>
+    <td>The Manager attribute type specifies the manager of an object represented 
+      by an entry.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atDocumentIdentifier"></a>documentIdentifier</td>
+    <td>caseIgnoreString</td>
+    <td>The Document Identifier attribute type specifies a unique identifier for 
+      a document.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atDocumentTitle"></a>documentTitle</td>
+    <td>caseIgnoreString</td>
+    <td>The Document Title attribute type specifies the title of a document.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atDocumentVersion"></a>documentVersion</td>
+    <td>caseIgnoreString</td>
+    <td>The Document Version attribute type specifies the version number of a 
+      document.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atDocumentAuthor"></a>documentAuthor</td>
+    <td>distinguishedName</td>
+    <td>The Document Author attribute type specifies the distinguished name of 
+      the author of a document.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atDocumentLocation"></a>documentLocation</td>
+    <td>caseIgnoreString</td>
+    <td>The Document Location attribute type specifies the location of the document 
+      original.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atHomeTelephoneNumber"></a>homeTelephoneNumber</td>
+    <td>telephoneNumberSyntax</td>
+    <td>The Home Telephone Number attribute type specifies a home telephone number 
+      associated with a person. Attribute values should follow the agreed format 
+      for international telephone numbers: i.e., "+44 71 123 4567".</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atSecretary"></a>secretary</td>
+    <td>distinguishedName</td>
+    <td>The Secretary attribute type specifies the secretary of a person. The attribute 
+      value for Secretary is a distinguished name.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atOtherMailbox"></a>otherMailbox</td>
+    <td>SEQUENCE {<br>
+      mailboxType PrintableString, -- e.g. Telemail<br>
+      mailbox IA5String -- e.g. X378:Joe<br>
+      }<br>
+    </td>
+    <td>The Other Mailbox attribute type specifies values for electronic mailbox 
+      types other than X.400 and rfc822</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atLastModifiedTime"></a>lastModifiedTime</td>
+    <td>uTCTime</td>
+    <td>The Last Modified Time attribute type specifies the last time, in UTC 
+      time, that an entry was modified. Ideally, this attribute should be maintained 
+      by the Directory System Agent (DSA).</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atLastModifiedBy"></a>lastModifiedBy</td>
+    <td>distinguishedName</td>
+    <td>The Last Modified By attribute specifies the distinguished name of the last 
+      user to modify the associated entry. Ideally, this attribute should be maintained 
+      by the Directory System Agent (DSA).</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atARecord"></a>aRecord</td>
+    <td>DNSRecord</td>
+    <td>The A Record attribute type specifies a type A (Address) DNS resource 
+      record.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atMXRecord"></a>mXRecord</td>
+    <td>DNSRecord</td>
+    <td>The MX Record attribute type specifies a type MX (Mail Exchange) DNS resource 
+      record.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atNSRecord"></a>nSRecord</td>
+    <td>DNSRecord</td>
+    <td>The NS Record attribute type specifies an NS (Name Server) DNS resource 
+      record.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atSOARecord"></a>sOARecord</td>
+    <td>DNSRecord</td>
+    <td>The SOA Record attribute type specifies a type SOA (Start of Authority) 
+      DNS resorce record.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atCNAMERecord"></a>cNAMERecord</td>
+    <td>iA5String</td>
+    <td>The CNAME Record attribute type specifies a type CNAME (Canonical Name) 
+      DNS resource record.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><s><a name="atAssociatedDomain"></a>associatedDomain</s></td>
+    <td>caseIgnoreIA5String</td>
+    <td>The Associated Domain attribute type specifies a DNS or NRS domain which 
+      is associated with an object in the Directory Information Tree (DIT). For example, the entry in the Directory Information Tree (DIT) 
+      with a distinguished name "C=GB, O=University College London" 
+      would have an associated domain of "UCL.AC.UK. Note that all domains 
+      should be represented in rfc822 order.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atAssociatedName"></a>associatedName</td>
+    <td>distinguishedName</td>
+    <td>The Associated Name attribute type specifies an entry in the organisational 
+      Directory Information Tree (DIT) associated with a DNS/NRS domain.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atHomePostalAddress"></a>homePostalAddress</td>
+    <td>postalAddress</td>
+    <td>The Home postal address attribute type specifies a home postal address 
+      for an object. This should be limited to up to 6 lines of 30 characters 
+      each.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atPersonalTitle"></a>personalTitle</td>
+    <td>caseIgnoreString</td>
+    <td>The Personal Title attribute type specifies a personal title for a person. 
+      Examples of personal titles are "Ms", "Dr", "Prof" 
+      and "Rev".</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atMobileTelephoneNumber"></a>mobileTelephoneNumber</td>
+    <td>telephoneNumber</td>
+    <td>The Mobile Telephone Number attribute type specifies a mobile telephone 
+      number associated with a person. Attribute values should follow the agreed 
+      format for international telephone numbers: i.e., "+44 71 123 4567".</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atPagerTelephoneNumber"></a>pagerTelephoneNumber</td>
+    <td>telephoneNumber</td>
+    <td>The Pager Telephone Number attribute type specifies a pager telephone 
+      number for an object. Attribute values should follow the agreed format for 
+      international telephone numbers: i.e., "+44 71 123 4567".</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atFriendlyCountryName"></a>friendlyCountryName</td>
+    <td>caseIgnoreString</td>
+    <td>The Friendly Country Name attribute type specifies names of countries 
+      in human readable format. The standard attribute country name must be one 
+      of the two-letter codes defined in ISO 3166.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atUniqueIdentifier"></a>uniqueIdentifier</td>
+    <td>caseIgnoreString</td>
+    <td>The Unique Identifier attribute type specifies a "unique identifier" 
+      for an object represented in the Directory. The domain within which the 
+      identifier is unique, and the exact semantics of the identifier, are for 
+      local definition. For a person, this might be an institution-wide payroll 
+      number. For an organisational unit, it might be a department code.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atOrganizationalStatus"></a>organizationalStatus</td>
+    <td>caseIgnoreString</td>
+    <td>The Organisational Status attribute type specifies a category by which 
+      a person is often referred to in an organisation. Examples of usage in academia 
+      might include undergraduate student, researcher, lecturer, etc.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atJanetMailbox"></a>janetMailbox</td>
+    <td>caseIgnoreIA5String</td>
+    <td>The Janet Mailbox attribute type specifies an electronic mailbox attribute 
+      following the syntax specified in the Grey Book of the Coloured Book series. 
+      This attribute is intended for the convenience of U.K users unfamiliar with 
+      rfc822 and little-endian mail addresses. Entries using this attribute MUST 
+      also include an rfc822Mailbox attribute.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atMailPreferenceOption"></a>mailPreferenceOption</td>
+    <td>'no-list-inclusion', 'any-list-inclusion', 'professional-list-inclusion'</td>
+    <td>An attribute to allow users to indicate a preference for inclusion of 
+      their names on mailing lists (electronic or physical). The absence of such 
+      an attribute should be interpreted as if the attribute was present with 
+      value "no-list-inclusion". This attribute should be interpreted 
+      by anyone using the directory to derive mailing lists, and its value respected.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atBuildingName"></a>buildingName</td>
+    <td>caseIgnoreString</td>
+    <td>The Building Name attribute type specifies the name of the building where 
+      an organisation or organisational unit is based.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atDSAQuality"></a>dSAQuality</td>
+    <td>DSAQuality</td>
+    <td>The DSA Quality attribute type specifies the purported quality of a Directory System Agent (DSA). 
+      It allows a DSA manager to indicate the expected level of availability of 
+      the DSA.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atSingleLevelQuality"></a>singleLevelQuality</td>
+    <td>DataQuality</td>
+    <td>The Single Level Quality attribute type specifies the purported data quality 
+      at the level immediately below in the Directory Information Tree (DIT).</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atSubtreeMinimumQuality"></a>subtreeMinimumQuality</td>
+    <td>DataQuality</td>
+    <td>The Subtree Minimum Quality attribute type specifies the purported minimum 
+      data quality for a Directory Information Tree (DIT) subtree.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atSubtreeMaximumQuality"></a>subtreeMaximumQuality</td>
+    <td>DataQuality</td>
+    <td>The Subtree Maximum Quality attribute type specifies the purported maximum 
+      data quality for a Directory Information Tree (DIT) subtree.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atPersonalSignature"></a>personalSignature</td>
+    <td>g3-facsimile</td>
+    <td>The Personal Signature attribute type allows for a representation of a 
+      person's signature. This should be encoded in G3 fax as explained in recommendation 
+      T.4, with an ASN.1 wrapper to make it compatible with an X.400 BodyPart 
+      as defined in X.420.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atdITRedirect"></a>dITRedirect</td>
+    <td>distinguishedName</td>
+    <td>The Directory Information Tree (DIT) Redirect attribute type is used to indicate that the object described 
+      by one entry now has a newer entry in the Directory Information Tree (DIT). The entry containing the 
+      redirection attribute should be expired after a suitable grace period. This 
+      attribute may be used when an individual changes his/her place of work, 
+      and thus acquires a new organisational DN.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atAudio"></a>audio</td>
+    <td>audio</td>
+    <td>The Audio attribute type allows the storing of sounds in the Directory. 
+      The attribute uses a u-law encoded sound file as used by the "play" 
+      utility on a Sun 4. This is an interim format.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="atDocumentPublisher"></a>documentPublisher</td>
+    <td>caseIgnoreString</td>
+    <td>The Publisher of Document attribute is the person and/or organization 
+      that published a document.</td>
+  </tr>
+  <tr class="inetOrgPerson"> 
+    <td><a name="atCarLicense"></a>carLicense</td>
+    <td>caseIgnore</td>
+    <td>This multivalued field is used to record the values of the license or 
+      registration plate associated with an individual.</td>
+  </tr>
+  <tr class="inetOrgPerson"> 
+    <td><a name="atDepartmentNumber"></a>departmentNumber</td>
+    <td>caseIgnore</td>
+    <td>Code for department to which a person belongs. This can also be strictly 
+      numeric (e.g., 1234) or alphanumeric (e.g., ABC/123).</td>
+  </tr>
+  <tr class="inetOrgPerson"> 
+    <td><a name="atDisplayName"></a>displayName</td>
+    <td>caseIgnore</td>
+    <td>When displaying an entry, especially within a one-line summary list, it 
+      is useful to be able to identify a name to be used. Since other attribute 
+      types such as 'cn' are multivalued, an additional attribute type is needed. Display name is defined for this purpose.</td>
+  </tr>
+  <tr class="inetOrgPerson"> 
+    <td><a name="atEmployeeNumber"></a>employeeNumber</td>
+    <td>caseIgnore</td>
+    <td>Numeric or alphanumeric identifier assigned to a person, typically based 
+      on order of hire or association with an organization. Single valued.</td>
+  </tr>
+  <tr class="inetOrgPerson"> 
+    <td><a name="atEmployeeType"></a>employeeType</td>
+    <td>caseIgnore</td>
+    <td>Used to identify the employer to employee relationship. Typical values 
+      used will be "Contractor", "Employee", "Intern", 
+      "Temp", "External", and "Unknown" but any 
+      value may be used.</td>
+  </tr>
+  <tr class="inetOrgPerson"> 
+    <td><a name="atJpegPhoto"></a>jpegPhoto</td>
+    <td>&nbsp;</td>
+    <td>Used to store one or more images of a person using the JPEG File Interchange 
+      Format [JFIF].</td>
+  </tr>
+  <tr class="inetOrgPerson"> 
+    <td><a name="atPreferredLanguage"></a>preferredLanguage</td>
+    <td>caseIgnore</td>
+    <td>Used to indicate an individual's preferred written or spoken language. 
+      This is useful for international correspondence or human-computer interaction. 
+      Values for this attribute type MUST conform to the definition of the Accept-Language header field defined in [RFC2068] 
+      with one exception: the sequence "Accept-Language" ":" 
+      should be omitted. This is a single valued attribute type.</td>
+  </tr>
+  <tr class="inetOrgPerson"> 
+    <td><a name="atUserSMIMECertificate"></a>userSMIMECertificate</td>
+    <td>&nbsp;</td>
+    <td>A PKCS#7 [RFC2315] SignedData, where the content that is signed is ignored 
+      by consumers of userSMIMECertificate values. It is recommended that values 
+      have a `contentType' of data with an absent `content' field. Values of this attribute contain a person's entire certificate 
+      chain and an smimeCapabilities field [RFC2633] that at a minimum describes 
+      their SMIME algorithm capabilities. Values for this attribute are to be 
+      stored and requested in binary form, as 'userSMIMECertificate;binary'. If 
+      available, this attribute is preferred over the userCertificate attribute 
+      for S/MIME applications.</td>
+  </tr>
+  <tr class="inetOrgPerson"> 
+    <td><a name="atUserPKCS12"></a>userPKCS12</td>
+    <td>&nbsp;</td>
+    <td>PKCS #12 provides a format for exchange of personal identity information. 
+      When such information is stored in a directory service, the userPKCS12 attribute 
+      should be used. This attribute is to be stored and requested in binary form, 
+      as 'userPKCS12;binary'. The attribute values are PFX PDUs stored as binary 
+      data.</td>
+  </tr>
+</tbody></table>
+<h2>Object Classes</h2>
+<table border="1" cellspacing="0" cellpadding="2">
+  <tbody><tr> 
+    <th>ObjectClass</th>
+    <th>Subclass of</th>
+    <th>Required Attributes</th>
+    <th>Optional Attributes</th>
+    <th>Description</th>
+  </tr>
+  <tr class="core"> 
+    <td><a name="ocTop"></a>top</td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atObjectClass">objectClass</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>alias</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atAliasedObjectName">aliasedObjectName</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="ocCountry"></a>country</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atC">c</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSearchGuide">searchGuide</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>locality</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atStreet">street</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSearchGuide">searchGuide</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSt">st</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="ocOrganization"></a>organization</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atO">o</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUserPassword">userPassword</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSearchGuide">searchGuide</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atBusinessCategory">businessCategory</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atX121Address">x121Address</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atRegisteredAddress">registeredAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDestinationIndicator">destinationIndicator</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPreferredDeliveryMethod">preferredDeliveryMethod</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelexNumber">telexNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTeletexTerminalIdentifier">teletexTerminalIdentifier</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelephoneNumber">telephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atInternationaliSDNNumber">internationaliSDNNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atFacsimileTelephoneNumber">facsimileTelephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atStreet">street</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostOfficeBox">postOfficeBox</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalCode">postalCode</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalAddress">postalAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPhysicalDeliveryOfficeName">physicalDeliveryOfficeName</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSt">st</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="ocOrganizationalUnit"></a>organizationalUnit</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOu">ou</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUserPassword">userPassword</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSearchGuide">searchGuide</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atBusinessCategory">businessCategory</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atX121Address">x121Address</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atRegisteredAddress">registeredAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDestinationIndicator">destinationIndicator</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPreferredDeliveryMethod">preferredDeliveryMethod</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelexNumber">telexNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTeletexTerminalIdentifier">teletexTerminalIdentifier</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelephoneNumber">telephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atInternationaliSDNNumber">internationaliSDNNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atFacsimileTelephoneNumber">facsimileTelephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atStreet">street</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostOfficeBox">postOfficeBox</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalCode">postalCode</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalAddress">postalAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPhysicalDeliveryOfficeName">physicalDeliveryOfficeName</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSt">st</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="ocPerson"></a>person</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSn">sn</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCn">cn</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUserPassword">userPassword</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelephoneNumber">telephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="ocOrganizationalPerson"></a>organizationalPerson</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocPerson">person</a></td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTitle">title</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atX121Address">x121Address</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atRegisteredAddress">registeredAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDestinationIndicator">destinationIndicator</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPreferredDeliveryMethod">preferredDeliveryMethod</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelexNumber">telexNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTeletexTerminalIdentifier">teletexTerminalIdentifier</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelephoneNumber">telephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atInternationaliSDNNumber">internationaliSDNNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atFacsimileTelephoneNumber">facsimileTelephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atStreet">street</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostOfficeBox">postOfficeBox</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalCode">postalCode</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalAddress">postalAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPhysicalDeliveryOfficeName">physicalDeliveryOfficeName</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOu">ou</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSt">st</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>organizationalRole</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCn">cn</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atX121Address">x121Address</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atRegisteredAddress">registeredAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDestinationIndicator">destinationIndicator</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPreferredDeliveryMethod">preferredDeliveryMethod</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelexNumber">telexNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTeletexTerminalIdentifier">teletexTerminalIdentifier</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelephoneNumber">telephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atInternationaliSDNNumber">internationaliSDNNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atFacsimileTelephoneNumber">facsimileTelephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atRoleOccupant">roleOccupant</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPreferredDeliveryMethod">preferredDeliveryMethod</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atStreet">street</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostOfficeBox">postOfficeBox</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalCode">postalCode</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalAddress">postalAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPhysicalDeliveryOfficeName">physicalDeliveryOfficeName</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOu">ou</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSt">st</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>groupOfNames</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atMember">member</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCn">cn</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atBusinessCategory">businessCategory</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOwner">owner</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOu">ou</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atO">o</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>residentialPerson</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocPerson">person</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atBusinessCategory">businessCategory</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atX121Address">x121Address</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atRegisteredAddress">registeredAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDestinationIndicator">destinationIndicator</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPreferredDeliveryMethod">preferredDeliveryMethod</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelexNumber">telexNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTeletexTerminalIdentifier">teletexTerminalIdentifier</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelephoneNumber">telephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atInternationaliSDNNumber">internationaliSDNNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atFacsimileTelephoneNumber">facsimileTelephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPreferredDeliveryMethod">preferredDeliveryMethod</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atStreet">street</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostOfficeBox">postOfficeBox</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalCode">postalCode</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalAddress">postalAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPhysicalDeliveryOfficeName">physicalDeliveryOfficeName</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSt">st</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>applicationProcess</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCn">cn</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOu">ou</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="ocApplicationEntity"></a>applicationEntity</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPresentationAddress">presentationAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCn">cn</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSupportedApplicationContext">supportedApplicationContext</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOu">ou</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atO">o</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="ocDSA"></a>dSA</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocApplicationEntity">applicationEntity</a></td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atKnowledgeInformation">knowledgeInformation</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>device</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td>
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCn">cn</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSerialNumber">serialNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOwner">owner</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOu">ou</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atO">o</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>strongAuthenticationUser</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td>
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUserCertificate">userCertificate</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td><a name="ocCertificationAuthority"></a>certificationAuthority</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atAuthorityRevocationList">authorityRevocationList</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCertificateRevocationList">certificateRevocationList</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCACertificate">cACertificate</a> </li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCrossCertificatePair">crossCertificatePair</a> </li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>groupOfUniqueNames</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUniqueMember">uniqueMember</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCn">cn</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atBusinessCategory">businessCategory</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOwner">owner</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOu">ou</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atO">o</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>userSecurityInformation</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSupportedAlgorithms">supportedAlgorithms</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>certificationAuthority-V2</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocCertificationAuthority">certificationAuthority</a></td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDeltaRevocationList">deltaRevocationList</a> </li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>cRLDistributionPoint</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCn">cn</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCertificateRevocationList">certificateRevocationList</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atAuthorityRevocationList">authorityRevocationList</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDeltaRevocationList">deltaRevocationList</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>dmd</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDmdName">dmdName</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUserPassword">userPassword</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSearchGuide">searchGuide</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atBusinessCategory">businessCategory</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atX121Address">x121Address</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atRegisteredAddress">registeredAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDestinationIndicator">destinationIndicator</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPreferredDeliveryMethod">preferredDeliveryMethod</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelexNumber">telexNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTeletexTerminalIdentifier">teletexTerminalIdentifier</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelephoneNumber">telephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atInternationaliSDNNumber">internationaliSDNNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atFacsimileTelephoneNumber">facsimileTelephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atStreet">street</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostOfficeBox">postOfficeBox</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalCode">postalCode</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalAddress">postalAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPhysicalDeliveryOfficeName">physicalDeliveryOfficeName</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSt">st</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="core"> 
+    <td>dcObject</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDc">dc</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+    <td>RFC 2247</td>
+  </tr>
+  <tr class="core"> 
+    <td>uidObject</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUid">uid</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+    <td> RFC 2377</td>
+  </tr>
+  <tr class="core"> 
+    <td>labeledURIObject</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atLabeledURI">labeledURI</a></li>
+      </ul>
+    </td>
+    <td>RFC2079: object that contains the URI attribute type</td>
+  </tr>
+  <tr class="cosine"> 
+    <td>pilotObject</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atInfo">info</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPhoto">photo</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atManager">manager</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUniqueIdentifier">uniqueIdentifier</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atLastModifiedTime">lastModifiedTime</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atLastModifiedBy">lastModifiedBy</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atdITRedirect">dITRedirect</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atAudio">audio</a></li>
+      </ul>
+    </td>
+    <td>The PilotObject object class is used as a sub-class to allow some common, 
+      useful attributes to be assigned to entries of all other object classes.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td> 
+      <p>pilotPerson, newPilotPerson</p>
+    </td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocPerson">person</a></td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUserid">userid</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTextEncodedORAddress">textEncodedORAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atMail">mail</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atFavouriteDrink">favouriteDrink</a></li>
+        <li> <a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atRoomNumber">roomNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUserClass">userClass</a></li>
+        <li> <a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atHomeTelephoneNumber">homeTelephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atHomePostalAddress">homePostalAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSecretary">secretary</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPersonalTitle">personalTitle</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPreferredDeliveryMethod">preferredDeliveryMethod</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atBusinessCategory">businessCategory</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atJanetMailbox">janetMailbox</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOtherMailbox">otherMailbox</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atMobileTelephoneNumber">mobileTelephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPagerTelephoneNumber">pagerTelephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOrganizationalStatus">organizationalStatus</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atMailPreferenceOption">mailPreferenceOption</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPersonalSignature">personalSignature</a></li>
+      </ul>
+    </td>
+    <td>The PilotPerson object class is used as a sub-class of person, to allow 
+      the use of a number of additional attributes to be assigned to entries of 
+      object class person.</td>
+  </tr>
+  <tr> 
+    <td class="cosine">account</td>
+    <td class="cosine"><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td class="cosine"> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUid">userid</a></li>
+      </ul>
+    </td>
+    <td class="cosine"> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atO">o</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOu">ou</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atHost">host</a></li>
+      </ul>
+    </td>
+    <td class="cosine">The Account object class is used to define entries representing 
+      computer accounts. The userid attribute should be used for naming entries 
+      of this object class.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td>document</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDocumentIdentifier">documentIdentifier</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCommonName">commonName</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atO">o</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOu">ou</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDocumentTitle">documentTitle</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDocumentVersion">documentVersion</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDocumentAuthor">documentAuthor</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDocumentLocation">documentLocation</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDocumentPublisher">documentPublisher</a></li>
+      </ul>
+    </td>
+    <td>The Document object class is used to define entries which represent documents.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td>room</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCn">commonName</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atRoomNumber">roomNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelephoneNumber">telephoneNumber</a></li>
+      </ul>
+    </td>
+    <td>The Room object class is used to define entries representing rooms. The 
+      commonName attribute should be used for naming pentries of this object class.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td>documentSeries</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atO">commonName</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelephoneNumber">telephoneNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atO">o</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atOu">ou</a></li>
+      </ul>
+    </td>
+    <td>The Document Series object class is used to define an entry which represents 
+      a series of documents (e.g., The Request For Comments papers).</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><a name="ocDomain"></a>domain</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDc">domainComponent</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><s>associatedName</s></li>
+        <li><s>organizationName</s></li>
+        <li><s>organizationalAttributeSet</s></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUserPassword"><i>userPassword</i></a></li>
+        <li><i><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSearchGuide">searchGuide</a></i></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso"><i>seeAlso</i></a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atBusinessCategory"><i>businessCategory</i></a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atX121Address"><i>x121Address</i></a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atRegisteredAddress"><i>registeredAddress</i></a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDestinationIndicator"><i>destinationIndicator</i></a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPreferredDeliveryMethod"><i>preferredDeliveryMethod</i></a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelexNumber"><i>telexNumber</i></a></li>
+        <li><i><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTeletexTerminalIdentifier">teletexTerminalIdentifier</a></i></li>
+        <li><i><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelephoneNumber">telephoneNumber</a></i></li>
+        <li><i><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atInternationaliSDNNumber">internationaliSDNNumber</a></i></li>
+        <li><i><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atFacsimileTelephoneNumber">facsimileTelephoneNumber</a></i></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atStreet"><i>street</i></a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostOfficeBox"><i>postOfficeBox</i></a></li>
+        <li><i><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalCode">postalCode</a></i></li>
+        <li><i><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPostalAddress">postalAddress</a></i></li>
+        <li><i><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPhysicalDeliveryOfficeName">physicalDeliveryOfficeName</a></i></li>
+        <li><i><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSt">st</a></i></li>
+        <li><i><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atL">l</a></i></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription"><i>description</i></a></li>
+      </ul>
+      </td>
+    <td>The Domain object class is used to define entries which represent DNS 
+      or NRS domains. The domainComponent attribute should be used for naming 
+      entries of this object class.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td>rFC822localPart</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocDomain">domain</a></td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCn">cn</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSn">sn</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDescription">description</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSeeAlso">seeAlso</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atTelephoneNumber">telephoneNumber</a></li>
+        <li><s>postalAttributeSet</s></li>
+        <li><s>telecommunicationAttributeSet</s></li>
+      </ul>
+    </td>
+    <td>The RFC822 Local Part object class is used to define entries which represent 
+      the local part of RFC822 mail addresses. This treats this part of an RFC822 
+      address as a domain.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td>dNSDomain</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocDomain">domain</a></td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atARecord">ARecord</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atMDRecord">MDRecord</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atMXRecord">MXRecord</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atNSRecord">NSRecord</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSOARecord">SOARecord</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCNAMERecord">CNAMERecord</a></li>
+      </ul>
+    </td>
+    <td>The DNS Domain (Domain NameServer) object class is used to define entries 
+      for DNS domains.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td>domainRelatedObject</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atAssociatedDomain">associatedDomain</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+    <td>The Domain Related Object object class is used to define entries which 
+      represent DNS/NRS domains which are "equivalent" to an X.500 domain: 
+      e.g., an organisation or organisational unit.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td>friendlyCountry</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocCountry">country</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atFriendlyCountryName">friendlyCountryName</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+    <td>The Friendly Country object class is used to define country entries in 
+      the Directory Information Tree (DIT). The object class is used to allow friendlier naming of countries 
+      than that allowed by the object class country. The naming attribute of object 
+      class country, countryName, has to be a 2 letter string defined in ISO 3166.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td><i>simpleSecurityObject</i></td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUserPassword">userPassword</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+    <td>The Simple Security Object object class is used to allow an entry to have 
+      a userPassword attribute when an entry's principal object classes do not 
+      allow userPassword as an attribute type.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td>pilotOrganization</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocOrganization">organization</a>, <a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocOrganizationalUnit">organizationalUnit</a></td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atBuildingName">buildingName</a></li>
+      </ul>
+    </td>
+    <td>The PilotOrganization object class is used as a sub-class of organization 
+      and organizationalUnit to allow a number of additional attributes to be 
+      assigned to entries of object classes organization and organizationalUnit.</td>
+  </tr>
+  <tr class="cosine"> 
+    <td>pilotDSA</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocDSA">dsa</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDSAQuality">dSAQuality</a></li>
+      </ul>
+    </td>
+    <td>&nbsp;</td>
+    <td>The PilotDSA object class is used as a sub-class of the dsa object class 
+      to allow additional attributes to be assigned to entries for Directory System Agents (DSAs).</td>
+  </tr>
+  <tr class="cosine"> 
+    <td>qualityLabelledData</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocTop">top</a></td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDSAQuality">dSAQuality</a></li>
+      </ul>
+    </td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSubtreeMinimumQuality">subtreeMinimumQuality</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSubtreeMaximumQuality">subtreeMaximumQuality</a></li>
+      </ul>
+    </td>
+    <td>The Quality Labelled Data object class is used to allow the assignment 
+      of the data quality attributes to subtrees in the Directory Information Tree (DIT).</td>
+  </tr>
+  <tr class="inetOrgPerson"> 
+    <td>inetOrgPerson</td>
+    <td><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#ocOrganizationalPerson">organizationalPerson</a></td>
+    <td>&nbsp;</td>
+    <td> 
+      <ul>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atAudio">audio</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atBusinessCategory">businessCategory</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atCarLicense">carLicense</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDepartmentNumber">departmentNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atDisplayName">displayName</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atEmployeeNumber">employeeNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atEmployeeType">employeeType</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atGivenName">givenName</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atHomePhone">homePhone</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atHomePostalAddress">homePostalAddress</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atInitials">initials</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atJpegPhoto">jpegPhoto</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atLabeledURI">labeledURI</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atMail">mail</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atManager">manager</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atMobile">mobile</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atO">o</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPager">pager</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPhoto">photo</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atRoomNumber">roomNumber</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atSecretary">secretary</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUid">uid</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUserCertificate">userCertificate</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atX500uniqueIdentifier">x500uniqueIdentifier</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atPreferredLanguage">preferredLanguage</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUserSMIMECertificate">userSMIMECertificate</a></li>
+        <li><a href="https://oav.net/mirrors/LDAP-ObjectClasses.html#atUserPKCS12">userPKCS12</a></li>
+      </ul>
+    </td>
+    <td>The inetOrgPerson represents people who are associated with an organization 
+      in some way. It is a structural class and is derived from the organizationalPerson 
+      class which is defined in X.521.</td>
+  </tr>
+</tbody></table>
+
+
+</body></html>
