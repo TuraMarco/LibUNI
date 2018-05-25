@@ -2,7 +2,7 @@
 #     LDAP     #
 ################
 
-# LDIF ------------------------------------------------------------------------------------------------------
+# LDIF ---------------------------------------------------------------------------------------------------------------------------------------------------
 # L'LDIF è iun file formattato esplicitamente per scambiare entry LDAP, 
 #   è formatato come una lista di entry separate da linee vuote.
 
@@ -90,4 +90,69 @@ o: university               # attributo di tipo o:
 #       octetStringOrderingStringMatch	    ordering	octet string
 #       octetStringSubstringsStringMatch	ordering	octet string
 #       objectIdentiferMatch	            equality	object identifier       
+#
+# INSERIMENTO NUOVI SCHEMI ------------------------------------------------------------------------------------------------------------------------------------
+# LDAP ha la particolarità di autodescriversi, in breve tutte le direttive di configurazione sono 'attribut' in 'entry' 
+#   di un albero separato da quello dei dati veri e propri
+#
+#   cn=MioSchema,cn=schema,cn=config ---> questa entry contiene il mio schema personale con AttributeType ed ObjectClass personali
+#   olcDatabase=mdb,cn=config ---> contiene fra le altre cose il 'domainComponent' (dc) che fà riferimento al mio database 
+#                                     come valore dell'attributo 'olcSuffix'.
+#
+#Una volta definito il mio file LDIF che descrive il mio schema personale posso aggiungerlo attraverso la direttiva:
 
+$(sudo) ldapadd -Y EXTERNAL -H ldapi:/// -f MioSchema.ldif
+
+# RICERCA ENTRY ----------------------------------------------------------------------------------------------------------------------------------------------
+# La ricerca deve specificare:
+#   |- Un BIND DN ----> utente con cui autenticarsi sul server LDAP
+#   |- Un BASE DN ----> nodo da cui iniziare la ricerca
+#   |- uno SCOPE -----> definisce quanto estendere la ricerca
+#   |                       |- SUB ---> Intero Sottoalbero (Default)
+#   |                       |- ONE ---> I soli figli diretti del BASE DN
+#   |                       \_ BASE --> Il solo nodo BASE DN
+#   \_ eventualmente un FILTRO ---> utile per eseguire una ricerca per contenuto delle entry anziche posizionale, si crea sfruttando 
+#                                       delle espressioni logiche in notazione prefissa.
+#
+#       ####################################
+#       #    Sintassi Filtri ldapsearch    #
+#       ####################################
+#       <filter>::='('<filtercomp>')'
+#       <filtercomp>::=<and>|<or>|<not>|<item>
+#       <and>::='&'<filterlist>
+#       <or>::='|'<filterlist>
+#       <not>::='!'<filter>
+#       <filterlist>::=<filter>|<filter><filterlist>
+#       <item>::=<simple>|<present>|<substring>
+#       <simple>::=<attr><filtertype><value>
+#       <filtertype>::=<equal>|<approx>|<greater>|<less>
+#       <equal>::='='
+#       <approx>::='~='
+#       <greater>::='>='
+#       <less>::='<='
+#       <present>::=<attr>'=*'
+#       <substring>::=<attr>'='<initial><any><final>
+#       <initial>::=NULL|<value>
+#       <any>::='*'<starval>
+#       <starval>::=NULL|<value>'*'<starval>
+#       <final>::=NULL|<value>
+
+(cn=Babs Jensen)    # Ricerca la entri con questo attributo
+
+(!(cn=Tim Howes))   # Ricerca la entry che NON ha questo attributo
+
+(&                                  # Ricerca la entry composta da
+    (objectClass= Person)           # questo in AND logico
+    (|
+        (sn= Jensen)(cn= Babs J*)   # con l'OR logico di questi due
+    )
+)
+
+(o= univ*of*m ich*) # Ricerca la entry che possiede un attributo che rispecchia il path con le wildcard
+
+(&                                  # Ricerca la entry composta da
+    (|                              # l'OR logico 
+        (uid= jack)(uid= jill)      # di queste due
+    )
+    (objectclass= posix Account)    # in AND logico con questa
+)
