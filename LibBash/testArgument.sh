@@ -1,4 +1,5 @@
-#!/bin/bash
+# Autore: TURA MARCO
+# GIT: https://github.com/TuraMarco/LibUNI
 
 ##############
 # TEST UNARI #

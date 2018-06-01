@@ -1,10 +1,13 @@
+# Autore: TURA MARCO
+# GIT: https://github.com/TuraMarco/LibUNI
+
 ################
 #     SNMP     #
 ################
 # Il protocollo SNMP permette di gestire in maniera semplificata diverse risorse di rete. 
 #   Ogni oggetto è rappresentato da un OID univoco ed incluso in un database detto MIB.
 
-# PREDISPOSIZIONE ---------------------------------------------------------------------------------------
+# PREDISPOSIZIONE --------------------------------------------------------------------------------------------
 # Editare file /etc/snmp/snmp.conf e commentare la riga 
 #
 #       mibs :      >>>>>>>>>     #mibs :
@@ -32,22 +35,22 @@
 #
 #       sudo systemctl restart snmpd
 
-# SNMP WALK -------------------------------------------------------------------------------------------
+# SNMP WALK ----------------------------------------------------------------------------------------------------
 # Il comando snmpwalk esegue una serie di getnext al fine di esplorare l'intero 
 #   sottoalbero che gli si è specificato e visualizzarne tutte le entry.
 
-snmpwalk -v 1 -c public 10.9.9.1 .1
+snmpwalk -v 1 -c public <indirizzo_macchina> .1
 
 #   Il comando sopra pone in output l'intera struttura del dell albero, 
 #   da l'OID .1 (radice) sino alla fine.
 #   I flag usati sono:
 #       -v 1 ---------> che specifica la cersione del protocollo usata 1, 2c, 3, (per noi sempre 1).
 #       -c public ----> specifica la community string per i protocolli v1 e v2c, (per noi sempre public).
-#       10.9.9.1 -----> indirizzo IP dell'agent a cui fare richiesta.
+#       <indirizzo_macchina> -----> indirizzo IP dell'agent a cui fare richiesta.
 #       .1 -----------> nodo da cui partire la navigazione (.1 è la root dell'albero).
 #   Da notare che il comando si presenta come un filtro per cui si presta volentieri al piping.
 
-# SNMP GET --------------------------------------------------------------------------------------------
+# SNMP GET -----------------------------------------------------------------------------------------------------------
 # Il comando snmpget permette di visualizzare il valore di una specifica entry associata ad un OID.
 #   esisitono 2 soli tipi di entry e possono essere identificati come:
 #       scalari ---> sono entry che rappresentano un solo valore isolato, sono accessibili con OID.0
@@ -58,7 +61,7 @@ snmpwalk -v 1 -c public 10.9.9.1 .1
 #                       permette di accedere al valore della cella della colonna 1 riga 1 della 
 #                       tabella specificata dall'OID 
 
-snmpget -v 1 -c public 192.168.56.203 'UCD-SNMP-MIB:memAvailReal.0'
+snmpget -v 1 -c public <indirizzo_macchina> 'UCD-SNMP-MIB:memAvailReal.0'
 
 #   Il comanddo sopra permette di accedere e visualizzare la entry identificata dal nome simbolico 
 #   UCD-SNMP-MIB:memAvailReal che come si puo vedere all'interno del sito scaricato offline 
@@ -67,7 +70,61 @@ snmpget -v 1 -c public 192.168.56.203 'UCD-SNMP-MIB:memAvailReal.0'
 #   I flag usati sono:
 #       -v 1 ---------------> che specifica la cersione del protocollo usata 1, 2c, 3, (per noi sempre 1).
 #       -c public ----------> specifica la community string per i protocolli v1 e v2c, (per noi sempre public).
-#       192.168.56.203 -----> indirizzo IP dell'agent a cui fare richiesta.
+#       <indirizzo_macchina> -----> indirizzo IP dell'agent a cui fare richiesta.
 #       'UCD-SNMP-MIB:memAvailReal.0' -----------> entry di cui si vuole sapere il valore.
 #   Da notare che anche qui il comando si presenta come un filtro per cui si presta volentieri al piping.
 
+# EXT TABLE ----------------------------------------------------------------------------------------------------------
+# SNMP permette oltre che interrogare entry sul suo albero conteneti informazioni di carattere generale 
+#   sul dispositivo dell'agent, permette inoltre di estendere il funzionamento dell'agent all'esecuzione 
+#   di script customizzabili che ne accrescono enormemente le potenzialità.
+#   Questa estensione avviene aggiungendo direttive "extend" al file di configurazione 
+#   /etc/snmp/snmpd.conf ad esempio...
+#   Ricavare la data dalla entry NET-SNMP-EXTEND-MIB::nsExtendOutputFull."currdate"
+#
+#       extend currdate /bin/date
+#
+#   Restituire il numero di processi in esecuzione sulla macchina
+#
+#       extend-sh sshnum ps haux | wc -l
+#
+#   Qui la differenza sta nel fatto che evocando un comando complesso (pipe) la parola chiave non è piu 
+#   extend ma extend-sh, inoltre questo comando viene eseguito all'interrogazione della entry 
+#   NET-SNMP-EXTEND-MIB::nsExtendOutputFull."sshnum".
+#   Ovviamente al termine della modifica eseguita sul file di configurazione è necessario riavviare il 
+#   sevizio snmpd con il comando:
+#
+#       sudo systemctl restart snmpd
+#
+#   E' fondamentale tenere amente che i valori restituiti sono cachati e il comando non viene rilanciato 
+#   tutte le volte che la entry viene interrogata.
+#   I metodo con cui è possibile interrogare la extTable è il classico comando snmpget:
+
+snmpget -v 1 -c public <indirizzo_macchina> 'NET-SNMP-EXTEND-MIB::nsExtendOutputFull."sshnum"'
+
+#   Nel caso si preferisca estrarre il solo valore pulito si usa
+
+snmpget -v 1 -c public <indirizzo_macchina> 'NET-SNMP-EXTEND-MIB::nsExtendOutputFull."sshnum"' |
+    awk -F 'STRING :' '{ print $2 }'
+
+#   La problematica principale di questo sistema è la necessità di un editing piu specifico nel caso si 
+#   vogliano lanciare comandi che richedano i permessi di root.
+#
+#   1) Editare il file di configurazione /etc/snmp/snmpd.conf per includere la nuova regola con l'aggiunta di 
+#      /usr/bin/sudo:
+#
+#       extend nomeEntry /usr/bin/sudo <comando>
+#
+#   2) Aggiungere una regola in /etc/sudoers (tramite il comando 'sudo visudo') per permettere al demone
+#      snmp di eseguire il comando come root senza dover inserire la password:
+#
+#       snmp ALL=NOPASSWD:<comando>
+#
+#   3) Testare l’esito di questa operazione impersonando l’utente snmp e cercando di eseguire il comando
+#      che richiede permessi di root lanciando il comando da root:
+#
+#       su -s /bin/bash - snmp | <comando>
+#
+#      per poi vedere se il risultato è coerente con quanto ci si aspetta.
+
+# INFO PROCESSI ---------------------------------------------------------------------------------------------------
