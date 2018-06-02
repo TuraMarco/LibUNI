@@ -128,3 +128,58 @@ snmpget -v 1 -c public <indirizzo_macchina> 'NET-SNMP-EXTEND-MIB::nsExtendOutput
 #      per poi vedere se il risultato è coerente con quanto ci si aspetta.
 
 # INFO PROCESSI ---------------------------------------------------------------------------------------------------
+# Un altro utile impiego di SNMP è quello di recuperare informazioni dai processi in esecuzione 
+#   su un dato dispositivo dotato di agent SNMP.
+#   Il primo passo per ottenere questo comportamento è quello di editare il file /etc/snmp/snmpd.conf
+#   aggiungendo al file la seguente direttiva:
+#
+#       proc <nome_processo> <max_numero> <min_numero>
+#
+#   un esempio di monitoraggio del demone rsyslogd può essere:
+#
+#       proc rsyslogd 10 1
+#
+#   che vengono interpretate come: Il demone deve avere un numero di istanze compreso tra 1 e 10.
+#   E' importante ricordarsi di riavviare il demone con il comando:
+#
+#       sudo systemctl restart snmpd
+#
+#   Ottenerer il numero di istanze di un processo può essere fondamentale per comprendere se esso è attivo
+#   oppure no.
+#   Il problema centrale è quello di ottenere l'id della tabella, questo viene fatto con l'impiego del 
+#   comando:
+
+ID = $(snmpwalk -v 1 -c public 10.9.9.1 "UCD-SNMP-MIB::prNames" | grep rsyslogd | awk -F "prNames." '{ print $2 }') | awk -F "=" '{ print $1 }'
+
+#   Utilizzabile poi in seguito per ottenere il conteggio:
+
+snmpget -v 1 -c public 10.9.9.1 "UCD-SNMP-MIB::prCount.$ID" | awk -F " INTEGER:" '{ print $2 }'
+
+#   Si ricorda inoltre che il modulo "UCD-SNMP-MIB" contiene molte altre informazioni sui processi registrati,
+#   tutte visualizzabili con la chiamata:
+
+snmpwalk -v 1 -c public 10.9.9.1 .1 | grep UCD-SNMP-MIB
+
+# FUNZIONI UTILI ----------------------------------------------------------------------------------------------------
+# Ottiene il numero di istanze di un processo registrato tramite SNMP
+# ARGOMENTI : $1 nome processo , $2 indirizzo macchina
+function getProcessCount ()
+{
+    # Ottengo l'id del processo
+    ID = $ ( snmpwalk -v 1 -c public $2 " UCD - SNMP - MIB :: prNames " \
+        | grep " $1 " | awk -F " prNames . " ’{ print $2 } ’ \
+        | awk -F " = " ’{ print $1 } ’ )
+    
+    # Utilizzo l'id per ottenere il conteggio
+    NUM = $ ( snmpget -v 1 -c public $2 " UCD - SNMP - MIB :: prCount . $ID " \
+    | awk -F " INTEGER : " ’{ print $2 } ’ )
+    
+    # Stampo il risultato
+    echo $NUM
+}
+
+# Esempio di utilizzo :
+NUMERO = $ ( getProcessCount " rsyslogd " " 10.9.9.1 " )
+echo $NUMERO
+
+
