@@ -62,7 +62,11 @@ iptables -I FORWARD <options> -j ACCEPT
 #                                                                       |- ESTABLISHED ----> Connessione stabilita
 #                                                                       |_ RELATED --------> Connessione già esistente
 #   E' importante ricordarsi che le regole iptables non sono persistenti e se si vuole renderle tali è necessario scriverle 
-#   all'internpo del file ~/.bashrc
+#   all'internpo del file ~/.bashrc, in alternativa è possibile esportare ed importare le regole su e da un file con i seguenti comandi:
+#   Salva la configurazione corrente sul file
+iptables-save > rules.txt
+#   Ripristina la configurazione salvata
+iptables-restore < rules.txt
 
 # RIMUOVERE UNA REGOLE -------------------------------------------------------------------------------------------------------------------
 # Al fine di rimuovere una regole si possono usare 2 strade: usare il flag -D per poi specificare il numero della regola, 
@@ -72,8 +76,54 @@ iptables -D INPUT 2                     # Elimina la regola numero 2 dalla caten
 iptables -D INPUT -s 10.1.1.1 -j ACCEPT # Elimina la regola che ha la firma indicata
 iptables -F INPUT                       # Elimina tutte le regole della chain indicata
 
-# FUNZIONI UTILI -------------------------------------------------------------------------------------------------------------------
-#Spesso `e comodo definire una funzione per aggiungere un set di regole a iptables parametrizzando il
+# TABELLE NAT ----------------------------------------------------------------------------------------------------------------------------
+# La tabella NAT permette di effettuare delle modifiche ai pacchetti in modo che risultino traslate a livello di
+#   indirizzo. 
+#   Lavora sui pacchetti forwarded, questo implica che per utilizzare il NAT `e necessario abilitare le
+#   regole di FORWARD esposte in precedenza con il comando:
+iptables -P FORWARD ACCEPT
+# Una volta fatto cio è possibile impostare il router in 2 comportamenti distinti:
+#   |- DESTINATION NAT ---> permette di intercettare le connessioni da Client a Router, ridirigendole automaticamente al Server. 
+#   |_ SOURCE NAT --------> Permette di mascherare la sorgente di un pacchetto, in modo da offuscare il mittente originale
+# Per quanto riguarda il Destination_Nat il Router impersona Server ed il Client non si accorge di nulla, quindi il router dovrà essere 
+#   impostato con una regola iptables che intercetti la connessione SSH da client a router e la ridiriga al server.
+iptables -t nat -A PREROUTING -i eth2 -s 10.1.1.1 -d 10.1.1.254 -p tcp --dport 22 -j DNAT --to-dest 10.9.9.1
+
+                            #SRCE 10.1.1.1                          #SRCE 10.1.1.1
+        #################   #DEST 10.1.1.254    #################   #DEST 10.9.9.1      #################            
+        #               #-------------------->>>#  10.1.1.254   #-------------------->>>#               #
+        #    CLIENT     #                       #    ROUTER     #                       #    SERVER     #
+        #   10.1.1.1    #<<<--------------------#  10.9.9.254   #<<<--------------------#   10.9.9.1    #
+        #################   #SRCE 10.1.1.254    #################   #SRCE 10.9.9.1      #################
+                            #DEST 10.1.1.1                          #DEST 10.1.1.1
+
+# Il Source_Nat si ha In pratica, quanto il Client invia un pacchetto al Server, questo lo riceve come se lo avesse
+#   mandato il Router, quando poi il Server invierà la risposta al Router, questo si occuperà di inoltrarla al Client.
+iptables -t nat -A PREROUTING -o eth1 -s 10.1.1.1 -d 10.9.9.1 -j SNAT --to-source 10.9.9.254
+
+                            #SRCE 10.1.1.1                          #SRCE 10.9.9.254
+        #################   #DEST 10.9.9.1      #################   #DEST 10.9.9.1      #################            
+        #               #-------------------->>>#  10.1.1.254   #-------------------->>>#               #
+        #    CLIENT     #                       #    ROUTER     #                       #    SERVER     #
+        #   10.1.1.1    #<<<--------------------#  10.9.9.254   #<<<--------------------#   10.9.9.1    #
+        #################   #SRCE 10.9.9.1      #################   #SRCE 10.9.9.1      #################
+                            #DEST 10.1.1.1                          #DEST 10.1.1.254
+
+# CHAIN PERSONALIZZATE -------------------------------------------------------------------------------------------------------------------
+# Iptables permette di creare chain personalizzate in modo da semplificare la gestione di pacchetti anche in modo molto articolato, 
+#   in breve i comandi fondamentali sono:
+#   1) Creare la chain personalizzata dandole un nome significativo (MYCHAIN in questo caso).
+iptables -N MYCHAIN
+#   2) Inserire una regola all'interno della chian personalizzata che facia il return alla chain chiamante.
+iptables -I MYCHAIN -j RETURN 
+#   3) Fare il flush delle regole della chain personalizzata.
+iptables -F MYCHAIN
+#   4) Eliminare la chain personalizzata.
+iptables -X MYCHAIN
+
+
+# FUNZIONI UTILI -------------------------------------------------------------------------------------------------------------------------
+#Spesso è comodo definire una funzione per aggiungere un set di regole a iptables parametrizzando il
 #   tipo di operazione, questo permette di aggiungere e rimuovere queste regole con facilità.
 #   ARG: $1 A oppure D per aggiungere o togliere la regola.
 function gestisciRegola () 
@@ -97,6 +147,10 @@ iptables -I OUTPUT -o eth3 -d 192.168.56.1 -s 192.168.56.20x -p tcp -- sport 22 
 iptables -I <chain> <options> -j LOG --log-prefix="prefisso_log" --log-level <livello_log>
 #   E' importante ricordare che i log essendo iptables una componente gestita dal kernel avranno una faciliy=kernel, 
 #   quindi specificando un livello di log debug ad esempio avremo che i log verranno salvati in kernel.debug (vedi LOG).
+#   Le seguenti regole ad esempio permettono di loggare l'inizio di una connessione con livello debug e prefisso NEW_CONNECTION:
+iptables -I FORWARD -i eth2 -s 10.1.1.1 -d 10.9.9.1 -p tcp --tcp-flags SYN SYN -j LOG --log-prefix "NEW_CONNECTION" --log-level debug
+#   e la fine loggando sepre in debug ma con prefisso END_CONNECTIN:
+iptables -I FORWARD -i eth2 -s 10.1.1.1 -d 10.9.9.1 -p tcp --tcp-flags FIN FIN -j LOG --log-prefix "END_CONNECTIN" --log-level debug
 
 
 
