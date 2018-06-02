@@ -38,9 +38,7 @@
 # SNMP WALK ----------------------------------------------------------------------------------------------------
 # Il comando snmpwalk esegue una serie di getnext al fine di esplorare l'intero 
 #   sottoalbero che gli si è specificato e visualizzarne tutte le entry.
-
 snmpwalk -v 1 -c public <indirizzo_macchina> .1
-
 #   Il comando sopra pone in output l'intera struttura del dell albero, 
 #   da l'OID .1 (radice) sino alla fine.
 #   I flag usati sono:
@@ -60,9 +58,7 @@ snmpwalk -v 1 -c public <indirizzo_macchina> .1
 #                           OID.1.1.0
 #                       permette di accedere al valore della cella della colonna 1 riga 1 della 
 #                       tabella specificata dall'OID 
-
 snmpget -v 1 -c public <indirizzo_macchina> 'UCD-SNMP-MIB:memAvailReal.0'
-
 #   Il comanddo sopra permette di accedere e visualizzare la entry identificata dal nome simbolico 
 #   UCD-SNMP-MIB:memAvailReal che come si puo vedere all'interno del sito scaricato offline 
 #   risulta equicalere all'OID .1.3.6.1.4.1.2021.4.6 che rappresenta l'ammontare di memoria fisica
@@ -99,14 +95,9 @@ snmpget -v 1 -c public <indirizzo_macchina> 'UCD-SNMP-MIB:memAvailReal.0'
 #   E' fondamentale tenere amente che i valori restituiti sono cachati e il comando non viene rilanciato 
 #   tutte le volte che la entry viene interrogata.
 #   I metodo con cui è possibile interrogare la extTable è il classico comando snmpget:
-
 snmpget -v 1 -c public <indirizzo_macchina> 'NET-SNMP-EXTEND-MIB::nsExtendOutputFull."sshnum"'
-
 #   Nel caso si preferisca estrarre il solo valore pulito si usa
-
-snmpget -v 1 -c public <indirizzo_macchina> 'NET-SNMP-EXTEND-MIB::nsExtendOutputFull."sshnum"' |
-    awk -F 'STRING :' '{ print $2 }'
-
+snmpget -v 1 -c public <indirizzo_macchina> 'NET-SNMP-EXTEND-MIB::nsExtendOutputFull."sshnum"' | awk -F 'STRING :' '{ print $2 }'
 #   La problematica principale di questo sistema è la necessità di un editing piu specifico nel caso si 
 #   vogliano lanciare comandi che richedano i permessi di root.
 #
@@ -148,16 +139,11 @@ snmpget -v 1 -c public <indirizzo_macchina> 'NET-SNMP-EXTEND-MIB::nsExtendOutput
 #   oppure no.
 #   Il problema centrale è quello di ottenere l'id della tabella, questo viene fatto con l'impiego del 
 #   comando:
-
 ID = $(snmpwalk -v 1 -c public 10.9.9.1 "UCD-SNMP-MIB::prNames" | grep rsyslogd | awk -F "prNames." '{ print $2 }') | awk -F "=" '{ print $1 }'
-
 #   Utilizzabile poi in seguito per ottenere il conteggio:
-
 snmpget -v 1 -c public 10.9.9.1 "UCD-SNMP-MIB::prCount.$ID" | awk -F " INTEGER:" '{ print $2 }'
-
 #   Si ricorda inoltre che il modulo "UCD-SNMP-MIB" contiene molte altre informazioni sui processi registrati,
 #   tutte visualizzabili con la chiamata:
-
 snmpwalk -v 1 -c public 10.9.9.1 .1 | grep UCD-SNMP-MIB
 
 # FUNZIONI UTILI ----------------------------------------------------------------------------------------------------

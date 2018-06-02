@@ -103,7 +103,6 @@ o: university               # attributo di tipo o:
 #                                     come valore dell'attributo 'olcSuffix'.
 #
 #   Una volta definito il mio file LDIF che descrive il mio schema personale posso aggiungerlo attraverso la direttiva:
-
 (sudo) ldapadd -Y EXTERNAL -H ldapi:/// -f MioSchema.ldif
 
 # ELIMINAZIONE SCHEMI-----------------------------------------------------------------------------------------------------------------------------------------
@@ -185,27 +184,21 @@ o: university               # attributo di tipo o:
 )
 
 # Il comando per eseguire ricerche è:
-
 (sudo) ldapsearch -x -b dc=labammsis [ -s base | one | sub ] [filtro]
-
 #   -x ----> permette un autenticazione con metodo standard
 #   -b dc=labammsis ----> il nodo da cui partire per fare la ricerca (dc=labammsis in questo caso)
 #   [ -s base | one | sub ] ----> quanto estendere la ricerca (defoult sub quindi intero sotto albero)
 
 # AGGIUNTA ENTRY ----------------------------------------------------------------------------------------------------------------------------------------------
 # Per aggiungere una entry nella directory uso il comando:
-
 (sudo) ldapadd -x -D "cn=admin,dc=labammsis" -w admin [ -f file_ldif_da_inserire ]
-
 #   -x ----> permette un autenticazione con metodo standard
 #   -D "cn=admin,dc=labammsis" -w admin ----> autenticazione con username e password
 #   -f ----> nel caso venga omesso si usa lo std_in
 
 # MODIFICA ENTRY ----------------------------------------------------------------------------------------------------------------------------------------------
 # Per modificare una entry nella directory uso il comando:
-
 (sudo) ldapmodify -x -D "cn=admin,dc=labammsis" -w admin -f ./entrymods.ldif
-
 #   -x ----> permette un autenticazione con metodo standard
 #   -D "cn=admin,dc=labammsis" -w admin ----> autenticazione con username e password
 #   -f ./entrymods ----> file cntenente le direttive di modifica delle entry
@@ -243,9 +236,7 @@ changetype: delete                              # Tipo di modifica da eseguire
 
 # RIMOZIONE ENTRY ----------------------------------------------------------------------------------------------------------------------------------------------
 # Per aggiungere una entry nella directory uso il comando:
-
 (sudo) ldapdelete -x -D "cn=admin,dc=labammsis" -w admin DN
-
 #   -x ----> permette un autenticazione con metodo standard
 #   -D "cn=admin,dc=labammsis" -w admin ----> autenticazione con username e password
 #   DN ----> DistinguishName della entry da eliminare
