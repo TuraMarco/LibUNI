@@ -181,5 +181,3 @@ function getProcessCount ()
 # Esempio di utilizzo :
 NUMERO = $ ( getProcessCount " rsyslogd " " 10.9.9.1 " )
 echo $NUMERO
-
-
