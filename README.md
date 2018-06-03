@@ -10,15 +10,12 @@ suddivise per componenti dell'esame.
 #### ELEMENT
 Definizione delle strutture Time, Date e altre strutture di ausilio alle liste (io_element e list_element),
 non che dell'implementazione di funzioni di ausilio per le strutture sopraelencate. 
-
-####LIST
+#### LIST
 Definizione delle strutture Item di ausilio alle liste,
 non che implementazione di funzioni primitive e di ausilio per le liste.
-
-####SORT
+#### SORT
 Definizione dei prototipi ed implementazione degli stessi per le varie tiologie di algoritmi di ordinamento.
-
-####ESAME
+#### ESAME
 Definizione ed implementazione di funzioni di carattere generali utili nelle varie prove di esame. 
 
 ### Laboratorio di Amministrazione di sistemi (LIB_LAS)
