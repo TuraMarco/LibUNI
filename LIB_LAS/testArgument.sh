@@ -6,10 +6,14 @@
 ##############
 
 # $0 		---> nome dello script
-# $1, $2,... 	---> argomenti dello script
-# $#		---> numero di argomenti passati
-# "$*"		---> espanso in "$1 $2 ..."
+# $1,$2,...,$9 	---> argomenti dello script
+# $#		---> numero di argomenti passati a riga di comando
+# "$*"		---> espanso in "$1 $2 ..." separati da $IFS
 # "$@"		---> espanso in "$1" "$2" ...
+# $$            ---> PID dello script corrente
+# $?            ---> exit value dell'ultimo comando
+# $             ---> PID della shell
+# $!            ---> PID dell'ultimo comando lanciato in background
 
 ${1:?"Errore: L'argomento passato è NULL."}
 
@@ -28,7 +32,7 @@ fi
 if [ ! -f $1 ]
 then
         echo "Errore: L'argomento passato non è un file esistente o regolare."
-		exit
+	exit
 fi
 
 if [ ! -r $1 ]
@@ -92,7 +96,3 @@ then
         #	-gt ---> strettamente maggiore
         #	-ge ---> maggiore uguale
 fi
-
-
-
-

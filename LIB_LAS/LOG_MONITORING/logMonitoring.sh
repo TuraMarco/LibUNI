@@ -88,7 +88,3 @@ $ModLoad imudp
 $UDPServerRun 514
 #   Infine anche qui si riavvia il demone con il comando
 sudo systemctl restart rsyslog
-
-
-
-

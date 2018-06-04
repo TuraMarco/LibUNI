@@ -151,6 +151,3 @@ iptables -I <chain> <options> -j LOG --log-prefix="prefisso_log" --log-level <li
 iptables -I FORWARD -i eth2 -s 10.1.1.1 -d 10.9.9.1 -p tcp --tcp-flags SYN SYN -j LOG --log-prefix "NEW_CONNECTION" --log-level debug
 #   e la fine loggando sepre in debug ma con prefisso END_CONNECTIN:
 iptables -I FORWARD -i eth2 -s 10.1.1.1 -d 10.9.9.1 -p tcp --tcp-flags FIN FIN -j LOG --log-prefix "END_CONNECTIN" --log-level debug
-
-
-

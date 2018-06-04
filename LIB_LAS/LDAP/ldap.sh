@@ -303,4 +303,3 @@ function editLdapAttr ()
 #   Esempio d’uso:
 editldapattr "ind=10.9.9.1,ind=10.1.1.1,dc=labammsis" "cnt" "2"
 echo "RETURN VALUE: $?"
-

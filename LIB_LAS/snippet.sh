@@ -23,6 +23,7 @@ echo $REST
 
 # SELECT & ARRAY --------------------------------------------------------------------------------------------------------------------------
 # permette di realizzare menu a scielta multipla
+declare -a options # Dichiaro l’ array
 PS3='Please enter your choice: '
 options=("Option 1" "Option 2" "Option 3" "Quit") # questo è un Array
 select opt in "${options[@]}" # con ${options[@]} espando tutti gli elementi, posso usare * al posto di @
@@ -64,7 +65,7 @@ do
 	echo $VAR
 done
 # posso usare dopo l'in il comando 
-$(seq 1.0 .01 1.1)
+echo $(seq 1.0 .01 1.1)
 # per eseguire incrementi di 0.01 a partire da 1.0 sino ad arrivare ad 1.1
 # oppure una sinstassi più simile al C
 for (( i=0 ; i<10 ; i++ ))
@@ -133,3 +134,5 @@ while getopts "h?vab:" opt; do
         ;;
     esac
 done
+
+shift $ (( $OPTIND - 1)) # Per ottenere gli argomenti, shifto via le opzioni

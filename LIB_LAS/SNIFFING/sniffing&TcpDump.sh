@@ -43,12 +43,10 @@ tcpdump greater 32          # Leggi i pacchetti con dimensione maggiore di 32 by
 #   E' anche possibile concatenare less e greater con il predicato logico 'and'.
 #
 #   Catturare i pacchetti con flag TCP particolari
-tcpdump 'tcp [tcpflags] == tcp-syn'
-tcpdump 'tcp [tcpflags] == tcp-fin'
+tcpdump 'tcp[tcpflags] == tcp-syn'
+tcpdump 'tcp[tcpflags] == tcp-fin'
 #
 # Esempi di funzionamento del comando tcpdump con concatenazione di filtri sono:
 tcpdump -lnp dst 192.168.0.2 and not icmp
 tcpdump -lnp src 10.9.9.1 and not dst port 22
 tcpdump -lnp src 10.9.9.1 and (dst port 1234 or 22)
-
-
