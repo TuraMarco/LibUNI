@@ -5,7 +5,7 @@ di ingegneria informatica triennale dell'Università degli Studi di Bologna
 ## Materie
 
 ### Fondamenti di informatica T1 (LIB_FI1)
-Librerie per Fondamenti di Inforematica T1, comprendono snippet e librerie
+Librerie per Fondamenti di Inforematica T1 (Mello, Chesani), comprendono snippet e librerie
 suddivise per componenti dell'esame.
 #### ELEMENT
 Definizione delle strutture Time, Date e altre strutture di ausilio alle liste (io_element e list_element),
@@ -19,7 +19,7 @@ Definizione dei prototipi ed implementazione degli stessi per le varie tiologie 
 Definizione ed implementazione di funzioni di carattere generali utili nelle varie prove di esame. 
 
 ### Laboratorio di Amministrazione di sistemi (LIB_LAS)
-Librerie per LAS, comprendono snippet e librerie
+Librerie per LAS (Prandini), comprendono snippet e librerie
 suddivise per componenti dell'esame.
 
 ## Fonti

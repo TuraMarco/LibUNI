@@ -5,7 +5,7 @@ Per usare le seguenti librerie seguire i passaggi:
 	3- esegui i test.
 
 	4- riscrivere la funzione compareIoElement().
-	5- copiare nella classe di esame gli snippet per l'ordinamento. 
+	5- copiare nel file di esame gli snippet per l'ordinamento. 
 	6- creare la funzione che richiama l'ordinamento.
 	7- esegui i test.
 
