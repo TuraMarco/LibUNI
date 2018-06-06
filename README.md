@@ -28,3 +28,6 @@ suddivise per componenti dell'esame.
 
 -   Le slide contenute nel file ipTables.pdf sono state estrapolate dalle slide del professor Walter Cerroni
     <http://campus.unibo.it/150413/>
+
+-   Il cheat sheet in RegEx.pdf è stato tratto dal sitp:
+    <http://addedbytes.com>
