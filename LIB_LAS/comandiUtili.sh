@@ -1,6 +1,10 @@
 # Autore: TURA MARCO
 # GIT: https://github.com/TuraMarco/LibUNI
 
+#################
+#  FILTRI BASE  #
+#################
+
 # LS --------------------------------------------------------------------------
 # Elenco i file in un direttorio (la home nel esempio), se viene omesso il 
 #   path si prende di defoult il direttorio corrente: 
@@ -174,10 +178,68 @@ awk -F "campo1=" '{ print $2 }' | awk -F " campo2=" '{ print $1 }'
 #   In caso si vogliano filtrare dei campi in real-time, pu`o essere comoda 
 #   l’opzione -W interactive che evita il buffering.
 
+# SED ----------------------------------------------------------------------------------------
+# Come il comando awk il comando sed è un ricchissimo linguaggio di manipolazione stringhe, 
+#   che permette innanzitutto di eseguire sostituzioni all interno di un file o dello std_in 
+#   di un processo.
+#   Alcuni esempi che mostrano il funzionamento sono:
+sed 's/pippo/pluto/' file.txt   # Sostituisci la prima occorrenza di pippo con pluto per ogni riga del file.txt
+sed 's/pippo/pluto/g' file.txt  # Sostituisci TUTTE le occorrenze di pippo con pluto
+sed 's/pippo/pluto/gi' file.txt # Sostituisci tutte le occorrenze di pippo con pluto CASE_INSENSITIVE
+sed 's/^/INIZIO: /' file.txt     # Aggiungi all'inizio di ogni riga "INIZIO: "
 
 
+# SORT ---------------------------------------------------------------------------------------
+# Questo comando è utile per ordinare righe in un file o sullo std_in, di seguito sono 
+#   riportati alcuni esempi notevoli
+sort file.txt               # Ordina alfabeticamente le righe del file
+sort -n file.txt            # Ordina numericamente le righe del file
+sort -u file.txt            # Ordina le righe del file ed elimina i duplicati
+sort -r file.txt            # Ordina in ordine inverso
+#   Un altro comodo impiego del comando sort è legato all'ordinamento di secondo uno 
+#   specifico campo e non all'intera riga, seguendo la sintassi:
+#
+#   sort -t<delimitatore> -k <campo>,<campo>[n]
+#
+#   Un esempio pratico può essere il seguente che permette di ordinare degli indirizzi IP
+sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n
+#   Un fatto importante da tenere a mente, è che sort deve consumare l'intero output, se vine 
+#   alimentato da std_in, prima di produrre a sua volta un risultato 
+
+# UNIQ -----------------------------------------------------------------------------------------
+# Comando che permette di rimuovere le righe duplicate CONTIGUE, è quindi bene farlo 
+#   precedere da un comando sort, al fine di raggruppare gli eventuali duplicati non contigui.
+#   Alcuni esempi notevoli di utilizzo sono:
+uniq            # Elimina i duplicati CONTIGUI
+uniq -c         # Indica il numero di occorrenze per ogni duplicato
+uniq -d         # Mostra SOLO i duplicati
+
+# HEAD ----------------------------------------------------------------------------------
+# Il comando head permette di mostrare le prime 'n' righe di un file o dello
+#   std_in nel caso di un impiego all'interno di una PIPE.
+#   DI seguito alcuni esempi notevoli:
+head -2 file.txt        # Mostra solo le prime 2 righe del file
+head -c 5 file.txt      # Mostra solo i primi 5 caratteri del file
+
+# TAIL ----------------------------------------------------------------------------------
+# Come il comando head il comando tail isola e restituisce un insieme di righe, con la differenza 
+#   che invece di essere le prime 'n' sono le ultime 'n' di un file o dello std_in, ad esempio:
+tail -3 file.txt        # Mostra le ultime 3 righe del file
+#   Un utile impiego dle comando tail puo essere l’opzione -f che permette di lasciare aperto un 
+#   file e di visualizzare in tempo reale le aggiunte ad esso.
+#   A riguardo, `e comodo un altro trucchetto nel caso sia necessario visualizzare solo le righe 
+#   che sono state aggiunte dall’avvio del comando in poi, e non quelle gi`a presenti nel file:
+tail -n 0 -f file.txt   # Non leggo nessuna riga dal file, ma ricevo quelle nuove
+#   Inoltre pu`o anche essere utile che tail termini quanto un altro processo termina, 
+#   per questo usare l’opzione --pid
+tail -f -- pid 1234     # Continua a leggere fino a che il processo 1234 non termina
 
 
+########################
+#  PROCESSI & SEGNALI  #
+########################
+
+# PS ----------------------------------------------------------------------------------------
 
 
 
