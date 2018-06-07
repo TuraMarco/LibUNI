@@ -301,7 +301,44 @@ do
 done
 
 # JOB CONTROLL ----------------------------------------------------------------------------------------------------------------
+# Per quanto riguarda il Job Control le due funzionalità base da comprendere sono:
+#   |- Avviare un processo in BackGround
+#   |_ Portare un processo in ForeGround
+#   Per fare cio bisogna ricordarsi di:
+<comando> &     # Avvia il comando in background
+#   La shell ci restituisce il JOB_ID del processo creato che potremo in seguito usare per riportare 
+#   il processo in foreground il seguente comando:
+fg <JOB_ID>     # Riporta il processo con il JOB_ID specificato in foreground
+#   E' anche possibile portare in background un processo gia lanciato, in questo caso si dovrà per prima cosa
+#   bloccare il processo con una CTRL + z (SIGSTOP), questa operazione restituirà il JOB_ID del processo bloccato, a questo punto
+#   con il comando:
+bg <JOB_ID>     # Pone il processo con il JOB_ID indicato in background
+#   Si riavvia il processo in background (SIGCONT).
+#
+# Un altra funzionalità base per quanto riguarda il Job Control è legata alla visualizzazione di tutti i jobs con il loro stato
+#   cio viene fatto con il comando 
+jobs            # Elenca tutti i jobs con il loro stato.
+#
+# Normalmente alla chiusura della schell tutti i processi attivi in foreground vengono terminati ricevendo un segnale SIGHUP,
+#   per evitare questo comportamento è necessario sare il comando nohup, che rende il processo immune dal SIGHUP e ne scollega 
+#   lo std_out, ridirigendolo sul file nohup.out (a defoult), la sintassi è la seguente.
+nohup <command> &       # Esegue il comando in background e lo rende immune alla chiusura della shellù
+
+# FUSER ----------------------------------------------------------------------------------------------------------------------
+# Il comando fuser permette di visualizzare tutti i processi che usano un file specifico e se necessario inviare a 
+#   tutti questi processi uno specifico segnale.
+#   L'esempio di impiego base, quindi solo il listare i processi è il seguente:
+fuser /path/to/file     # Visualizza i PID dei processi che usano un file
+fuser -m /var           # Visualizza i processi che usano un intero filesystem o directory
 
 
 
+# LSOF -----------------------------------------------------------------------------------------------------------------------
+# Il comando lsof permette di vedere tutti i file aperti nel sistema, alcuni esempi notevoili sono:
+lsof                            # Visualizza tutti i file aperti dal sistema
+lsof -u <username>              # Visualizza i file aperti da uno specifico user
+lsof -p <PID>                   # Visualizza i file aperti da uno specifico processo
+lsof + D /path/to/ dir      # Limitare l’ output di lsof ad una sola directory
+lsof -i tcp                     # Listare tutti i file in base al tipo di connessione (tcp o udp)
+lsof -i tcp -P                  # IMPORTANTE : Visualizza le porte numeriche e non simboliche
 
