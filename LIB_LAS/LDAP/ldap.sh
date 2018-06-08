@@ -184,15 +184,18 @@ o: university               # attributo di tipo o:
 )
 
 # Il comando per eseguire ricerche è:
-(sudo) ldapsearch -x -b dc=labammsis [ -s base | one | sub ] [filtro]
+(sudo) ldapsearch -LLL -x -b dc=labammsis [ -s base | one | sub ] [filtro]
+#   -LLL ----> riduce l'output limitandosi a LDIFv1, senza commenti o note sulla versione
 #   -x ----> permette un autenticazione con metodo standard
 #   -b dc=labammsis ----> il nodo da cui partire per fare la ricerca (dc=labammsis in questo caso)
 #   [ -s base | one | sub ] ----> quanto estendere la ricerca (defoult sub quindi intero sotto albero)
+#   -h <IP> ----> metodo deprecato per interrogare un server LDAP remoto (la versione non deprecata è -H)
 
 # AGGIUNTA ENTRY ----------------------------------------------------------------------------------------------------------------------------------------------
 # Per aggiungere una entry nella directory uso il comando:
 (sudo) ldapadd -x -D "cn=admin,dc=labammsis" -w admin [ -f file_ldif_da_inserire ]
 #   -x ----> permette un autenticazione con metodo standard
+#   -c ----> continua con l'aggiunta anche se ci sono errori
 #   -D "cn=admin,dc=labammsis" -w admin ----> autenticazione con username e password
 #   -f ----> nel caso venga omesso si usa lo std_in
 
@@ -202,6 +205,7 @@ o: university               # attributo di tipo o:
 #   -x ----> permette un autenticazione con metodo standard
 #   -D "cn=admin,dc=labammsis" -w admin ----> autenticazione con username e password
 #   -f ./entrymods ----> file cntenente le direttive di modifica delle entry
+#   -c ----> continua con l'aggiunta anche se ci sono errori
 #
 #   Il file in base  come è formattato puo permettere svariate operazioni di modifica: aggiunta / modifica / rimozione di attributi
 

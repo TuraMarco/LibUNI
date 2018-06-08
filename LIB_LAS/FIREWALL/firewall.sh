@@ -131,7 +131,8 @@ function gestisciRegola ()
     iptables -$1 <opzione> -j <esito>
 }
 # Esempio d’uso
-gestisciRegola A # Aggiungo la regola
+gestisciRegola A # Aggiungo la regola in fondo
+gestisciRegole I # Aggiungo la regola in testa
 gestisciRegola D # Elimino la regola
 
 # Alcune regole sono fondamentali e vanno sempre specificate prima di introdurre delle nuove policy di default.
