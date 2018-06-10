@@ -23,7 +23,8 @@ typedef struct
 	int secondi;
 }
 Time;
-//========================== DEFINIZIONE TIPO IO_ELEMENT =========================
+
+//========================== DEFINIZIONE TIPO IO_STRUCT =========================
 typedef struct
 {
 	int intero;
@@ -32,9 +33,9 @@ typedef struct
 	Data data;
 	Time time;
 } 
-io_element;
+io_struct;
 
-//===================== DEFINIZIONE TIPO LIST_ELEMENT =============================
+//===================== DEFINIZIONE TIPO LIST_STRUCT =============================
 typedef struct
 {
 	int intero;
@@ -43,21 +44,22 @@ typedef struct
 	Data data;
 	Time time;
 } 
-list_element;
+list_struct;
 
-typedef list_element element;
+typedef list_struct element;
 
-//================ PROTOTIPI FUNZIONI IO_ELEMENT ==================================
+//================ PROTOTIPI FUNZIONI TIPI UTILI =================================
 int compareData(Data d1, Data d2);
+void showData(Data d);
 int compareTime(Time t1, Time t2);
-int compareIoElement(io_element e1, io_element e2);
+void showTime(Time t);
 
-//================ PROTOTIPI FUNZIONI LIST_ELEMENT ================================
-int compareListElement(list_element te1, list_element te2);
-BOOL equalsListElement(list_element te1, list_element te2); 
-void showListElement(list_element);
+//================ PROTOTIPI FUNZIONI IO_STRUCT ==================================
+int compareIoStruct(io_struct e1, io_struct e2);
 
-//================ PROTOTIPI FUNZIONI VARIE =======================================
-int readField(char buffer[], int dimBuffer, char separatore, FILE *f);
+//================ PROTOTIPI FUNZIONI LIST_STRUCT ================================
+int compareListStruct(list_struct te1, list_struct te2);
+BOOL equalsListStruct(list_struct te1, list_struct te2); 
+void showListStruct(list_struct);
 
 #endif

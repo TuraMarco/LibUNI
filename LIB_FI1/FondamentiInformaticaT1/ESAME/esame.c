@@ -28,7 +28,7 @@ io_element leggiUno(FILE * fp)
 		letturaCorretta = FALSE;
 	}
 
-	//leggi stringa iterativamente, da usare solo se la stringa è alla fine della linea del file (DA NOTARE CHE NON SETTA IL BOOLEAN)
+	//leggi stringa iterativamente, da usare solo se la stringa ï¿½ alla fine della linea del file (DA NOTARE CHE NON SETTA IL BOOLEAN)
 	if (letturaCorretta == TRUE)
 	{
 		int i = 0;
@@ -77,7 +77,7 @@ io_element leggiUno(FILE * fp)
 
 BOOL isLetturaCorretta(io_element element)
 {
-	//da modificare in funzione di quello che è la struttura base nel caso di errori di lettura
+	//da modificare in funzione di quello che ï¿½ la struttura base nel caso di errori di lettura
 	if (element.intero != 0 && element.reale != 0 && sizeof(element.stringa) != 0)
 	{
 		return TRUE;
@@ -170,7 +170,7 @@ io_element * leggiTuttiInsieme(char * fileName, int * dim)
 				letturaCorretta = FALSE;
 			}
 
-			//leggi stringa iterativamente, da usare solo se la stringa è alla fine della linea del file (DA NOTARE CHE NON SETTA IL BOOLEAN)
+			//leggi stringa iterativamente, da usare solo se la stringa ï¿½ alla fine della linea del file (DA NOTARE CHE NON SETTA IL BOOLEAN)
 			if (letturaCorretta == TRUE)
 			{
 				int i = 0;
@@ -236,7 +236,7 @@ io_element * leggiTuttiInsieme(char * fileName, int * dim)
 				letturaCorretta = FALSE;
 			}
 
-			//leggi stringa iterativamente, da usare solo se la stringa è alla fine della linea del file (DA NOTARE CHE NON SETTA IL BOOLEAN)
+			//leggi stringa iterativamente, da usare solo se la stringa ï¿½ alla fine della linea del file (DA NOTARE CHE NON SETTA IL BOOLEAN)
 			if (letturaCorretta == TRUE)
 			{
 				int i = 0;
@@ -342,7 +342,7 @@ list_element leggiUnoList(FILE * fp)
 		letturaCorretta = FALSE;
 	}
 
-	//leggi stringa iterativamente, da usare solo se la stringa è alla fine della linea del file (DA NOTARE CHE NON SETTA IL BOOLEAN)
+	//leggi stringa iterativamente, da usare solo se la stringa ï¿½ alla fine della linea del file (DA NOTARE CHE NON SETTA IL BOOLEAN)
 	if (letturaCorretta == TRUE)
 	{
 		int i = 0;
@@ -392,7 +392,7 @@ list_element leggiUnoList(FILE * fp)
 
 BOOL isLetturaCorrettaList(list_element element)
 {
-	//da modificare in funzione di quello che è la struttura base nel caso di errori di lettura
+	//da modificare in funzione di quello che ï¿½ la struttura base nel caso di errori di lettura
 	if (element.intero != 0 && element.reale != 0 && sizeof(element.stringa) != 0)
 	{
 		return TRUE;
@@ -483,7 +483,7 @@ list leggiTuttiInsieme(char * fileName)
 				letturaCorretta = FALSE;
 			}
 
-			//leggi stringa iterativamente, da usare solo se la stringa è alla fine della linea del file (DA NOTARE CHE NON SETTA IL BOOLEAN)
+			//leggi stringa iterativamente, da usare solo se la stringa ï¿½ alla fine della linea del file (DA NOTARE CHE NON SETTA IL BOOLEAN)
 			if (letturaCorretta == TRUE)
 			{
 				int i = 0;
@@ -535,5 +535,24 @@ list leggiTuttiInsieme(char * fileName)
 	}
 
 	return result;
+}
+
+/*=================================================*/
+//			        ALTRE FUNZIONI                 //
+/*=================================================*/
+int readField(char buffer[], int dimBuffer, char separatore, FILE *f)
+{
+	int i = 0;
+	char ch = fgetc(f);
+
+	while (ch != separatore && ch != 10 && ch != EOF && i < dimBuffer - 1) 
+	{
+		buffer[i] = ch;
+		i++;
+		ch = fgetc(f);
+	}
+
+	buffer[i] = '\0';
+	return ch;
 }
 

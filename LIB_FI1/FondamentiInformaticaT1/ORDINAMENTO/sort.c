@@ -1,7 +1,7 @@
 #include"sort.h"
 
 //========================== FUNZIONI NAIVE_SORT ==================================
-int trova_pos_max(io_element v[], int dim)
+int trova_pos_max(io_struct v[], int dim)
 {
 	//ritorna la posizione del elemento numerico piu alto in un array
 	int i;
@@ -9,7 +9,7 @@ int trova_pos_max(io_element v[], int dim)
 
 	for (i = 0; i < dim; i++)
 	{
-		if (compareIoElement(v[i], v[posmax]) < 0)
+		if (compareIoStruct(v[i], v[posmax]) < 0)
 		{
 			posmax = i;
 		}
@@ -18,9 +18,9 @@ int trova_pos_max(io_element v[], int dim)
 	return posmax;
 }
 
-void scambia(io_element *x, io_element *y)
+void scambia(io_struct *x, io_struct *y)
 {
-	io_element t;
+	io_struct t;
 
 	t = *x;
 	*x = *y;
@@ -29,7 +29,7 @@ void scambia(io_element *x, io_element *y)
 	return;
 }
 
-void neive_sort(io_element v[], int dim) 
+void neive_sort(io_struct v[], int dim) 
 {
 	int p;
 	while (dim > 1)
@@ -49,9 +49,9 @@ void neive_sort(io_element v[], int dim)
 
 //========================== FUNZIONI BUBBLE_SORT =================================
 /*
-void scambia(io_element *x, io_element *y)
+void scambia(io_struct *x, io_struct *y)
 {
-	io_element t;
+	io_struct t;
 
 	t = *x;
 	*x = *y;
@@ -61,7 +61,7 @@ void scambia(io_element *x, io_element *y)
 }
 */
 
-void bubble_sort(io_element v[], int dim)
+void bubble_sort(io_struct v[], int dim)
 {
 	int i = 0;
 	int ordinato = 0;
@@ -71,7 +71,7 @@ void bubble_sort(io_element v[], int dim)
 		ordinato = 1;
 		for (i = 0; i < dim - 1; i++)
 		{
-			if (compareIoElement(v[i], v[i + 1]) < 0)  //v[i] < v[i+1]
+			if (compareIoStruct(v[i], v[i + 1]) < 0)  //v[i] < v[i+1]
 			{
 				scambia(&v[i], &v[i + 1]);
 				ordinato = 0;
@@ -86,13 +86,13 @@ void bubble_sort(io_element v[], int dim)
 }
 //=================================================================================
 
-//============== PROTOTIPI FUNZIONI INSERT_SORT ===================================
-void ins_ord(io_element v[], int pos) 
+//======================== FUNZIONI INSERT_SORT ===================================
+void ins_ord(io_struct v[], int pos) 
 {
 	int i = pos - 1;
-	io_element x = v[pos];
+	io_struct x = v[pos];
 
-	while (i >= 0 && compareIoElement(x, v[i]) < 0)
+	while (i >= 0 && compareIoStruct(x, v[i]) < 0)
 	{
 		v[i + 1] = v[i];
 		i--;
@@ -101,7 +101,7 @@ void ins_ord(io_element v[], int pos)
 	v[i + 1] = x;
 }
 
-void insert_sort(io_element v[], int dim) 
+void insert_sort(io_struct v[], int dim) 
 {
 	int k;
 	for (k = 1; k<dim; k++)
@@ -111,8 +111,8 @@ void insert_sort(io_element v[], int dim)
 }
 //=================================================================================
 
-//================ PROTOTIPI FUNZIONI MERGE_SORT ==================================
-void merge(io_element v[], int i1, int i2, int fine, io_element vout[]) 
+//========================== FUNZIONI MERGE_SORT ==================================
+void merge(io_struct v[], int i1, int i2, int fine, io_struct vout[]) 
 {
 	//i1 -> first
 	//i2 -> mid
@@ -122,7 +122,7 @@ void merge(io_element v[], int i1, int i2, int fine, io_element vout[])
 
 	while (i <= i2 - 1 && j <= fine)
 	{
-		if (compareIoElement(v[i], v[j]) < 0)
+		if (compareIoStruct(v[i], v[j]) < 0)
 		{
 			vout[k] = v[i++];
 		}
@@ -152,12 +152,12 @@ void merge(io_element v[], int i1, int i2, int fine, io_element vout[])
 	}
 }
 
-void merge_sort(io_element v[], int first, int last, io_element vout[]) 
+void merge_sort(io_struct v[], int first, int last, io_struct vout[]) 
 {
 	/*  --- LA CHIAMO IN QUESTO MODO ---
-		void ordina(io_element * v, int dim)
+		void ordina(io_struct * v, int dim)
 		{
-			Ordine * temp = (io_element*) malloc(sizeof(io_element) * dim);
+			Ordine * temp = (io_struct*) malloc(sizeof(io_struct) * dim);
 			mergeSort(v, 0, dim-1, temp);
 			free(temp);
 		}
@@ -177,9 +177,9 @@ void merge_sort(io_element v[], int first, int last, io_element vout[])
 
 //========================== FUNZIONI NAIVE_SORT ==================================
 /*
-void scambia(io_element *x, io_element *y)
+void scambia(io_struct *x, io_struct *y)
 {
-	io_element t;
+	io_struct t;
 
 	t = *x;
 	*x = *y;
@@ -189,10 +189,10 @@ void scambia(io_element *x, io_element *y)
 }
 */
 
-void quick_sort_ric(io_element a[], int iniz, int fine)
+void quick_sort_ric(io_struct a[], int iniz, int fine)
 {
 	int i, j, ipivot;
-	io_element pivot;
+	io_struct pivot;
 
 	if (iniz<fine)
 	{
@@ -204,18 +204,18 @@ void quick_sort_ric(io_element a[], int iniz, int fine)
 
 		do
 		{
-			while (i<j && compareIoElement(a[i], a[ipivot]) <= 0)
+			while (i<j && compareIoStruct(a[i], a[ipivot]) <= 0)
 			{
 				i++;
 			}
 
-			while (j>i && compareIoElement(a[i], a[ipivot]) >= 0)
+			while (j>i && compareIoStruct(a[i], a[ipivot]) >= 0)
 			{
 				j++;
 			}
 		} while (i<j);
 
-		if (i != ipivot && compareIoElement(a[i], a[ipivot]) != 0)
+		if (i != ipivot && compareIoStruct(a[i], a[ipivot]) != 0)
 		{
 			scambia(&a[i], &a[ipivot]);
 			ipivot = i;
@@ -233,7 +233,7 @@ void quick_sort_ric(io_element a[], int iniz, int fine)
 	}
 }
 
-void quick_sort(io_element a[], int dim) 
+void quick_sort(io_struct a[], int dim) 
 {
 	quick_sort_ric(a, 0, dim - 1);
 }

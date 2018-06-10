@@ -1,6 +1,6 @@
 #include"element.h"
 
-//================== FUNZIONI FUNZIONI IO_ELEMENT ================================
+//================== FUNZIONI TIPI UTILI ================================
 int compareData(Data d1, Data d2) 
 {
 	int result;
@@ -17,6 +17,11 @@ int compareData(Data d1, Data d2)
 	}
 		
 	return result;
+}
+
+void showData(Data d)
+{
+	printf("%d/%d/%d", d.giorno, d.mese, d.anno);
 }
 
 int compareTime(Time t1, Time t2)
@@ -37,12 +42,18 @@ int compareTime(Time t1, Time t2)
 	return result;
 }
 
-int compareIoElement(io_element e1, io_element e2) 
+void showTime(Time t)
+{
+	printf("%d:%d:%d", t.ore, t.minuti, t.secondi);
+}
+
+//================== FUNZIONI FUNZIONI IO_ELEMENT ================================
+int compareIoStruct(io_struct e1, io_struct e2) 
 {
 	//TODO
 	int result;
 
-	//comparazione intero, la prima comparazione è fuori da un if(){}
+	//comparazione intero, la prima comparazione ï¿½ fuori da un if(){}
 	result = e1.intero - e2.intero;
 
 	//comparazione reali (NON HA MOLTO SENSO)
@@ -86,11 +97,11 @@ int compareIoElement(io_element e1, io_element e2)
 }
 
 //================ FUNZIONI FUNZIONI LIST_ELEMENT ================================
-int compareListElement(list_element le1, list_element le2)
+int compareListStruct(list_struct le1, list_struct le2)
 {
 	int result;
 
-	//comparazione intero, la prima comparazione è fuori da un if(){}
+	//comparazione intero, la prima comparazione ï¿½ fuori da un if(){}
 	result = le1.intero - le2.intero;
 
 	//comparazione reali (NON HA MOLTO SENSO)
@@ -133,9 +144,9 @@ int compareListElement(list_element le1, list_element le2)
 	return result;
 }
 
-BOOL equalsListElement(list_element le1, list_element le2)
+BOOL equalsListStruct(list_struct le1, list_struct le2)
 {
-	if (compareListElement(le1, le2) == 0) 
+	if (compareListStruct(le1, le2) == 0) 
 	{
 		return TRUE;
 	}
@@ -145,24 +156,7 @@ BOOL equalsListElement(list_element le1, list_element le2)
 	}
 }
 
-void showListElement(list_element le)
+void showListStruct(list_struct le)
 {
 	printf("%d %f %s %d/%d/%d %d:%d:%d", le.intero, le.reale, le.stringa, le.data.giorno, le.data.mese, le.data.anno, le.time.ore, le.time.minuti, le.time.secondi);
-}
-
-//================ FUNZIONI VARIE ================================================
-int readField(char buffer[], int dimBuffer, char separatore, FILE *f)
-{
-	int i = 0;
-	char ch = fgetc(f);
-
-	while (ch != separatore && ch != 10 && ch != EOF && i < dimBuffer - 1) 
-	{
-		buffer[i] = ch;
-		i++;
-		ch = fgetc(f);
-	}
-
-	buffer[i] = '\0';
-	return ch;
 }

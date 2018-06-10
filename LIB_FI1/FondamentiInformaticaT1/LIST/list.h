@@ -29,7 +29,7 @@ list reverse(list l); //inverte l'ordine degli elementi lista
 list copy(list l); //copia la lista l
 list canc(element e, list l); // elimina elemento e da l
 list insOrd(element e, list l); //inserimento ordinato degli elementi
-list inputOrdList(int n); //intervaccia utente inserimento odinato (POTREBBE ESSERE NECESSARIO MODIFICARLO)
+//list inputOrdList(int n); //intervaccia utente inserimento odinato (POTREBBE ESSERE NECESSARIO MODIFICARLO)
 list intersez(list l1, list l2); //trova elementi comuni a l1 e l2
 list differ(list l1, list l2); //trova elementi non comuni a l1 e l2
 //==========================================================================

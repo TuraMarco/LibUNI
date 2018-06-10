@@ -1,6 +1,10 @@
 #include"element.h"
 #include"list.h"
 
+//VEDERE SE SERVONO
+#include <stdlib.h>
+#include <stdio.h>
+
 //========================== FUNZIONI PRIMITIVE ======================================
 list emptyList(void)
 {
@@ -9,14 +13,7 @@ list emptyList(void)
 
 BOOL empty(list l)
 {
-	if (l == NULL)
-	{
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+	return (l == NULL);
 }
 
 list cons(element e, list l)
@@ -32,7 +29,7 @@ list cons(element e, list l)
 
 element head(list l)
 {
-	if (emptyList())
+	if (empty(l))
 	{
 		printf("La lista e' vuota.");
 		abort();
@@ -45,7 +42,7 @@ element head(list l)
 
 list tail(list l)
 {
-	if (emptyList())
+	if (empty(l))
 	{
 		printf("La lista e' vuota.");
 		abort();
@@ -65,7 +62,7 @@ void showList(list l)
 	while (!empty(l))
 	{
 		printf("\t[");
-		showListElement(head(l));
+		showListStruct(head(l));
 		printf("]\n");
 
 		l = tail(l);
@@ -93,7 +90,7 @@ BOOL member(element e, list l)
 	//guarda se un elemento e' presente in una lista
 	while (!empty(l))
 	{
-		if (equalsListElement(e, head(l)))
+		if (equalsListStruct(e, head(l)))
 		{
 			return TRUE;
 		}
@@ -167,7 +164,7 @@ list canc(element e, list l)
 	}
 	else
 	{
-		if (equalsListElement(e,head(l)))
+		if (equalsListStruct(e,head(l)))
 		{
 			return tail(l);
 		}
@@ -187,7 +184,7 @@ list insOrd(element e, list l)
 	}
 	else
 	{
-		if (compareListElement(e, head(l)) <= 0)
+		if (compareListStruct(e, head(l)) <= 0)
 		{
 			return cons(e, l);
 		}
@@ -198,6 +195,7 @@ list insOrd(element e, list l)
 	}
 }
 
+/*
 list inputOrdList(int n) //'n' elementi da inserire (POTREBBE ESSERE NECESSARIO MODIFICARLO)
 {
 	//Interfaccia del inserimento ordinato
@@ -221,6 +219,7 @@ list inputOrdList(int n) //'n' elementi da inserire (POTREBBE ESSERE NECESSARIO 
 		}
 	}
 }
+*/
 
 list intersez(list l1, list l2)
 {

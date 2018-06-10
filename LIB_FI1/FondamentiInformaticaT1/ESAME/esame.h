@@ -33,4 +33,9 @@ list leggiTuttiUnoAllaVolta(char * fileName);
 //=========== LEGGI IN UNA VOLTA =====================
 list leggiTuttiInsieme(char * fileName);
 
+/*=================================================*/
+//			        ALTRE FUNZIONI                 //
+/*=================================================*/
+int readField(char buffer[], int dimBuffer, char separatore, FILE *f);
+
 #endif
