@@ -118,4 +118,4 @@ ip r | grep default | cut -d' ' -f4
 ip route add default via 192.168.1.1
 
 #estrarre l'ip del client che sta pingando il server
-sudo tcpdump -vnlp -c 1 --immediate-mode -i any icmp 2>/dev/null | grep "ICMP echo request" | cut -d">" -f1
+sudo tcpdump -vnlp -c 1 --immediate-mode -i any icmp 2>/dev/null | grep "ICMP echo request" | cut -d">" -f1 
