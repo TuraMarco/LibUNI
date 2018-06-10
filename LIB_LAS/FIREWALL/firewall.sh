@@ -139,9 +139,9 @@ gestisciRegola D # Elimino la regola
 #   Accetta tutti i pacchetti dell'interfaccia di loopback
 iptables -I INPUT -i lo -s 127.0.0.0/8 -j ACCEPT
 iptables -I OUTPUT -o lo -d 127.0.0.0/8 -j ACCEPT
-#   Consenti le connessioni SSH (in questo caso dall'HOST alle macchine)
-iptables -I INPUT -i eth3 -s 192.168.56.1 -d 192.168.56.20x -p tcp -- dport 22 -j ACCEPT
-iptables -I OUTPUT -o eth3 -d 192.168.56.1 -s 192.168.56.20x -p tcp -- sport 22 -m state -- state ESTABLISHED -j ACCEPT
+#   Consenti le connessioni SSH
+iptables -I OUTPUT -p tcp --dport 22 -s $MYIP -o eth0 -j ACCEPT
+iptables -I INPUT -p tcp --sport 22 -d $MYIP -i eth0 --state ESTABLISHED -j ACCEPT
 
 # Al fine di raccogliere dati sul funzionamento della rete è possibile inserire regole iptables che come esito intermedio 
 #   loggano i pacchetti, cio viene fatto inserendo una regola del tipo:

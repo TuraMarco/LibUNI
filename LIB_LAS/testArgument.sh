@@ -85,7 +85,7 @@ else
 		echo "Questo è l'else."
 fi
 
-if [ $# -ne 1 ]
+if [ $# -ne 1 ] # $0 non viene contato
 then
         echo "Errore: Sono stati passati un numero di argomenti diverso da 1."
 	exit
