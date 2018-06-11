@@ -119,3 +119,36 @@ ip route add default via 192.168.1.1
 
 #estrarre l'ip del client che sta pingando il server
 sudo tcpdump -vnlp -c 1 --immediate-mode -i any icmp 2>/dev/null | grep "ICMP echo request" | cut -d">" -f1 
+
+# abilitare l'esecuzione di 'sudo ss' in snmp extend
+# snmp    ALL = NOPASSWD:/bin/ss
+# con la configurazione:  extend    command		/usr/bin/sudo /bin/ss -ntp
+
+# esempio di file schema.LDIF
+dn: cn=users,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: users
+olcAttributeTypes: ( 1000.1.1.20 NAME ( 'utente' )
+  DESC 'nome utente'
+  EQUALITY caseExactMatch
+  SUBSTR caseExactSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+olcAttributeTypes: ( 1000.1.1.21 NAME ( 'server' )
+  DESC 'ip server'
+  EQUALITY caseExactMatch
+  SUBSTR caseExactSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+olcAttributeTypes: ( 1000.1.1.22 NAME ( 'traffic' )
+  DESC 'traffico nel formato ts_traffico'
+  EQUALITY caseExactMatch
+  SUBSTR caseExactSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+olcObjectClasses: ( 1000.2.1.4 NAME 'users'
+  DESC 'utente'
+  MUST ( utente )
+  STRUCTURAL )
+olcObjectClasses: ( 1000.2.1.5 NAME 'access'
+  DESC 'accesso'
+  MUST ( server )
+  MAY ( traffic )
+  STRUCTURAL )

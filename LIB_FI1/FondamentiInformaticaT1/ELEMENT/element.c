@@ -1,7 +1,7 @@
 #include"element.h"
 
-//================== FUNZIONI TIPI UTILI ================================
-int compareData(Data d1, Data d2) 
+//================== FUNZIONI FUNZIONI IO_ELEMENT ================================
+int compareData(Data d1, Data d2)
 {
 	int result;
 	result = d1.anno - d2.anno;
@@ -10,12 +10,12 @@ int compareData(Data d1, Data d2)
 	{
 		result = d1.mese - d2.mese;
 	}
-		
-	if (result == 0) 
+
+	if (result == 0)
 	{
 		result = d1.giorno - d2.giorno;
 	}
-		
+
 	return result;
 }
 
@@ -47,8 +47,7 @@ void showTime(Time t)
 	printf("%d:%d:%d", t.ore, t.minuti, t.secondi);
 }
 
-//================== FUNZIONI FUNZIONI IO_ELEMENT ================================
-int compareIoStruct(io_struct e1, io_struct e2) 
+int compareIoStruct(io_struct e1, io_struct e2)
 {
 	//TODO
 	int result;
@@ -96,6 +95,25 @@ int compareIoStruct(io_struct e1, io_struct e2)
 	return result;
 }
 
+void showIoStruct(io_struct e) 
+{
+	printf("%d %f %s %d/%d/%d %d:%d:%d", e.intero, e.reale, e.stringa, e.data.giorno, e.data.mese, e.data.anno, e.time.ore, e.time.minuti, e.time.secondi);
+}
+
+void showIoStructArray(io_struct * array, int dim)
+{
+	int i = 0;
+
+	printf("{\n");
+	for (i ; i<dim ; i++)
+	{
+		printf("\t");
+		showIoStruct(array[i]);
+		printf("\n");
+	}
+	printf("}\n");
+}
+
 //================ FUNZIONI FUNZIONI LIST_ELEMENT ================================
 int compareListStruct(list_struct le1, list_struct le2)
 {
@@ -106,18 +124,18 @@ int compareListStruct(list_struct le1, list_struct le2)
 
 	//comparazione reali (NON HA MOLTO SENSO)
 	float temp;
-	if (result == 0) 
+	if (result == 0)
 	{
 		temp = le1.intero - le2.intero;
-		if (temp == 0) 
+		if (temp == 0)
 		{
 			result = 0;
 		}
-		else if (temp > 0) 
+		else if (temp > 0)
 		{
 			result = 1;
 		}
-		else if(temp < 0)
+		else if (temp < 0)
 		{
 			result = -1;
 		}
@@ -140,13 +158,13 @@ int compareListStruct(list_struct le1, list_struct le2)
 	{
 		result = compareTime(le1.time, le2.time);
 	}
-		
+
 	return result;
 }
 
 BOOL equalsListStruct(list_struct le1, list_struct le2)
 {
-	if (compareListStruct(le1, le2) == 0) 
+	if (compareListStruct(le1, le2) == 0)
 	{
 		return TRUE;
 	}

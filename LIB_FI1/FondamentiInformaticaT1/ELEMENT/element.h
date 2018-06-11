@@ -1,7 +1,7 @@
 #ifndef _ELEMENT_H
 #define _ELEMENT_H
 
-#define MAX_STRING_LENGHT 256
+#define MAX_STRING_LENGHT 5
 
 //======================== BOOLEAN E TIPI UTILI======================================
 #define BOOL int
@@ -32,7 +32,7 @@ typedef struct
 	char stringa[MAX_STRING_LENGHT];
 	Data data;
 	Time time;
-} 
+}
 io_struct;
 
 //===================== DEFINIZIONE TIPO LIST_STRUCT =============================
@@ -43,23 +43,23 @@ typedef struct
 	char stringa[MAX_STRING_LENGHT];
 	Data data;
 	Time time;
-} 
+}
 list_struct;
 
 typedef list_struct element;
 
-//================ PROTOTIPI FUNZIONI TIPI UTILI =================================
+//================ PROTOTIPI FUNZIONI IO_STRUCT ==================================
 int compareData(Data d1, Data d2);
 void showData(Data d);
 int compareTime(Time t1, Time t2);
 void showTime(Time t);
-
-//================ PROTOTIPI FUNZIONI IO_STRUCT ==================================
 int compareIoStruct(io_struct e1, io_struct e2);
+void showIoStruct(io_struct e);
+void showIoStructArray(io_struct * array, int dim);
 
 //================ PROTOTIPI FUNZIONI LIST_STRUCT ================================
 int compareListStruct(list_struct te1, list_struct te2);
-BOOL equalsListStruct(list_struct te1, list_struct te2); 
-void showListStruct(list_struct);
+BOOL equalsListStruct(list_struct te1, list_struct te2);
+void showListStruct(list_struct te);
 
 #endif

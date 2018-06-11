@@ -9,7 +9,7 @@ int trova_pos_max(io_struct v[], int dim)
 
 	for (i = 0; i < dim; i++)
 	{
-		if (compareIoStruct(v[i], v[posmax]) < 0)
+		if (compareIoStruct(v[i], v[posmax]) > 0) //////////////////////////
 		{
 			posmax = i;
 		}
@@ -20,16 +20,13 @@ int trova_pos_max(io_struct v[], int dim)
 
 void scambia(io_struct *x, io_struct *y)
 {
-	io_struct t;
+	io_struct t = *x;
 
-	t = *x;
 	*x = *y;
 	*y = t;
-
-	return;
 }
 
-void neive_sort(io_struct v[], int dim) 
+void neive_sort(io_struct v[], int dim)
 {
 	int p;
 	while (dim > 1)
@@ -51,13 +48,10 @@ void neive_sort(io_struct v[], int dim)
 /*
 void scambia(io_struct *x, io_struct *y)
 {
-	io_struct t;
+	io_struct t = *x;
 
-	t = *x;
 	*x = *y;
 	*y = t;
-
-	return;
 }
 */
 
@@ -71,7 +65,7 @@ void bubble_sort(io_struct v[], int dim)
 		ordinato = 1;
 		for (i = 0; i < dim - 1; i++)
 		{
-			if (compareIoStruct(v[i], v[i + 1]) < 0)  //v[i] < v[i+1]
+			if (compareIoStruct(v[i], v[i + 1]) > 0) 
 			{
 				scambia(&v[i], &v[i + 1]);
 				ordinato = 0;
@@ -87,7 +81,7 @@ void bubble_sort(io_struct v[], int dim)
 //=================================================================================
 
 //======================== FUNZIONI INSERT_SORT ===================================
-void ins_ord(io_struct v[], int pos) 
+void ins_ord(io_struct v[], int pos)
 {
 	int i = pos - 1;
 	io_struct x = v[pos];
@@ -101,7 +95,7 @@ void ins_ord(io_struct v[], int pos)
 	v[i + 1] = x;
 }
 
-void insert_sort(io_struct v[], int dim) 
+void insert_sort(io_struct v[], int dim)
 {
 	int k;
 	for (k = 1; k<dim; k++)
@@ -112,7 +106,7 @@ void insert_sort(io_struct v[], int dim)
 //=================================================================================
 
 //========================== FUNZIONI MERGE_SORT ==================================
-void merge(io_struct v[], int i1, int i2, int fine, io_struct vout[]) 
+void merge(io_struct v[], int i1, int i2, int fine, io_struct vout[])
 {
 	//i1 -> first
 	//i2 -> mid
@@ -152,17 +146,8 @@ void merge(io_struct v[], int i1, int i2, int fine, io_struct vout[])
 	}
 }
 
-void merge_sort(io_struct v[], int first, int last, io_struct vout[]) 
+void mergeSort(io_struct v[], int first, int last, io_struct vout[])
 {
-	/*  --- LA CHIAMO IN QUESTO MODO ---
-		void ordina(io_struct * v, int dim)
-		{
-			Ordine * temp = (io_struct*) malloc(sizeof(io_struct) * dim);
-			mergeSort(v, 0, dim-1, temp);
-			free(temp);
-		}
-	*/
-
 	int mid;
 
 	if (first<last)
@@ -173,19 +158,23 @@ void merge_sort(io_struct v[], int first, int last, io_struct vout[])
 		merge(v, first, mid + 1, last, vout);
 	}
 }
+
+void merge_sort(io_struct * v, int dim) //merge_sort
+{
+	io_struct * temp = (io_struct*)malloc(sizeof(io_struct) * dim);
+	mergeSort(v, 0, dim - 1, temp);
+	free(temp);
+}
 //=================================================================================
 
 //========================== FUNZIONI NAIVE_SORT ==================================
 /*
 void scambia(io_struct *x, io_struct *y)
 {
-	io_struct t;
+	io_struct t = *x;
 
-	t = *x;
 	*x = *y;
 	*y = t;
-
-	return;
 }
 */
 
@@ -204,14 +193,19 @@ void quick_sort_ric(io_struct a[], int iniz, int fine)
 
 		do
 		{
-			while (i<j && compareIoStruct(a[i], a[ipivot]) <= 0)
+			while (i<j && compareIoStruct(a[i], pivot) <= 0)
 			{
 				i++;
 			}
 
-			while (j>i && compareIoStruct(a[i], a[ipivot]) >= 0)
+			while (j>i && compareIoStruct(a[i], pivot) >= 0)
 			{
-				j++;
+				j--;
+			}
+
+			if (i<j)
+			{
+				scambia(&a[i], &a[j]);
 			}
 		} while (i<j);
 
@@ -233,7 +227,7 @@ void quick_sort_ric(io_struct a[], int iniz, int fine)
 	}
 }
 
-void quick_sort(io_struct a[], int dim) 
+void quick_sort(io_struct a[], int dim)
 {
 	quick_sort_ric(a, 0, dim - 1);
 }

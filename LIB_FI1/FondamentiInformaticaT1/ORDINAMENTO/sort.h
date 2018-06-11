@@ -4,8 +4,8 @@
 #include"element.h"
 
 /*
-	Copiare la sezione adatta ed inserirla all'intrerno dell'header finale che 
-	contiene anche il main.
+Copiare la sezione adatta ed inserirla all'intrerno dell'header finale che
+contiene anche il main.
 */
 
 //================ PROTOTIPI FUNZIONI NAIVE_SORT ==================================
@@ -26,7 +26,8 @@ void insert_sort(io_struct v[], int dim);
 
 //================ PROTOTIPI FUNZIONI MERGE_SORT ==================================
 void merge(io_struct v[], int i1, int i2, int fine, io_struct vout[]);
-void merge_sort(io_struct v[], int first, int last, io_struct vout[]);
+void mergeSort(io_struct v[], int first, int last, io_struct vout[]);
+void merge_sort(io_struct * v, int dim);
 //=================================================================================
 
 //============== PROTOTIPI FUNZIONI QUICK_SORT ====================================

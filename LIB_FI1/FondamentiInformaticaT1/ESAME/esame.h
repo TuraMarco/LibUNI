@@ -1,12 +1,15 @@
-#ifndef _ORDINI_H
-#define _ORDINI_H
+#ifndef _MAIN_H
+#define _MAIN_H
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+
 #include "element.h"
 #include "list.h"
+#include "sort.h"
+
 
 /*=================================================*/
 //						ARRAY                      //
