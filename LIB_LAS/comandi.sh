@@ -1,9 +1,58 @@
+# Autore: TURA MARCO
+# GIT: https://github.com/TuraMarco/LibUNI
+
+########################
+#     COMANDI VARI     #
+########################
+
+###INDICE####
+# Per trovare proprio IP
+# per torvare proprio utente
+# per trovare il proprio hostname
+# per trovare timestamp in secondi dal 1 gennaio 1970
+# Per trovare il carico della macchina con SNMP
+# Modificare tabelle di routing
+# firewall: VARIE
+# schedulo esecuzione tra un ora (vedi esame 22/02/2007)
+# usare tar su ssh in pipe (vedi esame 22/02/2007)
+# limitare l'esecuzione di uno script ad uno
+# snmpd.conf /// controllare l'esecuzione di uno script su un server
+# filtro ldap con 3 elementi in AND
+# seleziona il pid di un rocesso con una connessione ssh attiva
+# eseguo modifica ad una entry LDAP
+# terminazione dei processi di un utente
+# estrarre il numero di byte passati da una catena iptables
+# azzerare il numero di file passati da una catena
+# controllare su quale dispositivo ci si trova in funzione dell'IP
+# loggare nel file /var/log/pings ogni ping
+# trovare il proprio defoult gateway address (potrebbe essere anche il campo 3)
+# Per fare eseguire all'inizio del boot e responare uno scipt
+# Setta il defoult GATEWAY
+# estrarre l'ip del client che sta pingando il server
+# abilitare l'esecuzione di 'sudo ss' in snmp extend
+# esempio di file schema.LDIF
+# aggiungere una direttiva di logging a rsyslog
+# aggiornare una entry ldap
+# controllare se un processo è in esecuzione con SNMP
+# controlla in bg l'arrivo di pacchetti
+# monitorare se è in esecuzione o meno un processo con SNMP
+# monitorare il carico di un sistema con SNMP
+# avviare script e demoni al boot
+# osserva senza interruzione un file di log e quando ne riceve qualcuno fa qualcosa
+# mappare un elemento della tabella extend si SNMP su un OID specifico
+# ottengo un valore random
+
+
+
 # Per trovare proprio IP
 MYIP=$(ifconfig eth0 | grep "inet addr:" | cut -d: -f2 | cut -d' ' -f1) #con ifconfig
 MYIP=$(ip addr show dev eth0 | grep "inet" | awk -F'inet ' '{print $2}' | cut -d'/' -f1) #con ip
 
 # per torvare proprio utente
-UTENTE=$(whoami)
+MYNAME=$(whoami)
+
+# per trovare il proprio hostname
+MYHOSTNAME=`cat /etc/hostname`
 
 # per trovare timestamp in secondi dal 1 gennaio 1970
 TIMESTAMP=$(date +"%s")
@@ -37,8 +86,23 @@ iptables -P FORWARD DROP
 # firewall: abilito i pacchetti icmp
 iptables -I INPUT -p icmp -i eth0 -j ACCEPT
 iptables -I OUTPUT -p icmp -o eth0 --state ESTABLISHED -j ACCEPT
-# firewall: inserisco nel packet filter le regole per loggare i pacchetti di ICMP di ping
+# firewall: inserisco nel packet filter le regole per LOGGARE i pacchetti di ICMP di ping
 iptables -I INPUT -i eth0 -p icmp -j LOG --log-level warn --log-prefix "ping"
+# firewall: accetta traffico SNMP
+iptables -I INPUT -p udp --dport 161 -i eth0 -j ACCEPT
+iptables -I OUTPUT -p udp --sport 161 -o eth0  --state ESTABLISHED -j ACCEPT
+# firewall: accetta traffico RSYSLOG
+iptables -I INPUT --dport 514 -i eth0 -j ACCEPT
+iptables -I OUTPUT --sport 514 -o eth0  --state ESTABLISHED -j ACCEPT
+# firewall: impostare il NAT tra un client ed un server su di un router per la porta 22		
+iptables -t nat -I PREROUTING -p tcp -dport 22 -s $CLIENT -j DNAT --to-dest $SERVER_FIN
+# firewall: imposta entry per un intero gruppo di macchine con IP contigui
+for ((CONT=0; CONT <= 256 ; CONT++))
+do
+	# loggare i pacchetti iniziali delle connessioni SSH provenienti dai client e dirette all'indirizzo 10.1.1.254 
+	# (prevedere una direttiva nella configurazione di rsyslog)
+	iptables -I INPUT -s 10.1.1.$CONT -d 10.1.1.254 --tcp-flags SYN --dport 22 -j LOG --log-level warn --log-prefix "10.1.1.$CONT"
+done
 
 # schedulo esecuzione tra un ora (vedi esame 22/02/2007)
 .... | at now + 1 hour
@@ -152,3 +216,72 @@ olcObjectClasses: ( 1000.2.1.5 NAME 'access'
   MUST ( server )
   MAY ( traffic )
   STRUCTURAL )
+
+#  aggiungere una direttiva di logging a rsyslog
+egrep -v 'local*.info' /etc/rsyslog.conf > /tmp/rsyslog.conf
+echo "local*.info    @$SERVER" >> /tmp/rsyslog.conf
+cat /tmp/rsyslog.conf > /etc/rsyslog.conf
+systemctl restart rsyslogd
+
+# aggiornare una entry ldap
+if test ldapsearch -LLL -h $SERVER -x -s sub -b "dc=labammsist" (& (&("objectClass=cliserv")("server=$SERVER")) ("client=$CLIENT")) #controllo se è presente
+	then 
+		ldapsearch -LLL -h $SERVER -x -s base -b "dc=labammsist" (& (&("objectClass=cliserv")("server=$SERVER")) ("client=$CLIENT")) | (while read riga #preleva tutte le entry
+		do
+			ATT=`echo $riga | cut -d: -f1`
+			if test $ATT = "timestamp" #controlla se è quella da modificare
+				then echo "changetype: modify"
+        			echo "replace: timestamp"
+        			echo "timestamp: `date +"%s"`"
+			else echo $riga #se non lo è la passa alla pipe
+		done) | ldapmodify -x -h $SERVER -D "cn=admin,dc=labammsist" -w admin #modifica le entry o le lascia invariate se non sono da modificare
+	else 
+		echo "dn: server=$SERVER,dc=labammsist" >> /tmp/ldif.$$ #inserisce una nuova entry se non presente
+		echo "objectClass: cliserv" >> /tmp/ldif.$$
+		echo "server: $SERVER" >> /tmp/ldif.$$
+		echo "client: $CLIENT" >> /tmp/ldif.$$
+		echo "timestamp: `date +"%s"`" >> /tmp/ldif.$$
+		echo >> /tmp/ldif.$$
+	
+		ldapadd -x -h $SERVER -D "cn=admin,dc=labammsist" -w admin -f /tmp/ldif.$$
+		rm -f /tmp/ldif.$$
+fi
+
+#controllare se un processo è in esecuzione con SNMP
+#aggiungere "proc rsyslogd" al file snmpd.conf
+OID=`snmpwalk -v 1 -c public $SERVER .1.3.6.1.4.1.2021.2.2 | grep "rsyslogd" | cut -d. -f11` #prelevo gli OID del processo in scansione
+FLAG=`snmpwalk -v 1 -c public $SERVER .1.3.6.1.4.1.2021.2.100.$OID | awk -F'=' '{ print $2}'` #vedo se ci sono errorei associati (cut -d\" -f2)
+
+# controlla in bg l'arrivo di pacchetti e li logga
+tcpdump -vnlp tcp | egrep -v "IP" >> /tmp/file_log &
+
+tcpdump -vnlp tcp | grep ">" | ( while read riga
+do
+
+# monitorare se è in esecuzione o meno un processo con SNMP
+# proc <nomeProcesso>
+proc sshd
+
+# monitorare il carico di un sistema con SNMP
+load 0.5
+
+# avviare script e server al boot
+# init legge il suo file di configurazione in maniera lineare, e fa partire i diversi processi
+# nell'ordine in cui li legge da /etc/inittab
+# xx::boot:/etc/init.d/sshd
+# xx::boot:/usr/bin/server-up.sh
+
+# osserva senza interruzione un file di log e quando ne riceve qualcuno fa qualcosa
+tail -f /var/log/connections | ( while read riga
+do
+	<ROBA_DA_FARE>
+done )
+
+# mappare un elemento della tabella extend si SNMP su un OID specifico
+extend .1.3.6.1.4.1.2021.60 esame1 /bin/ps h -o user -C richiedi.sh
+
+# ottengo un valore random
+RANDOM=$[ `rand --max 8` + 1]
+
+# esegue richiesta ssh in background
+ssh -f @10.9.9.1 ./recupera.sh $1
