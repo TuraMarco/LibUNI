@@ -41,6 +41,8 @@
 # osserva senza interruzione un file di log e quando ne riceve qualcuno fa qualcosa
 # mappare un elemento della tabella extend si SNMP su un OID specifico
 # ottengo un valore random
+# inizializzare e ciclare su di un array
+
 
 
 
@@ -103,6 +105,14 @@ do
 	# (prevedere una direttiva nella configurazione di rsyslog)
 	iptables -I INPUT -s 10.1.1.$CONT -d 10.1.1.254 --tcp-flags SYN --dport 22 -j LOG --log-level warn --log-prefix "10.1.1.$CONT"
 done
+# firewall: controllo la presenza di una regola nelle tabelle di iptable
+if ! $(iptables -I FORWARD  -s $IPSORG -d $IPDEST -j DROP 2> /dev/null)
+	then
+		#comandi
+fi
+# firewall: resetto contatori di traffico di una catena
+iptables -Z CATENA
+
 
 # schedulo esecuzione tra un ora (vedi esame 22/02/2007)
 .... | at now + 1 hour
@@ -285,3 +295,14 @@ RANDOM=$[ `rand --max 8` + 1]
 
 # esegue richiesta ssh in background
 ssh -f @10.9.9.1 ./recupera.sh $1
+
+# inizializzare e ciclare su di un array
+declare -a CONTATORI
+for indirizzo in ${CONTATORI[@]}
+do
+	CONTATORI[$indirizzo]=0
+done
+
+# elimino una entry di una classe specifica da LDAP
+ldapsearch -x -s sub -b "dc=labammsist" "((objectClass=CLASSE))" | grep "^dn: " | cut -c5- | ldapdelete -D "cn=admin,dc=labammsist" -w "admin" -x 
+
