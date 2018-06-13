@@ -5,31 +5,31 @@
 /*=================================================*/
 
 //LEGGI UNO ALLA VOLTA  E METTI IN UN ARRAY =============================================================================================================================
-io_element leggiUno(FILE * fp)
+io_struct leggiUno(FILE * fp)
 {
-	io_element result;
+	io_struct result;
 	BOOL letturaCorretta = TRUE;
 
 	//leggi intero
-	if (scanf(fp, "%d", &(result.intero)) != 1 && letturaCorretta == TRUE)
+	if (fscanf(fp, "%d", &(result.intero)) != 1 && letturaCorretta == TRUE)
 	{
 		letturaCorretta = FALSE;
 	}
 
 	//leggi float
-	if (scanf(fp, "%f", &(result.reale)) != 1 && letturaCorretta == TRUE)
+	if (fscanf(fp, "%f", &(result.reale)) != 1 && letturaCorretta == TRUE)
 	{
 		letturaCorretta = FALSE;
 	}
 
 	//leggi stringa
-	if (scanf(fp, "%s", &(result.stringa)) != 1 && letturaCorretta == TRUE)
+	if (fscanf(fp, "%s", &(result.stringa)) != 1 && letturaCorretta == TRUE)
 	{
 		letturaCorretta = FALSE;
 	}
 
 	//leggi stringa iterativamente, da usare solo se la stringa � alla fine della linea del file (DA NOTARE CHE NON SETTA IL BOOLEAN)
-	if (letturaCorretta == TRUE)
+	if (fletturaCorretta == TRUE)
 	{
 		int i = 0;
 		char ch;
@@ -66,6 +66,18 @@ io_element leggiUno(FILE * fp)
 	if (letturaCorretta == FALSE)
 	{
 		/*DEFOULT ERROR STRUCT*/
+		result.intero = 1;
+		result.float = 1.0;
+		strcpy(result.stringa, "");
+
+		result.time.ore = 0;
+		result.time.minuti = 0;
+		result.time.secondi = 0;
+
+		result.data.giorno = 1;
+		result.data.mese = 1;
+		result.data.anno = 1970;
+		
 		return result;
 	}
 	else
@@ -75,7 +87,7 @@ io_element leggiUno(FILE * fp)
 
 }
 
-BOOL isLetturaCorretta(io_element element)
+BOOL isLetturaCorretta(io_struct element)
 {
 	//da modificare in funzione di quello che � la struttura base nel caso di errori di lettura
 	if (element.intero != 0 && element.reale != 0 && sizeof(element.stringa) != 0)
@@ -88,13 +100,13 @@ BOOL isLetturaCorretta(io_element element)
 	}
 }
 
-io_element * leggiTuttiUnoAllaVolta(char * fileName, int * dim)
+io_struct * leggiTuttiUnoAllaVolta(char * fileName, int * dim)
 {
 	// ricordati di chiamarlo con "v = leggiTutte("file.txt", &dim);"
 
 	FILE * fp;
-	io_element * result;
-	io_element temp;
+	io_struct * result;
+	io_struct temp;
 	int count;
 	*dim = 0;
 
@@ -110,7 +122,7 @@ io_element * leggiTuttiUnoAllaVolta(char * fileName, int * dim)
 		}
 
 		rewind(fp);
-		result = (io_element*)malloc(sizeof(io_element) * count);
+		result = (io_struct*)malloc(sizeof(io_struct) * count);
 		count = 0;
 
 		temp = leggiUno(fp);
@@ -134,11 +146,11 @@ io_element * leggiTuttiUnoAllaVolta(char * fileName, int * dim)
 }
 
 //LEGGI IN UNA VOLTA E METTI IN UN ARRAY ================================================================================================================================
-io_element * leggiTuttiInsieme(char * fileName, int * dim) 
+io_struct * leggiTuttiInsieme(char * fileName, int * dim) 
 {
 	FILE * fp;
-	io_element * result;
-	io_element temp;
+	io_struct * result;
+	io_struct temp;
 	BOOL letturaCorretta;
 
 	*dim = 0;
@@ -212,7 +224,7 @@ io_element * leggiTuttiInsieme(char * fileName, int * dim)
 
 		letturaCorretta = TRUE;
 		rewind(fp);
-		result = (io_element *)malloc(sizeof(io_element) * *dim);
+		result = (io_struct *)malloc(sizeof(io_struct) * *dim);
 		*dim = 0;
 
 		//SALVA LINEE ========================================
@@ -293,35 +305,37 @@ io_element * leggiTuttiInsieme(char * fileName, int * dim)
 }
 
 //STAMPA ARRAY ==========================================================================================================================================================
-void stampaTutti(io_element * v, int dim)
+void stampaTutti(io_struct * v, int dim)
 {
-	int i;
-	for (i = 0; i<dim; i++)
-	{
-		//stampa intero
-		printf("%d", v[i].intero);
+	// int i;
+	// for (i = 0; i<dim; i++)
+	// {
+	// 	//stampa intero
+	// 	printf("%d", v[i].intero);
 
-		//stampa intero
-		printf("%f", v[i].reale);
+	// 	//stampa intero
+	// 	printf("%f", v[i].reale);
 
-		//stampa intero
-		printf("%s", v[i].stringa);
+	// 	//stampa intero
+	// 	printf("%s", v[i].stringa);
 
-		//stampa Data
-		printf("%d/%d/%d", v[i].data.giorno, v[i].data.mese, v[i].data.anno);
+	// 	//stampa Data
+	// 	printf("%d/%d/%d", v[i].data.giorno, v[i].data.mese, v[i].data.anno);
 
-		//stampa Time
-		printf("%d:%d:%d", v[i].time.ore, v[i].time.minuti, v[i].time.secondi);
-	}
+	// 	//stampa Time
+	// 	printf("%d:%d:%d", v[i].time.ore, v[i].time.minuti, v[i].time.secondi);
+	// }
+
+	showIoStructArray(* v, dim);
 }
 
 /*=================================================*/
 //						LISTE                      //
 /*=================================================*/
 //LEGGI UNO ALLA VOLTA  E METTI IN UN LISTA =============================================================================================================================
-list_element leggiUnoList(FILE * fp)
+list_struct leggiUnoList(FILE * fp)
 {
-	list_element result;
+	list_struct result;
 	BOOL letturaCorretta = TRUE;
 
 	//leggi intero
@@ -379,10 +393,18 @@ list_element leggiUnoList(FILE * fp)
 	//STRUTTURA DI ERRORE ==================================
 	if (letturaCorretta == FALSE)
 	{
-		result.intero = 0;
-		result.reale = 0;
+		/*DEFOULT ERROR STRUCT*/
+		result.intero = 1;
+		result.float = 1.0;
 		strcpy(result.stringa, "");
-		return result;
+
+		result.time.ore = 0;
+		result.time.minuti = 0;
+		result.time.secondi = 0;
+
+		result.data.giorno = 1;
+		result.data.mese = 1;
+		result.data.anno = 1970;
 	}
 	else
 	{
@@ -390,7 +412,7 @@ list_element leggiUnoList(FILE * fp)
 	}
 }
 
-BOOL isLetturaCorrettaList(list_element element)
+BOOL isLetturaCorrettaList(list_struct element)
 {
 	//da modificare in funzione di quello che � la struttura base nel caso di errori di lettura
 	if (element.intero != 0 && element.reale != 0 && sizeof(element.stringa) != 0)
@@ -409,7 +431,7 @@ list leggiTuttiUnoAllaVolta(char * fileName)
 
 	FILE * fp;
 	list result;
-	list_element temp;
+	list_struct temp;
 	int count;
 
 	result = emptyList();
@@ -426,7 +448,7 @@ list leggiTuttiUnoAllaVolta(char * fileName)
 		}
 
 		rewind(fp);
-		result = (io_element*)malloc(sizeof(io_element) * count);
+		result = (io_struct*)malloc(sizeof(io_struct) * count);
 		count = 0;
 
 		temp = leggiUnoList(fp);
@@ -451,7 +473,7 @@ list leggiTuttiInsieme(char * fileName)
 {
 	FILE * fp;
 	list result;
-	list_element temp;
+	list_struct temp;
 	BOOL letturaCorretta;
 
 	letturaCorretta = TRUE;

@@ -15,22 +15,22 @@
 //						ARRAY                      //
 /*=================================================*/
 //=========== LEGGI UNO ALLA VOLTA ===================
-io_element leggiUno(FILE * fp);
-BOOL isLetturaCorretta(io_element element);
-io_element * leggiTuttiUnoAllaVolta(char * fileName, int * dim);
+io_struct leggiUno(FILE * fp);
+BOOL isLetturaCorretta(io_struct element);
+io_struct * leggiTuttiUnoAllaVolta(char * fileName, int * dim);
 
 //=========== LEGGI IN UNA VOLTA =====================
-io_element * leggiTuttiInsieme(char * fileName, int * dim);
+io_struct * leggiTuttiInsieme(char * fileName, int * dim);
 
 //=========== STAMPA =================================
-void stampaTutti(io_element * v, int dim);
+void stampaTutti(io_struct * v, int dim);
 
 /*=================================================*/
 //						ARRAY                      //
 /*=================================================*/
 //=========== LEGGI UNO ALLA VOLTA ===================
-list_element leggiUnoList(FILE * fp);
-BOOL isLetturaCorretta(list_element element);
+list_struct leggiUnoList(FILE * fp);
+BOOL isLetturaCorretta(list_struct element);
 list leggiTuttiUnoAllaVolta(char * fileName);
 
 //=========== LEGGI IN UNA VOLTA =====================
