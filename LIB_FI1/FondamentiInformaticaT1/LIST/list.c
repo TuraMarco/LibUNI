@@ -5,6 +5,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
+//////////////////////////////////////
+//		FUNZIONI DI LIBRERIA		//
+//////////////////////////////////////
+
 //========================== FUNZIONI PRIMITIVE ======================================
 list emptyList(void)
 {
@@ -177,7 +182,7 @@ list canc(element e, list l)
 
 list insOrd(element e, list l)
 {
-	//inserisce gli elementi con ordine (DAl PIU' PICCOLO AL PIU' GRANDE)
+	//inserisce gli elementi con ordine (DAl PIU' PICCOLO AL PIU' GRANDE, se serve il contrario usa dopo reverse();)
 	if (empty(l))
 	{
 		return cons(e, l);
@@ -195,9 +200,9 @@ list insOrd(element e, list l)
 	}
 }
 
-/*
 list inputOrdList(int n) //'n' elementi da inserire (POTREBBE ESSERE NECESSARIO MODIFICARLO)
 {
+
 	//Interfaccia del inserimento ordinato
 	element e;
 	if (n<0)
@@ -214,12 +219,12 @@ list inputOrdList(int n) //'n' elementi da inserire (POTREBBE ESSERE NECESSARIO 
 		else
 		{
 			printf("Inserire elemento:\n");	
-			scanf("%d", &e); //modificare qui nel caso non si lavori con interi
+			//scanListStruct(&e); //scommentare e scrivewre la classe
 			return insOrd(e, inputOrdList(n - 1));
 		}
 	}
 }
-*/
+
 
 list intersez(list l1, list l2)
 {
@@ -308,5 +313,30 @@ list differ(list l1, list l2)
 		}
 	}
 	return ris;
+}
+//===================================================================================
+
+//=================================== ALTRE =========================================
+void scanListStruct(elementt * e)
+{
+	//TODO 
+	// Da editare in base al compito
+
+	//leggo un elemento della lista da terminale
+
+	// printf("Inserire un intero: ")
+	// fcanfs(0, "%d", e.intero);
+
+	// printf("Inserire un reale: ")
+	// fcanfs(0, "%f", e.reale);
+
+	// printf("Inserire una stringa: ")
+	// fcanfs(0, "%s", e.stringa);
+
+	// printf("Inserire una data (nel formato d/m/yyyy): ")
+	// fcanfs(0, "%d/%d/%d", e.data.giorno, e.data.mese, e.data.anno);
+
+	// printf("Inserire un orario: (nel formato h:m:s): ")
+	// fcanfs(0, "%d:%d:%d", e.time.ore, e.time.minuti, e.time.secondi);
 }
 //===================================================================================

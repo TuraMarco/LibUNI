@@ -1,5 +1,10 @@
 #include"sort.h"
 
+
+//////////////////////////////////////
+//		FUNZIONI DI LIBRERIA		//
+//////////////////////////////////////
+
 //========================== FUNZIONI NAIVE_SORT ==================================
 int trova_pos_max(io_struct v[], int dim)
 {

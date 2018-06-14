@@ -1,7 +1,29 @@
 #include"element.h"
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////
+//		FUNZIONI DI LIBRERIA		//
+//////////////////////////////////////
+
 //================== FUNZIONI FUNZIONI IO_ELEMENT ================================
-int compareData(Data d1, Data d2)
+int compareData(Data d1, Data d2) // d1 successiva d2 <=> result > 0
 {
 	int result;
 	result = d1.anno - d2.anno;
@@ -10,7 +32,7 @@ int compareData(Data d1, Data d2)
 	{
 		result = d1.mese - d2.mese;
 	}
-
+													
 	if (result == 0)
 	{
 		result = d1.giorno - d2.giorno;
@@ -24,7 +46,7 @@ void showData(Data d)
 	printf("%d/%d/%d", d.giorno, d.mese, d.anno);
 }
 
-int compareTime(Time t1, Time t2)
+int compareTime(Time t1, Time t2) // t1 successiva t2 <=> result > 0
 {
 	int result;
 	result = t1.ore - t2.ore;
@@ -47,19 +69,22 @@ void showTime(Time t)
 	printf("%d:%d:%d", t.ore, t.minuti, t.secondi);
 }
 
-int compareIoStruct(io_struct e1, io_struct e2)
+int compareIoStruct(io_struct e1, io_struct e2)   //e1 > e2 <=> result > 0
 {
-	//TODO
+	//TODO 
+	// Dsa editare in base al compito
+
 	int result;
 
-	//comparazione intero, la prima comparazione � fuori da un if(){}
-	result = e1.intero - e2.intero;
+	//comparazione intero (e1.intero > e2.intero <=> result > 0) 
+	//la prima comparazione � fuori da un if(){}
+	result = e1.intero - e2.intero; 
 
-	//comparazione reali (NON HA MOLTO SENSO)
+	//comparazione reali (e1.reale > e2.reale <=> result > 0)
 	float temp;
 	if (result == 0)
 	{
-		temp = e1.intero - e2.intero;
+		temp = e1.reale - e2.reale;
 		if (temp == 0)
 		{
 			result = 0;
@@ -74,19 +99,19 @@ int compareIoStruct(io_struct e1, io_struct e2)
 		}
 	}
 
-	//comparazione stringhe
+	//comparazione stringhe (e1.stringa > e2.stringa <=> result > 0)
 	if (result == 0)
 	{
 		result = strcmp(e1.stringa, e2.stringa);
 	}
 
-	//comparazione Data
+	//comparazione Data (e1.data successiva e2.data <=> result > 0)
 	if (result == 0)
 	{
 		result = compareData(e1.data, e2.data);
 	}
 
-	//comparazione Time
+	//comparazione Time (e1.time successiva e2.time <=> result > 0)
 	if (result == 0)
 	{
 		result = compareTime(e1.time, e2.time);
@@ -97,7 +122,12 @@ int compareIoStruct(io_struct e1, io_struct e2)
 
 void showIoStruct(io_struct e) 
 {
-	printf("%d %f %s %d/%d/%d %d:%d:%d", e.intero, e.reale, e.stringa, e.data.giorno, e.data.mese, e.data.anno, e.time.ore, e.time.minuti, e.time.secondi);
+	//TODO 
+	// Da editare in base al compito
+	printf("%d %f %s ", e.intero, e.reale, e.stringa);
+	showData(e.data);
+	printf(" ");
+	showTime(e.time);
 }
 
 void showIoStructArray(io_struct * array, int dim)
@@ -117,16 +147,20 @@ void showIoStructArray(io_struct * array, int dim)
 //================ FUNZIONI FUNZIONI LIST_ELEMENT ================================
 int compareListStruct(list_struct le1, list_struct le2)
 {
+	//TODO 
+	// Dsa editare in base al compito
+
 	int result;
 
-	//comparazione intero, la prima comparazione � fuori da un if(){}
+	//comparazione intero  (le1.intero > le2.intero <=> result > 0)  
+	//la prima comparazione � fuori da un if(){}
 	result = le1.intero - le2.intero;
 
-	//comparazione reali (NON HA MOLTO SENSO)
+	//comparazione reali  (le1.reale > le2.reale <=> result > 0) 
 	float temp;
 	if (result == 0)
 	{
-		temp = le1.intero - le2.intero;
+		temp = le1.reale - le2.reale;
 		if (temp == 0)
 		{
 			result = 0;
@@ -141,19 +175,19 @@ int compareListStruct(list_struct le1, list_struct le2)
 		}
 	}
 
-	//comparazione stringhe
+	//comparazione stringhe (le1.stringa > le2.stringa <=> result > 0)
 	if (result == 0)
 	{
 		result = strcmp(le1.stringa, le2.stringa);
 	}
 
-	//comparazione Data
+	//comparazione Data (le1.data successiva le2.data <=> result > 0)
 	if (result == 0)
 	{
 		result = compareData(le1.data, le2.data);
 	}
 
-	//comparazione Time
+	//comparazione Time (le1.time successiva le2.time <=> result > 0)
 	if (result == 0)
 	{
 		result = compareTime(le1.time, le2.time);
@@ -176,5 +210,16 @@ BOOL equalsListStruct(list_struct le1, list_struct le2)
 
 void showListStruct(list_struct le)
 {
-	printf("%d %f %s %d/%d/%d %d:%d:%d", le.intero, le.reale, le.stringa, le.data.giorno, le.data.mese, le.data.anno, le.time.ore, le.time.minuti, le.time.secondi);
+	//TODO 
+	// Da editare in base al compito
+	printf("%d %f %s ", le.intero, le.reale, le.stringa);
+	showData(le.data);
+	printf(" ");
+	showTime(le.time);
+}
+
+void showAllListStruct(list_struct le)
+{
+	//chiamo la funzione di list.h
+	showList(le);
 }

@@ -3,6 +3,11 @@
 
 #include"element.h"
 
+
+//////////////////////////////////////
+//		FUNZIONI DI LIBRERIA		//
+//////////////////////////////////////
+
 /*
 Copiare la sezione adatta ed inserirla all'intrerno dell'header finale che
 contiene anche il main.
