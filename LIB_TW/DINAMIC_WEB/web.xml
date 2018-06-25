@@ -9,26 +9,34 @@
     <description>
       An empty project to use as a template for your own ones
     </description>
-		
-    <!-- Define servlets that are included in the application -->
-	<servlet>
-		<servlet-name>HomeServ</servlet-name>
-		<servlet-class>HomeServlet</servlet-class>
+
+	<!-- Context attributes to be used throughout the application -->
+	<context-param>
+		<param-name>dao</param-name>
+		<param-value>IDENTIFICATIVO_DELL_IMPLEMENTAZIONE</param-value>
+	</context-param>
+	
+    <!-- Definisco le servlet incluse nell'applicazione -->
+    <servlet>
+		<servlet-name>Servlet</servlet-name>
+		<servlet-class>Package.Servlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-	 	<servlet-name>HomeServ</servlet-name>
+	 	<servlet-name>Servlet</servlet-name>
 	 	<url-pattern>/home</url-pattern>
 	</servlet-mapping>
+    <!-- Definisco parametri con scope interno alla servlet -->
+    <init-param>
+        <param-name>title</param-name>
+        <param-value>Hello page</param-value>
+    </init-param>
 
 	<!-- Welcome pages -->
-	<!-- pleonastico: tomcat "tenta" in automatico le index.html e index.jsp -->
-	
 	<welcome-file-list>
 		<welcome-file>/pages/home.html</welcome-file>
 	</welcome-file-list>
 		
 	<!-- Handle exceptions and errors -->
-	
 	<error-page>
 		<error-code>404</error-code>
 		<location>/errors/notfound.html</location>
