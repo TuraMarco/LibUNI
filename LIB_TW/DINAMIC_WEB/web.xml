@@ -10,7 +10,7 @@
       An empty project to use as a template for your own ones
     </description>
 
-	<!-- Context attributes to be used throughout the application -->
+	<!-- Definisco i contextAttribute da usare nell'applicazione -->
 	<context-param>
 		<param-name>dao</param-name>
 		<param-value>IDENTIFICATIVO_DELL_IMPLEMENTAZIONE</param-value>
@@ -28,7 +28,7 @@
     <!-- Definisco parametri con scope interno alla servlet -->
     <init-param>
         <param-name>title</param-name>
-        <param-value>Hello page</param-value>
+        <param-value>Home Page</param-value>
     </init-param>
 
 	<!-- Welcome pages -->

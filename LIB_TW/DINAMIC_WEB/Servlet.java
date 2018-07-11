@@ -86,7 +86,57 @@
 //	_______________
 //	|    COOKIE   |
 //  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-//
+//	Il cookie è un’unità di informazione che Web server deposita sul Web browser lato cliente e sono astratti 
+//	nelle WebApp servlet con la classe "Cookie" vengono cceduti e creati con i seguenti metodi della requestr e response:
+//		Cookie[] getCookies() ---> chiamato sulla request ottiene un riferimento ad un Array di oggetti Cookie
+//		void addCookie(Cookie cookie) ---> chiamato sulla response permette di aggiungere un istanza di Cookie alla response
+//	Gli oggetti Cookie vengono istanziate con un costruttore che accetta 2 stringhe (nomeCookie e valoreCookie)
+//	Essendo pericoloso l'impostazione di valori sensibili nei cookie vengono usualmente sfruttati come supporto dell'oggetto Session
+//	per immagazzinare il SessionID
+
+//	_______________
+//	|   SESSION   |
+//  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+//	La sessione Web è un’entità gestita dal Web container con scope interno alla comunicazione tra client e server, 
+//	è condiviso quindi fra tutte le richieste provenienti dallo stesso client.
+//	Viene identificato in modo univoco da un SessionID (tipicamente salvata in un cookie per garantire il binding Session/Client) 
+//  e può essere recuperato chiamando sull'oggetto HttpServletRequest il metodo:
+//		HttpSession getSession(boolean createNew)
+//	il boolean specifica se si deve recuperare una sessione aperta o la si deve creare (nell caso sia TRUE e la sessione 
+//	esista gia ritorna la sessione esistente).
+//	Una volta ottenuto un oggetto Sessione è possibile salvarvi dentro e manipolare attributi in modo similare ai Context Attribute
+//	con i metodi:
+//		void setAttribute(String name, Object object)  ---> Associo l'oggetto "object" all'attributo definito dalla stringa "name" 
+//		Object getAttribute(String name) ---> recupero un riferimento all'attributo definito dalla stringa "name"
+//		Enumeration getAttributeNames() ---> ritorna i nomi di tutti gli attributi
+//		void removeAttribute(String name) ---> elimina l'attributo specificato
+//	Vi sono inoltre i seguenti metodi di utilità da usare sull'oggetto Session:
+// 		String getID() ---> restituisce l’ID di una sessione 
+// 		boolean isNew() ---> dice se la sessione è nuova 
+// 		void invalidate() ---> permette di invalidare (distruggere) una sessione
+// 		long getCreationTime() ---> dice da quanto tempo è attiva la sessione (in millisecondi) 
+// 		long getCreationTime() ---> dice da quanto tempo è attiva la sessione (in millisecondi) 
+
+//	__________________________
+//	|   REDIRECT & FORWARD   |
+//  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+//	Nel caso si voglia  forzare la ridirezione ad una pagina è possibile 
+// 	usare uno dei codici di stato compresi tra 300 e 399, in particolare:
+//		301 ---> Moved Permanently
+//  Questo risultato è ottenibile o invocando il metodo
+//		public void sendRedirect(String url)
+//	oppure settando sugli header della response
+//		response.setStatus(response.SC_MOVED_PERMANENTLY);
+//		response.setHeader("Location", "http://....");
+//	Un altro comportamento che si potrebbe voler implementare è quello dell'inclusione
+//	di risorse di qualunque tipo, per fare ciò ci si avvale dell'oggetto RequestDispatcher
+//		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/inServlet");
+//		dispatcher.include(request, response);
+//	Mentre per quanto riguarda il forward, tenendo a mente che la risposta è di competenza 
+//	dell'ultima servlet della catena di inoltri e se viene aperto un canale di output da una 
+//	precedente servlet si otterra un IllegalStateException.
+//		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/inServlet");
+//		dispatcher.forward(request, response);
 
 import java.io.IOException;
 import java.io.PrintWriter;
