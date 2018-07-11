@@ -6,10 +6,15 @@
     di intermpretazione sostituisce con testo coerente, ricreando l'effetto di avere pagine HTML
     dinamicamente definite.
     I TAG speciali sono di 4 tipi:
-    <%! %>   ->   Dichiarazione 
-    <%= %>   ->   Espressione
-    <% %>    ->   Scriptlet
-    <%@ %>   ->   Direttive
+        <%! %>   ->   Dichiarazione 
+        <%= %>   ->   Espressione
+        <% %>    ->   Scriptlet
+        <%@ %>   ->   Direttive
+    è anche possibile scrivere i tag con una notazione XML-oriented:
+        <jsp:declaration>declaration</jsp:declaration>  ->   Dichiarazione 
+        <jsp:expression>expression</jsp: expression>    ->   Espressione
+        <jsp:scriptlet>java_code</jsp:scriptlet>        ->   Scriptlet
+        <jsp:directive.dir_type dir_attribute />        ->   Direttive
 
     _____________________
 	|   DICHIARAZIONI   |
