@@ -24,9 +24,9 @@
     una volta conclusa la traduzione della jsp.
     La sintassi da adottare è quella tipica del java
  
-    _____________________
-	|   DICHIARAZIONI   |
-    ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    ___________________
+	|   ESPRESSIONI   |
+    ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     Si usano per valutare espressioni del java, il risultato di cio che vine inserito dentro viene 
     convertito in stringa e va a sostituire il TAG nella pagina HTML finale.
     La sintassi è anche qui quella standard di java con la sola eccezione del terminatore ';' che 
