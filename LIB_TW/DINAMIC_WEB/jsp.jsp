@@ -177,7 +177,7 @@
     vengono tipicamente espresso usando sintassi XML.
     Le AZIONI definite sono:
         useBean: istanzia JavaBean e gli associa un identificativo
-            <jsp:useBean id="myBean" class="it.unibo.deis.my.HelloBean"/>
+            <jsp:useBean id="myBean" class="it.unibo.deis.my.HelloBean" scope="page|request|session|application"/>
         setProperty: imposta valore della property indicata per nome
             <jsp:setProperty name="myBean" property="nameProp" param="value"/>
         getProperty: ritorna property indicata come oggetto
@@ -188,4 +188,51 @@
              <jsp:forward page="localURL" />
         plugin: genera contenuto per scaricare plug-in Java se necessario (NON LO USIAMO)
 
+    Per quanto riguarda il FORWARD, consente il trasferimento del controllo dalla pagina JSP corrente 
+    ad un altra pagina sul server locale, come si puo vedere sopra l'attributo "page" definisce l'URL della 
+    pagina a cui trasferire il controllo.
+    Il forward causa un trasferimento della request trasparente al client che riceverà la response.
+    E' possibile generare dinamicamente l'attributo page con l'aiuto del TAG <%= %>.
+    Gli oggetti Request, Response e Session della pagina d'arrivo sono gli stessi della pagina chiamante,
+    viene solo istanziato un nuovo oggetto PageContext.
+    Come nel caso delle Servlet il forward è possilbile solo se non è stato emesso alcun output dalla pagina chiamante.
+    E' anche possibile esprimere parametri nel body cosi che questi siano visibili al chiamato come nel esempio seguente:
+        <jsp:forward page="localURL">
+            <jsp:param name="parName1“ value="parValue1"/>
+            ...
+            <jsp:param name="parNameN“ value="parValueN"/>
+        </jsp:forward>
+
+    Per quanto riguarda l'INCLUDE, consente di includere il contenuto generato dinamicamente da un'altra pagina locale 
+    all'interno dell'output della pagina corrente
+    E' caratterizzato dalla presenza di 2 parametri:
+        page    -> definisce la pagina locale da includere
+        flush   -> dichiara se prima dell'inclusione debba essere fatto un flush del buffer
+    Anche qui gli oggetti Session, Request e Response sono gli stessi, viene solo istanziato un nuovo PageContext.
+    E' anche qui possibile esprimere parametri nel body cosi che questi siano visibili al chiamato come nel esempio seguente:
+        <jsp:include page="localURL">
+            <jsp:param name="parName1“ value="parValue1"/>
+            ...
+            <jsp:param name="parNameN“ value="parValueN"/>
+        </jsp:include>
+
+    Infine si descrive il MODEL1 ossia l'unione delle JSP con i JAVABEAN, per istanziare quest'ultimi si usa l'azione:
+        <jsp:useBean id="myBean" class="it.unibo.deis.my.HelloBean" scope="page|request|session|application"/>
+    che permette di istanziare un bean.
+    Il tag useBean accetta 3 argomenti principali:
+        id      ->  il nome dell'istanza del bean
+        class   ->  la classe del bean da istanziare
+        scope   ->  lo scope della istanza del bean.
+                        |-  page:   questo è il default, l'istanza sopravvive fino al forward o al completamento della pagina.
+                        |-  request:    come page ma sopravvive a forward ed include.
+                        |-  session:    richiesta corrente e tutte quelle dello stesso client.
+                        |_  application:    richiesta corrente ed ogni altra richiesta che fa parte dell'applicazione.
+    Per accedere alle istanze del bean in lettura o scrittura si usano rispetivamente le azioni:
+        <jsp:getProperty name="myBean" property="nameProp"/>
+        <jsp:setProperty name="myBean" property="nameProp" param="value"/>
+    Dove l'argomento "name" è il nome dell'istanza del bean, "propery" il nome della proprietà a cui accedere associata a quell'istanza,
+    e nel caso della sola setProperty, "param" esprime il valore da padssare alla proprietà.
+    Da notare che le azioni descritte non permettono l'accesso a proprietà indicizzate, per cui in quello specifico caso è possibile usare
+    il TAG-EXPRESSION:
+        <%= bean.getIndexProperty(index) %>
 -->
