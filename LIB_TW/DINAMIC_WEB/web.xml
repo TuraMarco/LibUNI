@@ -36,7 +36,7 @@
 		<welcome-file>/pages/home.html</welcome-file>
 	</welcome-file-list>
 		
-	<!-- Handle exceptions and errors -->
+	<!-- Handle exceptions ed errori -->
 	<error-page>
 		<error-code>404</error-code>
 		<location>/errors/notfound.html</location>
