@@ -22,6 +22,10 @@ Definizione ed implementazione di funzioni di carattere generali utili nelle var
 Librerie per LAS (Prandini), comprendono snippet e librerie
 suddivise per componenti dell'esame.
 
+### Tecnologie Web T (LIB_TW)
+Librerie per TecWeb (Bartolini, Bellavista), comprendono snippet e librerie
+suddivise per componenti dell'esame.
+
 ## Fonti
 -   Il file Guida_Pratica_LAS.pdf contenuto nella directory LIB_LAS è derivato dal lavoro fatto da Federico terzi.
     <https://github.com/federico-terzi/las-guida-pratica>
@@ -31,3 +35,7 @@ suddivise per componenti dell'esame.
 
 -   Il cheat sheet in RegEx.pdf è stato tratto dal sitp:
     <http://addedbytes.com>
+
+-   Le slide contenute nel file JQuery.pdf sono state tratte dalmateriale del professor Paolo Bellavista e della
+    professoressa Ilaria Bartolini per il corso di Tecnologie Web T
+    <http://www-db.disi.unibo.it/courses/TW/PDF/L.05.Javascript.pdf>
