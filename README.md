@@ -37,5 +37,5 @@ suddivise per componenti dell'esame.
     <http://addedbytes.com>
 
 -   Le slide contenute nel file JQuery.pdf sono state tratte dalmateriale del professor Paolo Bellavista e della
-    professoressa Ilaria Bartolini per il corso di Tecnologie Web T
+    professoressa Ilaria Bartolini per il corso di Tecnologie Web T:
     <http://www-db.disi.unibo.it/courses/TW/PDF/L.05.Javascript.pdf>
