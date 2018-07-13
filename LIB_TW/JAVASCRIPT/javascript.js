@@ -168,3 +168,85 @@ document.nomeForm.submit() // esegue il submit
 //  ed eventi
 document.nomeForm.onreset // quando il form viene resettato
 document.nomeForm.onsubmit // Squando viene eseguito il submit del form
+
+//	_______________________
+//	|   OGGETTO ELEMENT   |
+//  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+//  Ogni elemento che può entrare a far parte di una form viene rappresentato da un oggetto JavaScript:
+//      Text ----> <input type="text">
+//      Checkbox ----> <input type="checkbox">
+//      Radio ----> <input type="radio">
+//      Button ----> <input type="button"> o <button>
+//      Hidden ----> <input type="hidden">
+//      File ----> <input type="file">
+//      Password ----> <input type="password">
+//      Textarea ----> <textarea>
+//      Submit ----> <input type="submit">
+//      Reset ----> <input type="reset"> 
+//  Ogniuno di questo elementi espone delle proprietà:
+//      form ----> riferimento al form che contiene il controllo
+//      name ----> nome del controllo
+//      type ----> typo del controllo
+//      value ----> valore dell’attributo value
+//      disabled ----> disabilitazione/abilitazione del controllo
+//  dei metordi:
+//      blur() ----> toglie il focus al controllo
+//      focus() ----> dà il focus al controllo
+//      click() ----> simula il click del mouse sul controllo
+//  e degli eventi
+//      onblur ----> quando il controllo perde il focus
+//      onfocus ----> quando il controllo prende il focus
+//      onclick ----> quando l’utente clicca sul controllo
+//
+//  Per quanto riguarda elementi di tipo TEXT o PASSWORD sono esposte altre proprietà:
+//      defaultValue ----> valore di default
+//      Disabled ----> disabilitazione / abilitazione del campo
+//      maxLength ----> numero massimo di caratteri
+//      readOnly ----> sola lettura / lettura e scrittura
+//      size ----> dimensione del controllo
+//  e metodi:
+//      select() ----> seleziona una parte di testo
+//  
+//  Per quanto riguarda invece CHECKBOX e RADIO vengono esposte delle proprietà:
+//      checked ----> dice se il box e spuntato
+//      defaultChecked ----> impostazione di default
+
+//	________________________
+//	|   VALIDAZIONI FORM   |
+//  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+//Funzione per controllare il range di un valore numerico
+function qty_check(item, min, max)
+{
+    returnVal = false;
+    if ((parseInt(item.value) < min)||(parseInt(item.value) > max))
+    {
+        alert(item.name+"deve essere fra "+min+" e "+max);
+    }
+    else
+    {
+        return true;
+    }   
+}
+
+// funzione per portare in UpperCase il testo di 2 text
+function upperCase()
+{
+    var val = document.myForm.firstName.value;
+    document.myForm.firstName.value = val.toUpperCase();
+    val = document.myForm.lastName.value;
+    document.myForm.lastName.value = val.toUpperCase();
+}
+
+// funzione di validazione di un intera form
+function validateAndSubmit(theForm)
+{
+    if (qty_check(theform.quantità,0,999))
+    { 
+        alert("Ordine accettato"); return true; 
+    }
+    else
+    { 
+        alert("Ordine rifiutato"); return false; 
+    }
+}
