@@ -23,25 +23,55 @@
 //  Vedi JQuery.pdf per ulteriori selettori.
 //
 //  JQuery offre innumerevoli metodi e proprietà per accedere al DOM
+
+//COLLEZIONI
 $("#menu li").size(); // dimensione di una collezione
 $("#menu li").lenght; // come sopra ma con sintassi array, più veloce
 
+//ELEMENTI
 $("#menu li").get(0); // ottenere elementi da una lista
 
+//HTML
 $("#menu li").eq(0).html(); // ottenre l'HTML
 $("#menu li").get(0).innerHTML; // come sopra ma con JS nativo
 
+//ATTRIBUTO
 $("a#mioLink").attr("href"); // restituisce il valore di un attributo, href
 $("a#mioLink").attr("href","http://www.html.it"); // imposta il valore di un attributo, href
 $("a#mioLink").attr("href",function () { return "http://www.html.it" }); // imposta il valore di un attributo in base alla funzione, href
 $("#menu li a").removeAttr("target"); // rimuove un attributo
 
+//CORPO DEI TAG
 $("p").text("Nuovo testo"); // inserire testo nel corpo di un tag
 $("p").html("Nuovo testo con <strong>HTML</strong>"); // inserire HTML nel corpo di un tag
 
+//CSS
 $("a").css("color"); // restituisce il valore di una direttiva CSS, colore esadecimale del primo elemento link
 $("a").css("color","#FF0000"); //imposta il valore di una direttiva CSS, colore dei link
 $("a").css({ //imposta il valore di diverse direttiva CSS contemporaneamente
     "color" : "#FF0000", //imposta il colore
     "display" : "block" // imposta la visualizzazione
 });
+
+//EVENTI
+$("p").click(           // nome del evento da gestire, qui CLICK
+    function () {       // si usa per un evento alla volta
+        $(this).css("background-color", "red");
+    }
+)
+$("p").on({             // "on" va bene per qualunque evento, accetta un oggetto composto dal binding tra eventi ed hendler
+    mousenter: function () {
+        $(this).css("background-color", "Green");
+    },
+    mouseleave: function () {
+        $(this).css("background-color", "white");
+    },
+    click: function () {
+        $(this).css("background-color", "red");
+    }
+})
+
+//MODIFICA DEL DOM
+$('body').append('<p id="roba">Nuovo Testo</p>');     //inserisce dentro il body
+$('#roba').prepend('<p>Nuovo Testo Inserito Prima</p>');    //inserisce prima del tag con id="roba"
+$('<li>ASD</li>').appendTo('#menu');    //inserisce il <li> all'interno della lista con id="menu"
