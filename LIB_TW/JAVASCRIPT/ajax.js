@@ -83,7 +83,7 @@ xhr.send(null);
 //POST
 var xhr = new XMLHttpRequest();
 xhr.open("POST", "pagina.html", true );
-xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xhttp.setReGsoquestHeader("Content-type", "application/x-www-form-urlencoded");
 xhr.setRequestHeader("connection", "close");
 xhr.send("p1=v1&p2=v2");
 
@@ -112,15 +112,24 @@ var xhr = myGetXmlHttpRequest(); // ottengo la variabile XMLHttpRequest
 var textHolder = new Object();
 textHolder.testo = "La risposta del server è: ";
 
-xhr.onreadystatechange = function() {
- if ( xhr.readyState == 4 && xhr.status == 200 ) {
- /*
- * anche se la funzione è assegnata a una proprietà di xhr,
- * dal suo interno non è possibile riferirsi a xhr con this
- * perché la funzione sarà richiamata in modo asincrono dall’interprete
- */
- }
+xhr.onreadystatechange = function() 
+{
+    if ( xhr.readyState == 4 && xhr.status == 200 ) 
+    {
+    /*
+    * anche se la funzione è assegnata a una proprietà di xhr,
+    * dal suo interno non è possibile riferirsi a xhr con this
+    * perché la funzione sarà richiamata in modo asincrono dall’interprete
+    */
+    }
 };
+//  E' possibile usare argomenti nella funzione di Callback nel seguente modo
+function callbackWithArg(arg1, arg2){};
+xhr.onreadystatechange = function() 
+{
+    callbackWithArg(arg1, arg2);
+};
+
 
 // funzione getElementById senza problemi di compatibilità tra browser
 function myGetElementById(idElemento) 
@@ -142,4 +151,38 @@ function myGetElementById(idElemento)
     // restituzione elemento
     return elemento;
    }
-   
+
+//	____________
+//	|   JSON   |
+//  ¯¯¯¯¯¯¯¯¯¯¯¯
+//  JSON è l'acronimo di Java Script Object Notation, è un formato per lo scambio 
+//  di dati più efficente e sintetico rispetto ad XML, e comunque human readable.
+//  Si basa sulla notazione usata per descrivere gli oggetti JavaScript, piu precisamente
+//  Object Literal ed Array Literal.
+var oggettoJSON =
+[
+    {   // oggetto 1
+        "NameVar1.1": "ValVar1.1",
+        "NameVar1.2": "ValVar1.2",
+        "NameArray1.1": ["ValArray1.1.1","ValArray1.1.2","ValArray1.1.3"]
+    },
+    {   // oggetto 2
+        "NameVar2.1": "ValVar2.1",
+        "NameVar2.2": "ValVar2.2",
+        "NameArray2.1": ["ValArray2.1.1","ValArray2.1.2","ValArray2.1.3"]
+    }
+];
+//  Al fine di convertire una stringa JSON in un oggetto JS, il linguaggio mette
+//  nativamente a disposizione la funzione "eval()", che accetta come argomento
+//  una stringa JSON tra parentesi tonde, e ritorna un istanza dell'oggetto JS equivalente.
+var o = eval('('+oggettoJSON+')');
+//  Comunque l'uso di eval() presenta non pochi rischi, poiche stringhe passate come parametro
+//  potrebbero contenere codice malevolo, per questo motivo esistono parser appositi, implementati
+//  in specifiche librerie JS.
+//  Il più diffuso parser è json.js, che espone l'oggetto JSON con 2 metodi:
+JSON.parse(strJSON);  // converte una stringa JSON in oggetto JS in modo safe
+JSON.stringify(objJSON); //converte un oggetto JS in una stringa JSON
+//  E' importante ricordare che in seguito alla conversione da oggetto a stringa è necessario usare
+//  la funzione:
+encodeURIComponent()
+//  per convertire la stringa in un formato usabile in una richeista HTTP
