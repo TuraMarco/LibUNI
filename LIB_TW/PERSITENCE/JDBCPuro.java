@@ -54,6 +54,16 @@ CallableStatement cstmt = conn.prepareCall();
 //  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 //  L'oggetto ResultSet è il risultato di una  query del tipo SELECT, rappresenta una tabella composta da 
 //  righe (gli elementi selezionati) e colonne (gli attributi richiesti).
+//  I i valori degli attributi sono accedibili mendiante un cursore e metodi:
+rs.getXXX("nomeArg");
+rs.getXXX(nColonna);  //il numero colonna è un intero che inizia da 0
+//  Per scorrere le tuple del risultato invece si usa il metodo:
+rs.next();
+//
+//  I valori NULL SQL sono convertiti in null, 0, o false, dipendentemente dal tipo di metodo getXXX
+//  Per determinare se un particolare valore di un risultato corrisponde a NULL in JDBC:
+//  - Si legge la colonna
+//  - Si usa il metodo rs.wasNull();
 
 //  Un esempio di programma JDBC può essere:
 import java.sql.*; //importo il package JDBC
