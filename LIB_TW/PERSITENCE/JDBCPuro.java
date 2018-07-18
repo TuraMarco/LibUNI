@@ -94,6 +94,7 @@ class Esempio
             pstmt.setInt(2,100); //setto un 100 nel secondo parametro
             int res = pstmt.executeUpdate(); //eseguo la query ed in questo caso ritorno il numero di tuple modificate
             System.out.println("Ho modificato " + res + "tuple");
+            pstmt.close(); //chiudo il prepared statement
         }
         catch (Exception e) 
         {
@@ -101,5 +102,3 @@ class Esempio
         }
     }
 }
-//  nel caso avessi una query parametrizzata avrei dovuto istanziare una PreparedStatement:
-PreparedStatement ps = conn.prepareStatement("UPDATE MyTable SET a = ? WHERE b = ?");
