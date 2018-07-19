@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<!-- 
+Le proprietà il cui nome hanno la forma:
+(hibernate).connection.*
+contengono le informazioni necessarie per impostare la connessione JDBC.
+
+La proprietà:
+dialect 
+specifica la variante di SQL che deve generare Hibernate.
+
+Le proprieta: 
+c3p0.* 
+indicano le impostazioni necessarie a configurare il software c3p0 per 
+il pooling di connessioni.
+
+-->
+<hibernate-configuration>
+    <session-factory>   <!-- definisce le impostazioni per l'accesso a un particolare DB  -->
+
+        <!-- Database connection settings -->
+        <property name="hibernate.connection.driver_class">com.ibm.db2.jcc.DB2Driver</property>
+        <property name="hibernate.connection.url">jdbc:db2://diva:deis.unibo.it:50000/sit_stud</property> <!-- uso sempre il DB di sistemi operativi -->
+        <property name="connection.username">*****</property>
+        <property name="connection.password">*****</property>
+
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.DB2Dialect</property>    <!-- variante di dialetto DB2 -->
+
+        <!-- JDBC connection pool (use C3P0) -->
+        <property name="c3p0.min_size">5</property> <!-- numero minimo di connessioni che devono essere pronte in ogni momento -->
+        <property name="c3p0.max_size">20</property>    <!--  numero massimo di connessioni aperte gestite dal pool -->
+        <property name="c3p0.timeout">300</property>    <!--  tempo al termine del quale una connessione aperta non più usata viene rimossa -->
+        <property name="c3p0.max_statement">50</property>   <!-- numero di "prepared statements" che sono mantenuti in cache -->
+
+        <!-- Show and print nice SQL on stdout -->
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+
+        <!-- List of XML mapping files -->
+        <mapping resource="User.hbm.xml" /> <!--  l’elenco dei file di mapping XML -->
+
+    </session-factory>
+</hibernate-configuration>

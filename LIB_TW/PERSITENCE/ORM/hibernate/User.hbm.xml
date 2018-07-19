@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!--  Contiene le informazioni per il mapping dell'oggetto java "User" sulla tabella relazionale "UTENTE" -->
+
+<hibernate-mapping>
+    <class name="User" table="UTENTE">  <!--  L'elemento class dichiara il nome della classe persistente e la tabella a cui essa corrisponde -->
+        <id name="username" column="username"></id> <!--  nome della proprietà che nella classe funge da identificatore -->
+        <property name="nome" column="nome"></property>
+        <property name="cognome" column="cognome"></property>
+        <property name="email"></property>  <!--  se hanno lo stesso nome posso omettere column -->
+        <property name="password"></property>
+    </class>
+</hibernate-mapping>
+
+<!-- 
+    L'elemento <id> deve sempre esere presente, può avere un elemento figlio <generator> dotato 
+    di un attributo "class" che specifichi una classe che implementa l'interfaccia:
+        org.hibernate.id.IdentifierGenerator
+    usata per generare identificatori univoci, vi sono già alcune classi buil-in:
+        assigned ->  l'applicazione assegna l'identificatore all'istanza prima che sia chiamato il metodo save (DEFOULT se "generator" non compare)
+        native ->   usa i generatori di identificatori forniti dal DBMS sottostante
+-->
