@@ -249,3 +249,13 @@ function validateAndSubmit(theForm)
         alert("Ordine rifiutato"); return false; 
     }
 }
+
+// funzione di validazione per input type che accetta solo numeri
+// <input type="text" id="min" value="" onKeyUp="check(myGetElementById('min'))" />
+function check(field)
+{
+	var lastChar = field.value.charAt(field.value.length-1);
+    if( ((lastChar < "0") || (lastChar > "9")) ){
+    	field.value = field.value.slice(0,field.value.length-1)
+    }
+}

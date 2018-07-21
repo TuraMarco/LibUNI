@@ -236,3 +236,153 @@
     il TAG-EXPRESSION:
         <%= bean.getIndexProperty(index) %>
 -->
+
+<!-- pagina per la gestione di errori -->
+<%@ page errorPage="../errors/failure.jsp"%>
+
+<!-- accesso alla sessione -->
+<%@ page session="true"%>
+
+<!-- import di classi Java -->
+<%@ page import="java.util.*"%>
+
+<!-- metodi richiamati nel seguito -->
+<%!
+
+%>
+
+<!-- codice html restituito al client -->
+<html>
+	<head>
+		<title>Titolo della Pagina</title>
+	</head>
+
+	<body>
+        <!-- Istanziamento dei bean che servono -->
+		<jsp:useBean id="myBean" class="it.unibo.tw.MyBean" scope="application" />
+		
+		<!-- Riferimento ad un altra JSP con metodo GET -->
+		<a href="<%= request.getContextPath() %>/newBook">vai a nuovoLibro.jsp</a><br />
+		
+		<!-- Riferimento ad un altra JSP con metodo POST -->
+		<form name="nuovoLibroForm" action="newBook" method="post">
+			<input type="submit" name="goto" value="vai a nuovoLibro.jsp"/><br />
+		</form>
+		<br />
+        
+        <!-- Business Logic della JSP -->
+		<form>
+			author: <input type="text" name="author"/><br />
+			<input type="submit" name="req" value="cerca autore"/><br />
+		</form>	
+		<br />
+		
+		<form>
+			<input type="submit" name="req" value="mostra tutti"/><br />
+		</form>
+		<br />
+		<br />
+		
+		<% 
+		Set<Libro> elencoLibriTrovati = null;
+
+        if ( request.getParameter("req") != null )
+        {
+            if( request.getParameter("req").equals("cerca autore") )
+            {
+				String autore = request.getParameter("author");
+				elencoLibriTrovati = cerca(elencoLibri, autore).getElenco();
+			}
+            else if( request.getParameter("req").equals("mostra tutti") )
+            {
+				elencoLibriTrovati = elencoLibri.getElenco();
+			}
+		}
+		
+        if( elencoLibriTrovati != null )
+        {
+            %>
+                Numero libri trovati = <%= elencoLibriTrovati.size() %><br /><br />
+            <%
+                Iterator<Libro> itLibro = elencoLibriTrovati.iterator();
+                while( itLibro.hasNext() )
+                {
+                    Libro book = itLibro.next();
+            %>
+                    Autore = <%= book.getAutore() %> <br />
+                    Titolo = <%= book.getTitolo() %> <br />
+                    ISBN   = <%= book.getIsbn() %> <br />
+                    <br />
+            <%
+                }
+		}
+		%>		
+
+	</body>
+</html>
+
+<!-- ESEMPIO DI SERVLET PER LA GESTIONE DELLE JSP
+
+    package it.unibo.tw.es1.servlets;
+    import it.unibo.tw.es1.beans.Libro;
+    import java.io.IOException;
+    import javax.servlet.RequestDispatcher;
+    import javax.servlet.ServletException;
+    import javax.servlet.http.HttpServlet;
+    import javax.servlet.http.HttpServletRequest;
+    import javax.servlet.http.HttpServletResponse;
+    import javax.servlet.http.HttpSession;
+
+    public class NuovoLibroServlet extends HttpServlet
+    {
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+                throws ServletException, IOException {
+            
+            HttpSession session = req.getSession();
+            
+            Libro libro = (Libro)session.getAttribute("libro");
+            if( libro != null){
+                req.setAttribute("nuovoLibro", libro);
+            }
+            
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/nuovoLibro.jsp");
+            dispatcher.forward(req, resp);
+            
+        }
+
+        @Override
+        protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+                throws ServletException, IOException {
+            
+            HttpSession session = req.getSession();
+            
+            String requestFromJsp = req.getParameter("req");
+            if( requestFromJsp != null ){
+                
+                Libro libro = new Libro();
+                libro.setAutore(req.getParameter("author"));
+                libro.setTitolo(req.getParameter("title"));
+                libro.setIsbn(req.getParameter("isbn"));
+                
+                if( requestFromJsp.equals("save") ){
+                    session.setAttribute("libro", libro);
+                    req.setAttribute("nuovoLibro", libro);
+                }
+                else if( requestFromJsp.equals("finalize") ){
+                    req.setAttribute("aggiungiLibro", libro);
+                    session.invalidate();
+                }
+            }
+            else{
+                Libro libro = (Libro)session.getAttribute("libro");
+                req.setAttribute("nuovoLibro", libro);
+            }
+            
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/nuovoLibro.jsp");
+            dispatcher.forward(req, resp);	
+        }
+    }
+ -->

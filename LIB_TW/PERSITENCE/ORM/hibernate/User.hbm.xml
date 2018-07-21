@@ -22,4 +22,11 @@
     usata per generare identificatori univoci, vi sono già alcune classi buil-in:
         assigned ->  l'applicazione assegna l'identificatore all'istanza prima che sia chiamato il metodo save (DEFOULT se "generator" non compare)
         native ->   usa i generatori di identificatori forniti dal DBMS sottostante
+        increment -> usato per creare delle sequenze in incremento
+
+    Per specificare esplicitamente relazioni 1-N si usa al posto della property il tag <set>:
+    <set name="libri" >
+        <key column="idAutore"/>
+        <one-to-many class="it.unibo.tw.es3.beans.Libro"/>
+    </set>
 -->

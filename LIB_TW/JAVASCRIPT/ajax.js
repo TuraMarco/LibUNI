@@ -186,3 +186,121 @@ JSON.stringify(objJSON); //converte un oggetto JS in una stringa JSON
 //  la funzione:
 encodeURIComponent()
 //  per convertire la stringa in un formato usabile in una richeista HTTP
+
+//	_______________
+//	|   ESEMPIO   |
+//  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+//ESEMPIO DI mANIPOLAZIONE DI UN FILE XML
+function leggiContenuto(item, nomeNodo) {
+	return item.getElementsByTagName(nomeNodo).item(0).firstChild.nodeValue;
+}
+
+function mostraAffitti(xml, min, max, output){
+
+	// Otteniamo la lista degli item "casa"
+	var houses = xml.getElementsByTagName("casa");
+
+	// Predisponiamo una struttura dati in cui memorrizzare le informazioni di interesse
+	var itemNodes = new Array();
+
+	// ciclo di lettura degli elementi
+	for (  var i = 0, count = 0; i < houses.length; i++  ) {
+		var prezzo = leggiContenuto(houses[i], "prezzo");
+		if( prezzo>=eval(min) && prezzo<=eval(max) ){
+			itemNodes[count] = new Object();
+			itemNodes[count].indirizzo = leggiContenuto(houses[i],"indirizzo");
+			itemNodes[count].prezzo = prezzo
+			count++;
+		}			
+	}// for ( houses )
+	
+	// apertura e chiusura della lista sono esterne al ciclo for 
+	// in modo che eseguano anche in assenza di "casa"
+	var risultato = "<br />elenco case:<br />";
+	risultato += "<ul>";
+
+	for( var j = 0; j < itemNodes.length; j++ ) {
+		risultato += '<li><strong>';
+		risultato += itemNodes[j].indirizzo +'</strong>: ';
+		risultato += itemNodes[j].prezzo;
+		risultato += '</li>';
+	};
+
+	// chiudiamo la lista creata
+	risultato += "</ul>";
+
+     // inseriamo l'html nella pagina
+	output.innerHTML = risultato;
+
+}// mostraAffitti()
+
+
+/*
+ * Funzione di callback
+ */
+function cittaCallback( theXhr, nomeCitta, arrayCitta ) {
+
+	// verifica dello stato
+	if ( theXhr.readyState === 2 ) {
+    	// non faccio niente
+    	// theElement.innerHTML = "Richiesta inviata...";
+	}// if 2
+	else if ( theXhr.readyState === 3 ) {
+    	// non faccio niente
+		// theElement.innerHTML = "Ricezione della risposta...";
+	}// if 3
+	else if ( theXhr.readyState === 4 ) {
+		// verifica della risposta da parte del server
+	        if ( theXhr.status === 200 ) {
+	        	// operazione avvenuta con successo	
+		        if ( theXhr.responseXML ) {
+		        	arrayCitta[nomeCitta] = theXhr.responseXML;
+				}
+				else {
+			    	// non faccio niente
+				}
+	        }
+	        else {
+	        	// errore di caricamento
+	        	// non faccio niente nemmeno qui
+	        }
+	}// if 4
+} // cittaCallback();
+
+/*
+ * Usa tecniche AJAX attraverso la XmlHttpRequest fornita in theXhr
+ */
+function caricaCittaAJAX(theUri, nomeCitta, arrayCitta, theXhr) {
+    
+	// impostazione controllo e stato della richiesta
+	theXhr.onreadystatechange = function() { cittaCallback(theXhr, nomeCitta, arrayCitta); };
+
+	// impostazione richiesta asincrona in GET del file specificato
+	try {
+		theXhr.open("get", theUri, true);
+	}
+	catch(e) {
+		// Exceptions are raised when trying to access cross-domain URIs 
+		alert(e);
+	}
+
+	// rimozione dell'header "connection" come "keep alive"
+	theXhr.setRequestHeader("connection", "close");
+
+	// invio richiesta
+	theXhr.send(null);
+
+} // caricaCittaAJAX()
+
+//FUNZIONE DA ASSOCIARE A CIO CHE SCATENA LA CHIAMATA AJAX
+function caricaCitta(uri, nomeCitta, arrayCitta) {
+
+	// assegnazione oggetto XMLHttpRequest
+	var xhr = myGetXmlHttpRequest();
+
+	if ( xhr ) 
+		caricaCittaAJAX(uri, nomeCitta, arrayCitta, xhr); 
+
+}// caricaCitta()
+
