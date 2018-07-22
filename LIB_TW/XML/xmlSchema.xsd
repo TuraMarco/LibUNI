@@ -1,0 +1,155 @@
+<!-- SML Schema
+
+XMLSchema è un alternativa al DTD, a differenza di questo gli schemi .xsd sono scritti con una sintassi XML compatibile, 
+sono quindi analizzabili in modo completo con un parser XML.
+Permette di definire:
+-   Elementi
+-   Attributi
+-   Legami di parentela tra elementi
+-   Cardinalità degli elmenti figli
+-   Presenza o meno di elementi figli
+-   Tipi di dati per elementi e attributi
+Quasi tutte cose che DTD non permette di definire.
+Tra le funzioni più potenti di SML Schema vi è quella dell'estendibilità, che permette di creare tipi di dato personalizzati
+
+Un file XSD viene collegato ad un file XML mediante un attributo del TAG radice dell'XML, questo non provoca una validazione automatica, 
+semplicemente descrive ad un eventuale parse dove trovare lo schema di cui il presente file XML è istanza.
+    <message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance“ xsi:noNamespaceSchemaLocation="http://mysite.it/MIOSCHEMA.xsd">
+
+I tipi di dato supportati sono di due macrotipi:
+-   TIPI SEMPLICI(simpleType)   -> quindi tipi valore primitivi o derivati
+                                        |-  Tipi Primitivi: Sono tipi definiti nella specifica XML Schema (string, float, integer, date...)
+                                        |_  Tipi Derivati: Sono tipi definiti a partire dai TIpi Primitivi, associati a restrizioni che ne impongono un uso più stringente
+-   TIPI COMPLESSI(complexType) -> quindi tipi dotati di struttura, definiti dal nulla o anche essi derivati per estensione o restrizione da tipi complessi precedenti.
+Da notare che mentre gli elementi possono essere di tipo semplice o complesso, gli attributo possono essere del solo tipo semplice.
+
+La composizione di un file XSD si separa in due fasi:
+-   DEFINIZIONE:    creo un nuovo tipo di dato semplice o complesso
+-   DICHIARAZIONE:  faccio riferimento ad una definizione per creare un istanza
+é permessa anche una "definizione anonima" ossia una definizione in line ad una dichiarazione ma questo peggiora la UmanReadability e va
+limitata a tipi che si usano un unica volta nello schema
+
+-->
+
+<!-- SINTASSI DEFINIZIONE
+
+L'elemento <schema xmlns=''> è la radice del file XSD e contiene la dichiarazione del namespace degli schemi.
+    <?xml version="1.0" encoding="utf-8" ?>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+L'elemento <element name='' type=''> funge da dichiarazione di elemento di nome "element" e tipo "type"
+    <xs:element name="message" type="messageType"/>
+
+L'elemento <complexType name=''> definisce un tipo complesso, quindi composto da piu elementi di nome "name"
+L'elemento <sequence>, interno a <complexType name=''> definisce una sequenza di elementi che danno origine al al tipo composto,
+in gergo un "content-model" di tipo sequenza
+    <xs:complexType name="messageType">
+        <xs:sequence>
+            <xs:element name="to" type="xs:string"/>
+            <xs:element name="from" type="xs:string"/>
+            <xs:element name="heading" type="xs:string"/>
+            <xs:element name="body" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+questo nel caso il tipo sia complesso, nel caso invece sia di tipo semplice è molto simile, manca solo l'incapsulamento in un tag <xs:complexType> e <xs:sequence>:
+    <xs:element name="to" type="xs:string"/>
+    <xs:element name="from" type="xs:string"/>
+    <xs:element name="heading" type="xs:string"/>
+    <xs:element name="body" type="xs:string"/>
+quelle sopra sono tutte definizioni di elementi di tipo semplice
+
+ -->
+
+ <!-- SINTASSI DICHIARAZIONE
+Una dichiarazione ha la seguente sintassi:
+    <xs:element name="message" type="messageType"/>
+Questo nel caso sia stato gia definio il tipo complesso, in caso contrario la sinstassi di una dichiarazione inline è
+    <xs:element name="message">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="to" type="xs:string"/>
+                <xs:element name="from" type="xs:string"/>
+                <xs:element name="heading" type="xs:string"/>
+                <xs:element name="body" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+ -->
+
+ <!-- TIPI SEMPLICI (DERIVATI)
+ Ub tipo di dato consiste di
+ -  Uno spazio di valori: insieme dei valori che uno specifico dato può assumere
+ -  Uno spazio lessicale: rappresentazoine dei valori che un tipo di dato può assumere
+ -  Un insieme di facet (aspetti): proprietà che descrivono il tipo di dato, utili per restirngere lo spazio dei valori del tipo base e crearne uno derivato
+<xs:simpleType name="derivedType">
+    <xs:restriction base="baseType">
+        ...facet
+    </xs:restriction>
+</xs:simpleType>
+tra le possibile facet vi sono:
+    <xs:minInclusive value="13"/>   //  applicabile ai tipi NUMERICI o di TEMPO esemplifica il valore minimo incluso l'estremo, vanno in AND con altre facet
+    <xs:maxInclusive value="19"/>   //  applicabile ai tipi NUMERICI o di TEMPO esemplifica il valore massimo incluso l'estremo, vanno in AND con altre facet
+    <xs:minExclusive value="13"/>   //  applicabile ai tipi NUMERICI o di TEMPO esemplifica il valore minimo escluso l'estremo, vanno in AND con altre facet
+    <xs:maxExclusive value="19"/>   //  applicabile ai tipi NUMERICI o di TEMPO esemplifica il valore massimo escluso l'estremo, vanno in AND con altre facet
+
+    <xs:minLength value="7"/>       //  applicabili ai tipi STRINGA, definisce la lunghezza minima in numero di caratteri, vanno in AND con altre facet
+    <xs:maxLength value="14"/>      //  applicabili ai tipi STRINGA, definisce la lunghezza massima in numero di caratteri, vanno in AND con altre facet
+    <xs:length value="10"/>         //  applicabili ai tipi STRINGA, definisce la lunghezza esatta in numero di caratteri, vanno in AND con altre facet
+
+    <xs:totalDigits value="2"/>     //  applicabile ai tipi DECIMAL, definisce il numero totale delle cifre che devono comparire, vanno in AND con altre facet
+    <xs:fractionDigits value="2"/>  //  applicabile ai tipi DECIMAL, definisce il numero totale delle cifre che devono comparire dopo la virgola, vanno in AND con altre facet
+
+    <xs:enumeration value="VHS"/>   //  applicabile ai tipi ENUMERABILI, tipicamente STRINGHE, va in OR con altri enumeration e in AND con altre facet
+
+    <xs:pattern value="[0-9]*\.[0-9]{2}"/>  //  applicabile a tutti i tipi predefiniti, restringe i valori con un pattern, va in OR con altri pattern e in AND con altre facet
+
+    <xs:whiteSpace value="collapse" />      //  applicabile ai tipi stringa, indica al processore come trattare i caratteri di whitespace (spazio, tab, ...), accetta 3 valori:
+                                                    |-  preserve:   nessuna operazione.
+                                                    |-  replace:    i caratteri tab, line feed, carriage return vengono sostituiti da spazi.
+                                                    |_  collapse:   come replace con in piu che le sequenze di spazi vengono collassate ad un unica e vengono eliminati gli spazi 
+                                                                    all'inizio e alla fine .
+  -->
+
+<!-- TIPI SEMPLICI (DERIVATI)
+Gli elementi dichiarati di tipo complesso possono avere attributi e, in alternativa, elementi figli o contenuto di tipo semplice, il content model di queste è complexType
+avremo quindi 4 possibilità:
+-   Contenuto semplice: solo testo e non elementi figli
+-   Solo elementi figli: solo elementi figli e non caratteri
+-   Contenuto mixed: sia caratteri, sia elementi figli
+-   Nessun contenuto: gli elementi devono essere vuoti
+Da notare che è sempre possibile usare tipi anonimoi per dichiarazioni in-lien. 
+
+Nel caso di elementi che comprendono solo elementi figli la definizione può comprendere tre sezioni:
+-   sequence:   gli elementi dichiarati devono comparire nell'ordine indicato e con la cardinalità indicata
+-   choice:     nel documento istanza deve comparire uno solo degli elementi dichiarati in uqesta sezione, con l cardinalità specificata
+-   all:        tutti gli elementi dichiati possono comparire al più una volta in qualunque ordine
+La cardinalità si può indicare attraverso gli attributi "minOccurs" e "maxOccurs" inseriti all'interno dei vari elementi che compongono il tipo complesso
+hanno entrambi valore di defoult a 1, e solo nel caso di "maxOccurs" posso indicare nessun limite con il valore "unbounded".
+
+Un esempio di sequence può essere:
+    <xs:complexType name="mySeq">
+        <xs:sequence>
+            <xs:element name="e1" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="e2" type="xs:string" maxOccurs="2"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="seq1" type="mySeq"/>  //contiene zero o piu tag <e1> ed esattamente 2 tag <e2>
+
+Un esempio di choice può essere:
+<xs:complexType name="myCh">
+    <xs:choice>
+        <xs:element name="e1" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="e2" type="xs:string" maxOccurs="2"/>
+    </xs:choice>
+</xs:complexType>
+<xs:element name="ch1" type="myCh"/>    //contiene o un tag <e1> o un tag <e2>
+
+I gruppi "sequence" e "choice" possono a loro volta avere una cardinalità come nell'esempio seguente:
+    <xs:complexType name="typeName">
+        <xs:sequence minOccurs="2" maxOccurs="3">
+            <xs:element name="e1" type="xs:string"/>
+            <xs:element name="e2" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="elementName" type="typeName"/> //sono  <e1><e2><e1><e2> o <e1><e2><e1><e2><e1><e2>
+-->

@@ -26,6 +26,12 @@
     <servlet>
 		<servlet-name>LoginServlet</servlet-name>
 		<servlet-class>servlet.LoginServlet</servlet-class>
+		<!-- Limita il numero di sessioni ad 1 per ogni utente -->
+		<init-param>
+			<description>Maximum number of sessions</description> 
+			<param-name>loginSession</param-name>
+			<param-value>1</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 	 	<servlet-name>LoginServlet</servlet-name>

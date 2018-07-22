@@ -1,0 +1,23 @@
+<!-- 
+Il seguente TAG permette di inserire in un file XML stringhe di caratteri che non vengono
+parsate dal parser SOX o DOM, quindi, possono contenere caratteri speciali (<,>,&,',", ...ecc),
+o file binari codificati in base64.
+L'’'unica sequenza non ammessa è ]] (chiusura del blocco CDATA)
+    <![CDATA[ Contenuto della sezione ]]> 
+
+Per poter usare tag con nomi uguali ma semantic differente si usno i namespace,
+che permettono di associare un prefisso ad un URL e usare quel prefisso per descrivere la semantica di un tag in modo 
+esclusivo.
+    <lb:libro xmlns:lb='mysite.com/libri'>
+        <au:autore xmlns:au='mysite.com/autori'>
+            <au:titolo>Sir</au:titolo>
+            <au:nome>William Shakespeare</au:nome>
+        </au:autore>
+        <lb:titolo>Romeo and Juliet</lb:titolo>
+    </lb:libro>
+Nell'esempio sopra il tag <lb:titolo> è il titolo del libro, mentre <au:titolo> è il titolo onorifico dell'autore
+La sintassi per definire un namespace è definita con l'attributo:
+    xmlns:NamespacePrefix='NamespaceURI'
+Lo scope del namespace è quello del TAG e di tutti i sotto-TAG.
+L'URI non viene controllato dal PARSER ma è bona cosa che sia significativo ed univoco
+-->
