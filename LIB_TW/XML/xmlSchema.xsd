@@ -61,6 +61,7 @@ quelle sopra sono tutte definizioni di elementi di tipo semplice
  -->
 
  <!-- SINTASSI DICHIARAZIONE
+
 Una dichiarazione ha la seguente sintassi:
     <xs:element name="message" type="messageType"/>
 Questo nel caso sia stato gia definio il tipo complesso, in caso contrario la sinstassi di una dichiarazione inline è
@@ -77,6 +78,7 @@ Questo nel caso sia stato gia definio il tipo complesso, in caso contrario la si
  -->
 
  <!-- TIPI SEMPLICI (DERIVATI)
+
  Ub tipo di dato consiste di
  -  Uno spazio di valori: insieme dei valori che uno specifico dato può assumere
  -  Uno spazio lessicale: rappresentazoine dei valori che un tipo di dato può assumere
@@ -111,6 +113,7 @@ tra le possibile facet vi sono:
   -->
 
 <!-- TIPI SEMPLICI (DERIVATI)
+
 Gli elementi dichiarati di tipo complesso possono avere attributi e, in alternativa, elementi figli o contenuto di tipo semplice, il content model di queste è complexType
 avremo quindi 4 possibilità:
 -   Contenuto semplice: solo testo e non elementi figli
@@ -126,7 +129,7 @@ Nel caso di elementi che comprendono solo elementi figli la definizione può com
 La cardinalità si può indicare attraverso gli attributi "minOccurs" e "maxOccurs" inseriti all'interno dei vari elementi che compongono il tipo complesso
 hanno entrambi valore di defoult a 1, e solo nel caso di "maxOccurs" posso indicare nessun limite con il valore "unbounded".
 
-Un esempio di sequence può essere:
+Un esempio di SEQUENCE può essere:
     <xs:complexType name="mySeq">
         <xs:sequence>
             <xs:element name="e1" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -135,7 +138,7 @@ Un esempio di sequence può essere:
     </xs:complexType>
     <xs:element name="seq1" type="mySeq"/>  //contiene zero o piu tag <e1> ed esattamente 2 tag <e2>
 
-Un esempio di choice può essere:
+Un esempio di CHOICE può essere:
 <xs:complexType name="myCh">
     <xs:choice>
         <xs:element name="e1" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -152,4 +155,61 @@ I gruppi "sequence" e "choice" possono a loro volta avere una cardinalità come 
         </xs:sequence>
     </xs:complexType>
     <xs:element name="elementName" type="typeName"/> //sono  <e1><e2><e1><e2> o <e1><e2><e1><e2><e1><e2>
+E' anche possibile innestarli:
+    <xs:complexType name="typeName">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="a" type="xs:string"/>
+                <xs:element name="b" type="xs:string"/>
+            <xs:choice>
+            <xs:choice>
+                <xs:element name="c" type="xs:string"/>
+                <xs:element name="d" type="xs:string"/>
+            <xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="elementName" type="typeName"/> //sono  a||b + c||d
+
+ALL consente di indicare che tutti gli elementi conformi a quelli dichiarati al suo 
+interno possano comaprire in qualsiasi ordine ed al più una volta, può contenere solo 
+dichiarazioni di elementi e non può essere innestato.
+Non è permessa la specifica di cardinalità.
+I valori validi di di "minOccurs" e "maxOccurs" negli elementi
+contenuti nel gruppo sono rispettivamente (0,1) e 1, un esempio di ALL può essere:
+    <xs:complexType name=“myAll”>
+        <xs:all>
+            <xs:element name="e1" type="xs:string"/>
+            <xs:element name="e2" type="xs:string"/>
+            <xs:element name="e3" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+    <xs:element name="all1" type="myAll"/> //   sarà quindi composto da  <e1> ed <e2> e opzionalmente da <e3>
+
+Ad ogni definizione di Tipo complesso può essergli associato un valore booleano MIXED, che se ha valore "true"
+permette la presenza all'interno della dichiarazione di elementi del tipo complesso di altri elementi oltre che di 
+caratteri, ad esempio:
+    <xs:complexType name="LetterType" mixed="true">
+        <xs:sequence>
+            <xs:element name="nome" type="xs:string"/>
+            <xs:element name="cognome" type="xs:string"/>
+            <xs:element name="prodotto" type="xs:string"/>
+            <xs:element name="taglia" type="xs:positiveInteger"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="letter" type="LetterType"/>
+Che una volta istanziato potrà dare origine a:
+    <letter>
+        Sono <nome>Mario</nome>
+        <cognome>Rossi</cognome>
+        e compro un <prodotto>maglione</prodotto>
+        taglia <taglia>50</taglia>
+    </letter>
+Comunque essendo una "sequence" l'ordine e la cardinalità degli elementi deve essere rispettata.
+
 -->
+
+<!-- ATTRIBUTI
+
+GLi attributi possono essere contenuti solo da elementi di tipo complexType
+
+ -->
