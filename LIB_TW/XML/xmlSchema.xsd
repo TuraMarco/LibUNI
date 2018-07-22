@@ -210,6 +210,44 @@ Comunque essendo una "sequence" l'ordine e la cardinalità degli elementi deve e
 
 <!-- ATTRIBUTI
 
-GLi attributi possono essere contenuti solo da elementi di tipo complexType
+GLi attributi possono essere contenuti solo da elementi di tipo complexType, e sono dichiarati dopo
+il modello di contenuto con la sintassi
+    <xs:attribute name="attributeName" type="attributeSimpleType" use="optional | prohibited | required"/>
+La definizione di un attributo è caratterizzada da:
+-   un nome dell'attributo
+-   un tipo dell'attributo (solo simpleType)
+-   un uso scelto tra:
+        >   optional:   l'attributo può non comparire (defoult)
+        >   prohibited: l'attributo non deve comparire
+        >   required:   l'attributo deve comparire
+Quindi un esempio completo di definizione di un tipo con attributo può essere:
+<xs:complexType name="WAttrType">
+    <xs:sequence>
+        <xs:element name="a" type="xs:string"/>
+        <xs:element name="b" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="at" type="xs:string"/>  //  in questo caso l'attributo è optional
+</xs:complexType >
+Gli attributi possono anche essere di un tipo semplice derivato può essere un tipo definito 
+in precedenza oppure si può ricorrere anche in questo caso a una definizione inline.
 
- -->
+La definizione di un attributo accetta anche la possibilità di definire un defoult o un valore fisso, 
+attraverso la sintassi:
+    <xs:attribute name="attrName" type="attrType" default="value"/>
+    <xs:attribute name="attrName" type="attrType" fixed="value"/>
+Questi due tipi di attriubuto sono mutualmente esclusivi, mentre se l'attributo non è presente viene 
+inserito quello di defoult, nel caso fixed avra lo stesso comportmaneto ma se invece l'attributo è espresso
+dovra comunque essere lo stesso espresso nel valore fixed
+
+E' importante ricordare che gli attributi sono ad appannaggio esclsivo dei tipi complessi, è però possibile 
+estendere un tipo semplice aggiungendogli un attributo attraverso il content model "simpleContent" con la 
+seguente sintassi:
+    <xs:complexType name="typeName">
+        <xs:simpleContent>
+            <xs:extension base="baseType">
+                <xs:attribute name="attName" type="attType"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+-->
