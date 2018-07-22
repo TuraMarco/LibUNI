@@ -1,0 +1,337 @@
+<!-- 
+Si progetti una grammatica XML Schema, e un suo documento XML di esempio, per la
+modellazione delle informazioni dell’archivio film della Cineteca “BO”, nel rispetto delle
+seguenti specifiche:
+    > L’archivio film si divide in due tipologie di contenuti: l’archivio audiovisivo costituito da
+        31.000 filmati e l’archivio pellicola (contenente 60.000 pellicole).
+    > A fini di ricerca nel database, ogni audiovisivo è caratterizzato dalla coppia [Cognome,
+        Nome] del regista e da un titolo [Titolo italiano].
+    > Ogni audiovisivo ha inoltre associato informazioni quali la nazione (es., “IT”), la lingua
+        (es., “ITA”), il tipo di colore, ovvero {Colore, BN}, la durate in minuti, la tipologia (es,.
+        “Documentario”), il formato specifico (nel dettaglio, {Blu-ray, DVD, Divx, VHS}),
+        l’anno di produzione, la disponibilità per la consultazione (si/no) e la collocazione
+        fisica all’interno della cineteca. Nel dettaglio, la collocazione è rappresentata
+        da un codice complesso formato da 5 componenti separate dal carattere “.”; nel
+        dettaglio, le prime tre parti del codice sono formate da due cifre intere, la quarta è
+        formata da 3 cifre intere, mentre l’ultima è formata da una stringa di 3 caratteri (a
+        titolo di esempio, “05.02.20.053.BIB”).
+    > Per quanto riguarda le pellicole, le stesse possono essere richieste solo in forma
+        “manuale”, ovvero mediante lettera scritta, indicando “regia” e “titolo” del film di
+        interesse; le pellicole possono essere ammesse al prestito se, previa revisione, e formulazione
+        di un esito (si/no), risultino essere in buono stato di conservazione. Le
+        pellicole possono essere di due tipologie (pellicole in 35 e 16 mm).
+Si realizzi quindi l’applicazione Java “Cineteca” che, facendo uso del parser DOM, esponga
+i metodi getAudiovisiviBN() e getPellicole16(), unitamente a suo un main di
+prova, in grado di restituire quanti audiovisivi in bianco e nero sono presenti nella cineteca e
+quante pellicole in 16 mm sono in buono stato di conservazione presso la cineteca
+ -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+
+	<xs:element name="archivio">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="pellicole" type="pellicola" minOccurs="1"
+					maxOccurs="60000" />
+				<xs:element name="audiovisivi" type="audiovisivo"
+					minOccurs="1" maxOccurs="31000" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="richiesta">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<xs:element name="av" type="sceltaAv" />
+					<xs:element name="pel" type="sceltaPel" />
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="sceltaAv" mixed="true">
+		<xs:sequence>
+			<xs:element name="regia" type="regista" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="titolo" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="sceltaPel" mixed="true">
+		<xs:sequence>
+			<xs:element name="regia" type="regista" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="titolo" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="esito" minOccurs="1" maxOccurs="1">
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="concesso" type="xs:string"/>
+						<xs:element name="rifiutato" type="xs:string"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="pellicola" mixed="true">
+		<xs:sequence>
+			<xs:element name="regia" type="regista" minOccurs="1">
+			</xs:element>
+			<xs:element name="titolo" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="nazione" type="xs:string" minOccurs="1" />
+			<xs:element name="lingua" type="xs:string" minOccurs="1" />
+			<xs:element name="colore" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Colore" />
+						<xs:enumeration value="BN" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tipo" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="35mm" />
+						<xs:enumeration value="16mm" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stato" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="eccellente" />
+						<xs:enumeration value="buono" />
+						<xs:enumeration value="scarso"></xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="durata" type="xs:duration" />
+			<xs:element name="tipologia" type="xs:string" minOccurs="1" />
+			<xs:element name="anno" type="xs:gYear" minOccurs="1" />
+			<xs:element name="disponibile" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="si" />
+						<xs:enumeration value="no" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="collocazione" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="(([0-9]{2}\.){3})([0-9]{3}\.)([A-Z]{3})" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="audiovisivo" mixed="true">
+		<xs:sequence>
+			<xs:element name="regia" type="regista" minOccurs="1"/>
+			<xs:element name="titolo" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="nazione" type="xs:string" minOccurs="1" />
+			<xs:element name="lingua" type="xs:string" minOccurs="1" />
+			<xs:element name="colore" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Colore" />
+						<xs:enumeration value="BN" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="durata" type="xs:duration" />
+			<xs:element name="tipologia" type="xs:string" minOccurs="1" />
+			<xs:element name="formato" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Blu-ray" />
+						<xs:enumeration value="DVD" />
+						<xs:enumeration value="Divx" />
+						<xs:enumeration value="VHS" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="anno" type="xs:gYear" minOccurs="1" />
+			<xs:element name="disponibile" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="si" />
+						<xs:enumeration value="no" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="collocazione" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<!-- PATTERN "05.02.20.053.BIB" -->
+						<xs:pattern value="(([0-9]{2}\.){3})([0-9]{3}\.)([A-Z]{3})" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="regista">
+		<xs:sequence>
+			<xs:element name="cognome" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element name="nome" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>
+
+<!-- 
+<?xml version="1.0" encoding="UTF-8"?>
+  <archivio xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="schema.xsd">
+  <pellicole>
+    <regia>
+      <cognome>cognome</cognome>
+      <nome>nome</nome>
+    </regia>
+    <titolo>titolo</titolo>
+    <nazione>nazione</nazione>
+    <lingua>lingua</lingua>
+    <colore>Colore</colore>
+    <tipo>35mm</tipo>
+    <stato>eccellente</stato>
+    <durata>P1D</durata>
+    <tipologia>tipologia</tipologia>
+    <anno>2001</anno>
+    <disponibile>si</disponibile>
+    <collocazione>05.02.20.053.BIA</collocazione>
+  </pellicole>
+  
+  <pellicole>
+    <regia>
+      <cognome>cognome</cognome>
+      <nome>nome</nome>
+    </regia>
+    <titolo>titolo</titolo>
+    <nazione>nazione</nazione>
+    <lingua>lingua</lingua>
+    <colore>Colore</colore>
+    <tipo>35mm</tipo>
+    <stato>eccellente</stato>
+    <durata>P90M</durata>
+    <tipologia>tipologia</tipologia>
+    <anno>2001</anno>
+    <disponibile>si</disponibile>
+    <collocazione>05.02.20.053.BIA</collocazione>
+  </pellicole>
+  
+  <pellicole>
+    <regia>
+      <cognome>cognome</cognome>
+      <nome>nome</nome>
+    </regia>
+    <titolo>titolo</titolo>
+    <nazione>nazione</nazione>
+    <lingua>lingua</lingua>
+    <colore>Colore</colore>
+    <tipo>16mm</tipo>
+    <stato>scarso</stato>
+    <durata>P90M</durata>
+    <tipologia>tipologia</tipologia>
+    <anno>2001</anno>
+    <disponibile>si</disponibile>
+    <collocazione>05.02.20.053.BIA</collocazione>
+  </pellicole>
+  
+  <pellicole>
+    <regia>
+      <cognome>cognome</cognome>
+      <nome>nome</nome>
+    </regia>
+    <titolo>titolo</titolo>
+    <nazione>nazione</nazione>
+    <lingua>lingua</lingua>
+    <colore>BM</colore>
+    <tipo>16mm</tipo>
+    <stato>buono</stato>
+    <durata>P90M</durata>
+    <tipologia>tipologia</tipologia>
+    <anno>2001</anno>
+    <disponibile>si</disponibile>
+    <collocazione>05.02.20.053.BIA</collocazione>
+  </pellicole>
+  
+  <pellicole>
+    <regia>
+      <cognome>cognome</cognome>
+      <nome>nome</nome>
+    </regia>
+    <titolo>titolo</titolo>
+    <nazione>nazione</nazione>
+    <lingua>lingua</lingua>
+    <colore>BM</colore>
+    <tipo>16mm</tipo>
+    <stato>eccellente</stato>
+    <durata>P90M</durata>
+    <tipologia>tipologia</tipologia>
+    <anno>2001</anno>
+    <disponibile>si</disponibile>
+    <collocazione>05.02.20.053.BIA</collocazione>
+  </pellicole>
+  
+  <audiovisivi>
+    <regia>
+      <cognome>cognome</cognome>
+      <nome>nome</nome>
+    </regia>
+    <titolo>titolo</titolo>
+    <nazione>nazione</nazione>
+    <lingua>lingua</lingua>
+    <colore>Colore</colore>
+    <durata>P120M</durata>
+    <tipologia>tipologia</tipologia>
+    <formato>Blu-ray</formato>
+    <anno>2001</anno>
+    <disponibile>si</disponibile>
+    <collocazione>01.01.00.000.AIA</collocazione>
+  </audiovisivi>
+  
+  <audiovisivi>
+    <regia>
+      <cognome>cognome</cognome>
+      <nome>nome</nome>
+    </regia>
+    <titolo>titolo</titolo>
+    <nazione>nazione</nazione>
+    <lingua>lingua</lingua>
+    <colore>BN</colore>
+    <durata>P120M</durata>
+    <tipologia>tipologia</tipologia>
+    <formato>Blu-ray</formato>
+    <anno>2001</anno>
+    <disponibile>si</disponibile>
+    <collocazione>01.01.00.000.AIA</collocazione>
+  </audiovisivi>
+  
+  <audiovisivi>
+    <regia>
+      <cognome>cognome</cognome>
+      <nome>nome</nome>
+    </regia>
+    <titolo>titolo</titolo>
+    <nazione>nazione</nazione>
+    <lingua>lingua</lingua>
+    <colore>BN</colore>
+    <durata>P120M</durata>
+    <tipologia>tipologia</tipologia>
+    <formato>Blu-ray</formato>
+    <anno>2001</anno>
+    <disponibile>si</disponibile>
+    <collocazione>01.01.00.000.AIA</collocazione>
+  </audiovisivi>
+  
+  
+</archivio>
+
+ -->

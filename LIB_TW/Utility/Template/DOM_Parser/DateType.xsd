@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:complexType name="dimensions">
+		<xs:annotation>
+			<xs:documentation>
+				Dimensioni x e y
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="x" type="xs:positiveInteger" use="required" />
+				<xs:attribute name="y" type="xs:positiveInteger" use="required" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="durata">
+		<xs:annotation>
+			<xs:documentation>
+				Durata h,m,s
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="h" type="hour" use="optional" default="0" />
+				<xs:attribute name="m" type="minute" use="optional" default="0"/>
+				<xs:attribute name="s" type="second" use="required" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="hour">
+		<xs:annotation>
+			<xs:documentation>
+				Hour 0-23
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:unsignedShort">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="23" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="minute">
+		<xs:annotation>
+			<xs:documentation>
+				Minute 0-59
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:unsignedShort">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="59" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="second">
+		<xs:annotation>
+			<xs:documentation>
+				Second 0-59
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:unsignedShort">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="59" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="listOfDates">
+		<xs:annotation>
+			<xs:documentation>
+				List of dates, separated by spaces
+			</xs:documentation>
+		</xs:annotation>
+		<xs:list itemType="xs:date" />
+	</xs:simpleType>
+
+	<xs:simpleType name="password">
+		<xs:annotation>
+			<xs:documentation>
+				password 8 caratteri, almeno 1 numero, almeno uno tra ?!*$ -> non so farlo
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-bA-B0-9!?*$]{8}" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="email">
+		<xs:annotation>
+			<xs:documentation>
+				email@email.it
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[^@]+@[^\.]+\..+" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="singleLowerCaseLetter">
+		<xs:annotation>
+			<xs:documentation>
+				Single lower case letter
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-z]" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="singleUPPERCaseLetter">
+		<xs:annotation>
+			<xs:documentation>
+				Single UPPER case letter
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z]" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="oneOrMoreAlphanumericCharacters">
+		<xs:annotation>
+			<xs:documentation>
+				One or more alphanumeric charecters
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([a-zA-Z0-9])+" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="numericCode5digits">
+		<xs:annotation>
+			<xs:documentation>
+				Numeric 5 digit code
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{5}" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="alphanumericCode8digits">
+		<xs:annotation>
+			<xs:documentation>
+				Alphanumeric 8 digit code
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9]{8}" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="gender">
+		<xs:annotation>
+			<xs:documentation>
+				Gender: male or female
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="male|female" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="sino">
+		<xs:annotation>
+			<xs:documentation>
+				Scelta: si, no
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="si|no" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="emptyTag">
+		<xs:annotation>
+			<xs:documentation>
+				An empty tag (no children, no attributes), because xs:empty does not
+				exists
+			</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+
+	<xs:simpleType name="IPv4Address">
+		<xs:annotation>
+			<xs:documentation>
+				IPv4 address in the dotted-decimal notation.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern
+				value="((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Port">
+		<xs:annotation>
+			<xs:documentation>
+				Port number in the range [1, 65536].
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:unsignedShort">
+			<xs:minInclusive value="1" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="IPv4Endpoint">
+		<xs:annotation>
+			<xs:documentation>
+				IPv4 address and port pair in the form ip:port. IPv4 address is in
+				the dotted-decimal notation. Port is in the range [1, 65536].
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern
+				value="((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9]):[1-9][0-9]{0,4}" />
+		</xs:restriction>
+	</xs:simpleType>
+
+
+	<xs:complexType name="IPv4EndpointStruct">
+		<xs:annotation>
+			<xs:documentation>
+				Structured IPv4 address and port pair. IPv4 address is in
+				the dotted-decimal notation. Port is in the range [1, 65536].
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="address" type="IPv4Address" />
+			<xs:element name="port" type="Port" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="myCode">
+		<xs:annotation>
+			<xs:documentation>
+				Specific code restriction
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CODE1" /> <!-- Code 1 -->
+			<xs:enumeration value="CODE2" /> <!-- Code 2 -->
+			<xs:enumeration value="CODE3" /> <!-- Code 3 -->
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="percentage">
+		<xs:annotation>
+			<xs:documentation>
+				Percent value in the range [0, 100].
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:unsignedShort">
+			<xs:minInclusive value="0" />
+			<xs:maxInclusive value="100" />
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>
