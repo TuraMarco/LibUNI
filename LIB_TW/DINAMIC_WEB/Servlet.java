@@ -8,7 +8,7 @@
 //	> Uso di blocchi synchronized
 //	> Semafori
 //	> Mutex 
-	
+
 //	_______________
 //	|   REQUEST   |
 //  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -93,6 +93,25 @@
 //	Gli oggetti Cookie vengono istanziate con un costruttore che accetta 2 stringhe (nomeCookie e valoreCookie)
 //	Essendo pericoloso l'impostazione di valori sensibili nei cookie vengono usualmente sfruttati come supporto dell'oggetto Session
 //	per immagazzinare il SessionID
+/*
+	//READ COOCKIE
+	String something = null;
+	Cookie[] cookies = request.getCookies();
+	if ( cookies != null && cookies.length > 0 ) {
+		for ( Cookie cookie : cookies ) {
+			if ( cookie.getName().equals("something") ) {
+				something = cookie.getValue();
+				break;
+			}
+		}
+	}
+	if ( something == null ) something = "";
+
+	//WRITE COOCKIE
+	Cookie cookie = new Cookie("something",something);
+    response.addCookie(cookie);
+
+*/
 
 //	_______________
 //	|   SESSION   |
@@ -115,7 +134,20 @@
 // 		boolean isNew() ---> dice se la sessione è nuova 
 // 		void invalidate() ---> permette di invalidare (distruggere) una sessione
 // 		long getCreationTime() ---> dice da quanto tempo è attiva la sessione (in millisecondi) 
-// 		long getCreationTime() ---> dice da quanto tempo è attiva la sessione (in millisecondi) 
+/*
+ 	//INIT SESSION
+	HttpSession session = request.getSession();
+	Object sessionAttribute = "";
+	if (session.isNew()) {
+		session.setAttribute(SESSION_ATTRIBUTE_NAME, sessionAttribute);
+	} else {
+		//READ SESSION
+		text = session.getAttribute(SESSION_ATTRIBUTE_NAME);
+	}
+
+	//WRITE SESSION
+	session.setAttribute(SESSION_ATTRIBUTE_NAME, new Object());
+*/
 
 //	__________________________
 //	|   REDIRECT & FORWARD   |
@@ -145,96 +177,105 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class HomeServlet extends HttpServlet 
-{
+public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-		
+
 	/*
-	 * Inizializza la servlet, vine chiamato dal web container una sola volta all'inizio
-	 * */
-	public void init(ServletConfig config) throws ServletException
-	{
+	 * Inizializza la servlet, vine chiamato dal web container una sola volta
+	 * all'inizio
+	 */
+	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		//TODO
-		//	Qui si inizializza l'istanza, ad esempio è possibile creare la connessione con il DB
-		//	Vengono inoltre richiamati i parametri definiti nel file web.xml con il tag <init-param>
-		//	dopo aver definito una variabile interna:
-		//		
-		//		private String title;
+		// TODO
+		// Qui si inizializza l'istanza, ad esempio è possibile creare la connessione
+		// con il DB
+		// Vengono inoltre richiamati i parametri definiti nel file web.xml con il tag
+		// <init-param>
+		// dopo aver definito una variabile interna:
 		//
-		//	viene chiamato il metodo di config per popolare la variabile, andando a prendere il valore in web.xml
+		// private String title;
 		//
-		//		title = config.getInitParameter("title");
+		// viene chiamato il metodo di config per popolare la variabile, andando a
+		// prendere il valore in web.xml
+		//
+		// title = config.getInitParameter("title");
 	}
-	
+
 	/*
-	 *  effettua il dispatch delle richieste ai metodi doGet, doPost, a seconda del metodo HTTP usato nella request
-	 * */
-	public void service(HttpServletRequest request, HttpServletResponse response) 
-	{
-		//TODO 
-		//	Qui posso integrare una politica di dispatcing delle richieste alternativa al semplice doGet o doPost,
-		//	ad esempio potrei ridirigere la gestione delle richieste secondo un parametro della request:
+	 * effettua il dispatch delle richieste ai metodi doGet, doPost, a seconda del
+	 * metodo HTTP usato nella request
+	 */
+	public void service(HttpServletRequest request, HttpServletResponse response) {
+		// TODO
+		// Qui posso integrare una politica di dispatcing delle richieste alternativa al
+		// semplice doGet o doPost,
+		// ad esempio potrei ridirigere la gestione delle richieste secondo un parametro
+		// della request:
 		//
-		//		int reqId = Integer.parseInt(request.getParameter("reqID");
-		//		switch(reqId)
-		//		{
-		//			case 1: handleReq1(request, response); break;
-		//			case 2: handleReq2(request, response); break;
-		//			default : handleReqUnknown(request, response);
-		//		}
+		// int reqId = Integer.parseInt(request.getParameter("reqID");
+		// switch(reqId)
+		// {
+		// case 1: handleReq1(request, response); break;
+		// case 2: handleReq2(request, response); break;
+		// default : handleReqUnknown(request, response);
+		// }
 	}
 
 	/*
 	 * Risponde ad una richiesta del tipo GET
-	 * */
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-	{
-		//TODO 
-		//	Qui posso integrare la politica di gestione delle richieste di tipo GET,
-		//	da ricordare che l'eventuale gestione di elementi che possono causare exception
-		//	deve essere incapsulata in un TRY/CATCH o in alternativa provocare un THROWS del metodo
+	 */
+	public void doGet(HttpServletRequest request, HttpServletResponse response) {
+		// TODO
+		// Qui posso integrare la politica di gestione delle richieste di tipo GET,
+		// da ricordare che l'eventuale gestione di elementi che possono causare
+		// exception
+		// deve essere incapsulata in un TRY/CATCH o in alternativa provocare un THROWS
+		// del metodo
 	}
 
 	/*
 	 * Risponde ad una richiesta del tipo POST
-	 * */
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-	{
-		//TODO 
-		//	Qui posso integrare la politica di gestione delle richieste di tipo POST,
-		//	da ricordare che l'eventuale gestione di elementi che possono causare exception
-		//	deve essere incapsulata in un TRY/CATCH o in alternativa provocare un THROWS del metodo 
+	 */
+	public void doPost(HttpServletRequest request, HttpServletResponse response) {
+		// TODO
+		// Qui posso integrare la politica di gestione delle richieste di tipo POST,
+		// da ricordare che l'eventuale gestione di elementi che possono causare
+		// exception
+		// deve essere incapsulata in un TRY/CATCH o in alternativa provocare un THROWS
+		// del metodo
 	}
-	
+
 	/*
 	 * Risponde ad una richiesta del tipo PUT
-	 * */
-	public void doPut(HttpServletRequest request, HttpServletResponse response)
-	{
-		//TODO 
-		//	Qui posso integrare la politica di gestione delle richieste di tipo PUT,
-		//	da ricordare che l'eventuale gestione di elementi che possono causare exception
-		//	deve essere incapsulata in un TRY/CATCH o in alternativa provocare un THROWS del metodo 
+	 */
+	public void doPut(HttpServletRequest request, HttpServletResponse response) {
+		// TODO
+		// Qui posso integrare la politica di gestione delle richieste di tipo PUT,
+		// da ricordare che l'eventuale gestione di elementi che possono causare
+		// exception
+		// deve essere incapsulata in un TRY/CATCH o in alternativa provocare un THROWS
+		// del metodo
 	}
-	
+
 	/*
 	 * Risponde ad una richiesta del tipo DELETE
-	 * */
-	public void doDelete(HttpServletRequest request, HttpServletResponse response)
-	{
-		//TODO 
-		//	Qui posso integrare la politica di gestione delle richieste di tipo DELETE,
-		//	da ricordare che l'eventuale gestione di elementi che possono causare exception
-		//	deve essere incapsulata in un TRY/CATCH o in alternativa provocare un THROWS del metodo 
+	 */
+	public void doDelete(HttpServletRequest request, HttpServletResponse response) {
+		// TODO
+		// Qui posso integrare la politica di gestione delle richieste di tipo DELETE,
+		// da ricordare che l'eventuale gestione di elementi che possono causare
+		// exception
+		// deve essere incapsulata in un TRY/CATCH o in alternativa provocare un THROWS
+		// del metodo
 	}
+
 }
 
-//	____________________
-//	|   METODI UTILI   |
-//  ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+	// ____________________
+	// | METODI UTILI |
+	// ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 
-//METODO PER INVIARE UN FILE XML, SI USA ASSIEME AD AJAX
+	// METODO PER INVIARE UN FILE XML, SI USA ASSIEME AD AJAX
 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 {	
 		resp.setHeader("Content-Type","application/xml");
